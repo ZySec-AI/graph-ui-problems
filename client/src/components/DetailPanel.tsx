@@ -1,8 +1,8 @@
-import { GraphNode } from '@/types/graph';
+import { Fragment, useState, useEffect } from 'react';
+import { GraphNode, ConnectedNode } from '@/types/graph';
 import { getConnectedNodes, getBgColorClassForType, getIconForNodeType } from '@/lib/graphUtils';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { GraphData } from '@/types/graph';
-import { useMemo } from 'react';
+import sampleData from '@/lib/graphUtils';
 
 interface DetailPanelProps {
   selectedNode: GraphNode | null;
@@ -10,11 +10,19 @@ interface DetailPanelProps {
 }
 
 export default function DetailPanel({ selectedNode, onClose }: DetailPanelProps) {
-  // Mock connected nodes data for initial render
-  const connectedNodes = useMemo(() => {
-    if (!selectedNode) return [];
-    // This would be dynamically populated from the graph instance
-    return [];
+  // State for connected nodes
+  const [connections, setConnections] = useState<ConnectedNode[]>([]);
+  
+  // Get connected nodes when the selected node changes
+  useEffect(() => {
+    if (!selectedNode) {
+      setConnections([]);
+      return;
+    }
+    
+    // Get connected nodes from the selected node
+    const connected = getConnectedNodes(selectedNode.id, sampleData);
+    setConnections(connected);
   }, [selectedNode]);
 
   if (!selectedNode) {
@@ -60,10 +68,10 @@ export default function DetailPanel({ selectedNode, onClose }: DetailPanelProps)
                   <div className="text-xs text-gray-500 col-span-2">No properties</div>
                 ) : (
                   Object.entries(selectedNode.properties).map(([key, value]) => (
-                    <React.Fragment key={key}>
+                    <Fragment key={key}>
                       <div className="text-xs text-gray-500">{key}</div>
                       <div className="text-xs font-mono">{String(value)}</div>
-                    </React.Fragment>
+                    </Fragment>
                   ))
                 )}
               </div>
@@ -73,10 +81,10 @@ export default function DetailPanel({ selectedNode, onClose }: DetailPanelProps)
           <div className="border-t border-gray-200 pt-4 mt-4">
             <h4 className="text-sm font-medium text-gray-700 mb-2">Connected Nodes</h4>
             <div className="space-y-2">
-              {connectedNodes.length === 0 ? (
+              {connections.length === 0 ? (
                 <div className="text-xs text-gray-500 p-2">No connections</div>
               ) : (
-                connectedNodes.map((connection, idx) => {
+                connections.map((connection, idx) => {
                   const connectedNode = connection.node;
                   const connectType = connectedNode.type;
                   const connectColor = getBgColorClassForType(connectType);
