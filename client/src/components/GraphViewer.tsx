@@ -47,64 +47,119 @@ export default function GraphViewer({
             'text-outline-color': 'data(color)',
             'background-color': 'data(color)',
             'shape': 'data(shape)',
-            'width': 50,
-            'height': 50,
+            'width': 60,
+            'height': 60,
             'font-size': 14,
             'font-weight': 'bold',
-            'z-index': 10
+            'z-index': 10,
+            'border-width': 3,
+            'border-color': 'data(color)',
+            'border-opacity': 0.7,
+            'text-outline-opacity': 0.9,
+            'text-max-width': 120,
+            'transition-property': 'background-color, border-color',
+            'transition-duration': '300ms'
           }
         },
         {
           selector: 'edge',
           style: {
-            'width': 2,
-            'curve-style': 'bezier',
+            'width': 3,
+            'curve-style': 'unbundled-bezier',
+            'control-point-distances': [40, -40],
+            'control-point-weights': [0.25, 0.75],
             'line-color': 'data(color)',
             'target-arrow-color': 'data(color)',
             'target-arrow-shape': (ele) => {
               return ele.data('direction') === '->' ? 'triangle' : 'none';
             },
+            'target-arrow-fill': 'filled',
+            'arrow-scale': 1.5,
             'line-style': (ele) => {
               return ele.data('lineType') === 'dotted' ? 'dotted' : 
-                     ele.data('lineType') === 'dashed' ? 'dashed' : 'solid';
+                    ele.data('lineType') === 'dashed' ? 'dashed' : 'solid';
             },
             'label': 'data(label)',
             'font-size': 12,
             'text-rotation': 'autorotate',
-            'color': '#666',
-            'text-background-color': '#FFFFFF',
+            'color': '#FFF',
+            'text-background-color': 'rgba(0, 0, 0, 0.5)',
             'text-background-opacity': 0.7,
-            'text-background-padding': 2,
-            'text-background-shape': 'roundrectangle'
+            'text-background-padding': 4,
+            'text-background-shape': 'roundrectangle',
+            'transition-property': 'line-color, target-arrow-color, opacity',
+            'transition-duration': '300ms'
           }
         },
         {
           selector: 'node:selected',
           style: {
-            'border-width': 4,
-            'border-color': '#FFC107',
-            'text-outline-color': '#FFC107',
-            'z-index': 20
+            'border-width': 6,
+            'border-color': '#FFF',
+            'border-opacity': 0.8,
+            'background-opacity': 1,
+            'z-index': 20,
+            'text-outline-color': '#FFF',
+            'text-outline-width': 3,
+            'text-outline-opacity': 0.9
           }
         },
         {
           selector: 'edge:selected',
           style: {
-            'width': 4,
-            'line-color': '#FFC107',
-            'target-arrow-color': '#FFC107'
+            'width': 5,
+            'line-color': '#FFF',
+            'target-arrow-color': '#FFF',
+            'opacity': 1,
+            'z-index': 15
           }
         },
         {
           selector: '.hover',
           style: {
-            'border-width': 2,
-            'border-color': '#64B5F6'
+            'border-width': 4,
+            'border-color': '#FFF',
+            'border-opacity': 0.7
+          }
+        },
+        // Type-specific styling for different node types
+        {
+          selector: 'node[type = "User"]',
+          style: {
+            'background-color': 'hsl(221, 83%, 65%)'
+          }
+        },
+        {
+          selector: 'node[type = "Document"]',
+          style: {
+            'background-color': 'hsl(142, 76%, 36%)'
+          }
+        },
+        {
+          selector: 'node[type = "Policy"]',
+          style: {
+            'background-color': 'hsl(35, 92%, 65%)'
+          }
+        },
+        {
+          selector: 'node[type = "Infrastructure"]',
+          style: {
+            'background-color': 'hsl(354, 70%, 54%)'
+          }
+        },
+        {
+          selector: 'node[type = "Group"]',
+          style: {
+            'background-color': 'hsl(267, 83%, 60%)'
           }
         }
       ],
       minZoom: 0.1,
-      maxZoom: 3
+      maxZoom: 3,
+      wheelSensitivity: 0.3,
+      motionBlur: true,
+      motionBlurOpacity: 0.2,
+      pixelRatio: 'auto'
     });
 
     // Node selection handler
