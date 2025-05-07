@@ -35,11 +35,6 @@
 
 ## (Optional) Deployed Link
 
-> [Add your deployed app link here, e.g., Netlify/Vercel]
-
-## (Optional) Demo Video
-
-> [Add a link to your demo video here]
 
 ---
 
