@@ -1,0 +1,25 @@
+{
+"meta": {
+"title": "Large Sample Knowledge Graph",
+"description": "A large sample knowledge graph containing various users, documents, policies, and infrastructure components."
+},
+"nodes": \[
+{
+"id": "user1","label": "Alice","type": "User","properties": {"role": "Administrator"},"style": {"color": "blue"},"group": "Personnel"},
+{"id": "user2","label": "Bob","type": "User","properties": {"role": "Developer"},"style": {"color": "blue"},"group": "Personnel"},
+{"id": "user3","label": "Charlie","type": "User","properties": {"role": "Analyst"},"style": {"color": "blue"},"group": "Personnel"},
+{"id": "doc1","label": "Employee Handbook","type": "Document","properties": {"category": "HR"},"style": {"color": "green"},"group": "Documents"},
+{"id": "doc2","label": "Technical Guide","type": "Document","properties": {"category": "IT"},"style": {"color": "green"},"group": "Documents"},
+{"id": "doc3","label": "Finance Report","type": "Document","properties": {"category": "Finance"},"style": {"color": "green"},"group": "Documents"},
+{"id": "policy1","label": "Security Policy","type": "Policy","properties": {"strength": "High"},"style": {"color": "orange"},"group": "Policies"},
+{"id": "server1","label": "Web Server","type": "Infrastructure","properties": {"os": "Linux"},"style": {"color": "red"},"group": "Infrastructure"}
+],
+"edges": \[
+{"source": "user1","target": "doc1","label": "accesses","direction": "->","style": {"lineType": "dotted"}},
+{"source": "user2","target": "doc2","label": "edits","direction": "->","style": {"lineType": "dashed"}},
+{"source": "user3","target": "doc3","label": "reads","direction": "->","style": {"lineType": "dashed"}},
+{"source": "policy1","target": "user1","label": "applies to","direction": "->","style": {"lineType": "dotted"}},
+{"source": "server1","target": "doc2","label": "stores","direction": "->","style": {"lineType": "solid"}},
+{"source": "server1","target": "doc3","label": "stores","direction": "->","style": {"lineType": "solid"}}
+]
+}
