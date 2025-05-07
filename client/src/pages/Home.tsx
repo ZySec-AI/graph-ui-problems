@@ -124,15 +124,15 @@ export default function Home() {
       
       <div className="fixed top-20 right-6 z-20 animate-slide-in">
         <Button
-          className={`bg-gradient-to-r ${is3DMode ? 'from-indigo-600 to-violet-600' : 'from-gray-600 to-gray-700'} text-white shadow-lg transition-all duration-300 hover:shadow-xl`}
+          className={`btn-modern ${is3DMode ? 'bg-gradient-to-r from-indigo-600 to-violet-600' : 'bg-gradient-to-r from-gray-600 to-gray-700'} text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105`}
           onClick={() => setIs3DMode(!is3DMode)}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 animate-float" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
             <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
             <line x1="12" y1="22.08" x2="12" y2="12"></line>
           </svg>
-          {is3DMode ? '3D Mode' : '2D Mode'}
+          <span className={is3DMode ? 'gradient-text' : ''}>{is3DMode ? '3D Mode' : '2D Mode'}</span>
         </Button>
       </div>
 

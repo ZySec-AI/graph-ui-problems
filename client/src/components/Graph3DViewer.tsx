@@ -219,44 +219,7 @@ export default function Graph3DViewer({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Helper function to create text texture for labels
-  const createTextTexture = (text: string, type: string) => {
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
-    
-    // Set canvas dimensions
-    canvas.width = 512;
-    canvas.height = 256;
-    
-    if (context) {
-      // Clear canvas
-      context.clearRect(0, 0, canvas.width, canvas.height);
-      
-      // Text settings
-      context.font = "Bold 48px Arial";
-      context.textAlign = 'center';
-      context.textBaseline = 'middle';
-      
-      // Add text shadow
-      context.shadowColor = 'black';
-      context.shadowBlur = 7;
-      context.shadowOffsetX = 3;
-      context.shadowOffsetY = 3;
-      
-      // Fill with white text
-      context.fillStyle = 'white';
-      context.fillText(text, canvas.width / 2, canvas.height / 2);
-      
-      // Add type in smaller font below
-      context.font = "32px Arial";
-      context.fillText(type, canvas.width / 2, canvas.height / 2 + 48);
-    }
-    
-    const texture = new (window as any).THREE.Texture(canvas);
-    texture.needsUpdate = true;
-    
-    return texture;
-  };
+  // No longer needed with our simplified approach
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden relative">
