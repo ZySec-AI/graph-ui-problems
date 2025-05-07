@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import TopNavbar from "@/components/TopNavbar";
 import Sidebar from "@/components/Sidebar";
 import GraphViewer from "@/components/GraphViewer";
@@ -6,10 +6,12 @@ import DetailPanel from "@/components/DetailPanel";
 import ImportModal from "@/components/ImportModal";
 import { useToast } from "@/hooks/use-toast";
 import { useGraph } from "@/hooks/useGraph";
+import cytoscape from 'cytoscape';
 
 export default function Home() {
   const [importModalOpen, setImportModalOpen] = useState(false);
   const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+  const cyRef = useRef<cytoscape.Core | null>(null);
   const { toast } = useToast();
   
   const {
@@ -44,6 +46,41 @@ export default function Home() {
       });
     }
   };
+  
+  const handleExportImage = () => {
+    if (!cyRef.current) return;
+    
+    try {
+      // Get PNG image as base64
+      const png = cyRef.current.png({
+        output: 'blob',
+        bg: 'white',
+        full: true,
+        scale: 2.0
+      });
+      
+      // Create a download link
+      const url = URL.createObjectURL(png);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'graph-export.png';
+      a.click();
+      
+      // Clean up
+      URL.revokeObjectURL(url);
+      
+      toast({
+        title: "Graph exported successfully",
+        variant: "default"
+      });
+    } catch (error) {
+      toast({
+        title: "Failed to export graph",
+        description: error instanceof Error ? error.message : "Unknown error occurred",
+        variant: "destructive"
+      });
+    }
+  };
 
   return (
     <div className="flex flex-col h-screen">
@@ -64,7 +101,12 @@ export default function Home() {
             layout={layout}
             onLayoutChange={setLayout}
             onResetView={() => {
-              // This will be handled by the GraphViewer component
+              // This will be passed to the GraphViewer component
+              if (cyRef && cyRef.current) {
+                cyRef.current.fit();
+                cyRef.current.zoom(1);
+                cyRef.current.center();
+              }
             }}
           />
         )}
@@ -77,6 +119,7 @@ export default function Home() {
           searchTerm={searchTerm}
           onNodeSelect={setSelectedNode}
           toggleSidebar={() => setIsSidebarVisible(!isSidebarVisible)}
+          cyRef={cyRef}
         />
         
         <DetailPanel 

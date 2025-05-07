@@ -12,6 +12,7 @@ interface GraphViewerProps {
   searchTerm: string;
   onNodeSelect: (node: GraphNode | null) => void;
   toggleSidebar: () => void;
+  cyRef?: React.MutableRefObject<cytoscape.Core | null>;
 }
 
 export default function GraphViewer({
@@ -21,7 +22,8 @@ export default function GraphViewer({
   layout,
   searchTerm,
   onNodeSelect,
-  toggleSidebar
+  toggleSidebar,
+  cyRef: parentCyRef
 }: GraphViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const cyRef = useRef<cytoscape.Core | null>(null);
@@ -136,11 +138,16 @@ export default function GraphViewer({
     });
 
     cyRef.current = cy;
+    
+    // Share the cytoscape instance with the parent component if a ref was provided
+    if (parentCyRef) {
+      parentCyRef.current = cy;
+    }
 
     return () => {
       cy.destroy();
     };
-  }, []);
+  }, [parentCyRef]);
 
   // Update graph data when it changes
   useEffect(() => {

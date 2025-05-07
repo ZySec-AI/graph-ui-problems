@@ -15,6 +15,7 @@ interface SidebarProps {
   layout: LayoutType;
   onLayoutChange: (layout: LayoutType) => void;
   onResetView: () => void;
+  onExportImage?: () => void;
 }
 
 export default function Sidebar({
