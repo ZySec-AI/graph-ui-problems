@@ -46,21 +46,24 @@ export default function GraphViewer({
             'text-outline-width': 2,
             'text-outline-color': 'data(color)',
             'background-color': 'data(color)',
-            'background-opacity': 0.85,
+            'background-opacity': 0.9,
             'shape': 'data(shape)',
-            'width': 70,
-            'height': 70,
-            'font-size': 15,
+            'width': 68,
+            'height': 68,
+            'font-size': 14,
             'font-weight': 'bold',
             'z-index': 10,
-            'border-width': 4,
+            'border-width': 3,
             'border-color': 'data(color)',
-            'border-opacity': 0.8,
-            'text-outline-opacity': 1,
-            'text-max-width': 120,
-            'transition-property': 'background-color, border-color, width, height, background-opacity',
+            'border-opacity': 0.7,
+            'text-outline-opacity': 0.9,
+            'transition-property': 'background-color, border-color, width, height, background-opacity, border-opacity',
             'transition-duration': '300ms',
-            'compound-sizing-wrt-labels': 'include'
+            'text-margin-y': -5,
+            'text-wrap': 'ellipsis',
+            'text-max-width': 80,
+            'overlay-padding': 6,
+            'min-zoomed-font-size': 8
           }
         },
         {
@@ -102,17 +105,19 @@ export default function GraphViewer({
         {
           selector: 'node:selected',
           style: {
-            'width': 82,
-            'height': 82,
-            'border-width': 7,
+            'width': 72,
+            'height': 72,
+            'border-width': 3,
             'border-color': '#ffffff',
-            'border-opacity': 0.9,
-            'background-opacity': 0.95,
+            'border-opacity': 0.8,
+            'background-opacity': 0.9,
             'z-index': 20,
-            'text-outline-color': '#ffffff',
-            'text-outline-width': 3,
-            'text-outline-opacity': 1,
-            'font-size': 16
+            'text-outline-color': function(ele: any) {
+              return ele.data('color');
+            },
+            'text-outline-width': 2,
+            'text-outline-opacity': 0.9,
+            'font-size': 14
           }
         },
         {
@@ -132,14 +137,12 @@ export default function GraphViewer({
         {
           selector: '.hover',
           style: {
-            'border-width': 5,
+            'border-width': 4,
             'border-color': '#ffffff',
-            'border-opacity': 0.9,
-            'background-opacity': 0.9,
-            'width': 76,
-            'height': 76,
-            'transition-property': 'width, height, border-width, border-color, border-opacity, background-opacity',
-            'transition-duration': '150ms'
+            'border-opacity': 0.6,
+            'background-opacity': 0.85,
+            'transition-property': 'border-width, border-color, border-opacity, background-opacity',
+            'transition-duration': '200ms'
           }
         },
         {
