@@ -37,13 +37,8 @@
 - **Customizable Styles:** Node and edge styles (color, shape, dashed lines) are respected from the input JSON.
 - **Search & Grouping:** Users can search nodes and group them by type or custom group fields.
 
-## (Optional) Deployed Link
+##  Deployed Link
 
-> [Add your deployed app link here, e.g., Netlify/Vercel]
-
-## (Optional) Demo Video
-
-> [Add a link to your demo video here]
 
 ---
 
