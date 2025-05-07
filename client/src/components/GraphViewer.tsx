@@ -346,7 +346,7 @@ export default function GraphViewer({
   return (
     <div className="flex-1 flex flex-col overflow-hidden relative">
       {/* Graph Canvas */}
-      <div id="graph-container" ref={containerRef} className="flex-1 bg-white"></div>
+      <div id="graph-container" ref={containerRef} className="flex-1"></div>
       
       {/* Graph Controls Overlay */}
       <GraphControls

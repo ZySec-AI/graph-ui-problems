@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -9,43 +9,83 @@ interface TopNavbarProps {
 }
 
 export default function TopNavbar({ onFileImport, searchTerm, onSearch }: TopNavbarProps) {
+  const [isVisible, setIsVisible] = useState(false);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+    
+    return () => clearTimeout(timer);
+  }, []);
+  
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     onSearch(e.target.value);
   };
 
   return (
-    <header className="bg-white border-b border-gray-200 shadow-sm z-10">
+    <header className={`glass-panel backdrop-blur-md border-b border-white/10 z-10 transition-all duration-500 ease-in-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <div className="flex-shrink-0 flex items-center">
-              <i className="ri-bubble-chart-fill text-primary-600 text-3xl mr-2"></i>
-              <span className="text-xl font-semibold">Graph Crafter</span>
+            <div className="flex-shrink-0 flex items-center group">
+              <div className="text-3xl mr-3 text-white bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg w-9 h-9 flex items-center justify-center shadow-lg shadow-blue-500/20">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              <div>
+                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
+                  Graph Crafter
+                </h1>
+                <div className="text-xs text-white/50 -mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  Knowledge Graph Visualizer
+                </div>
+              </div>
             </div>
           </div>
+          
           <div className="flex items-center space-x-4">
-            <div className="relative">
+            <div className="relative animate-slide-in" style={{ animationDelay: '150ms' }}>
               <Input
                 type="search"
                 placeholder="Search nodes..."
-                className="w-64 px-4 py-2 pr-10"
+                className="w-64 bg-white/5 border-white/10 text-white/90 focus:border-blue-500 focus:ring-blue-500 pl-10"
                 value={searchTerm}
                 onChange={handleSearchChange}
               />
-              <i className="ri-search-line absolute right-3 top-2.5 text-gray-400"></i>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 absolute left-3 top-2.5 text-white/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
             </div>
+            
             <Button 
               variant="outline" 
-              className="flex items-center text-sm" 
+              className="flex items-center text-sm bg-white/5 border-white/20 text-white/80 hover:bg-white/10 hover:text-white transition-colors animate-slide-in"
+              style={{ animationDelay: '200ms' }}
               onClick={onFileImport}
             >
-              <i className="ri-upload-2-line mr-2"></i>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="17 8 12 3 7 8" />
+                <line x1="12" y1="3" x2="12" y2="15" />
+              </svg>
               Import JSON
             </Button>
+            
             <Button 
-              className="flex items-center text-sm"
+              className="flex items-center text-sm bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-md shadow-blue-900/20 border-0 animate-slide-in"
+              style={{ animationDelay: '250ms' }}
             >
-              <i className="ri-save-line mr-2"></i>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                <polyline points="17 21 17 13 7 13 7 21" />
+                <polyline points="7 3 7 8 15 8" />
+              </svg>
               Save
             </Button>
           </div>
