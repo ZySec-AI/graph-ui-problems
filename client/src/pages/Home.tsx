@@ -101,13 +101,13 @@ export default function Home() {
             layout={layout}
             onLayoutChange={setLayout}
             onResetView={() => {
-              // This will be passed to the GraphViewer component
               if (cyRef && cyRef.current) {
                 cyRef.current.fit();
                 cyRef.current.zoom(1);
                 cyRef.current.center();
               }
             }}
+            onExportImage={handleExportImage}
           />
         )}
         

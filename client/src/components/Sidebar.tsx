@@ -26,7 +26,8 @@ export default function Sidebar({
   onGroupChange,
   layout,
   onLayoutChange,
-  onResetView
+  onResetView,
+  onExportImage
 }: SidebarProps) {
   // Extract node types from graph data
   const nodeTypes = Array.from(new Set(graphData.nodes.map(node => node.type)));
@@ -137,6 +138,7 @@ export default function Sidebar({
           <Button
             variant="outline"
             className="w-full"
+            onClick={onExportImage}
           >
             <i className="ri-image-line mr-1"></i> Export as Image
           </Button>
