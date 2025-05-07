@@ -76,18 +76,6 @@ export default function TopNavbar({ onFileImport, searchTerm, onSearch }: TopNav
               </svg>
               Import JSON
             </Button>
-            
-            <Button 
-              className="flex items-center text-sm bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-md shadow-blue-900/20 border-0 animate-slide-in"
-              style={{ animationDelay: '250ms' }}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
-                <polyline points="17 21 17 13 7 13 7 21" />
-                <polyline points="7 3 7 8 15 8" />
-              </svg>
-              Save
-            </Button>
           </div>
         </div>
       </div>
