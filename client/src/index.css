@@ -80,49 +80,6 @@
   background-size: 100px 100px;
 }
 
-/* Gradient text effects */
-.gradient-text {
-  background-image: linear-gradient(45deg, #4f46e5, #8b5cf6, #d946ef);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  display: inline-block;
-  font-weight: bold;
-  animation: gradient-shift 8s ease infinite;
-  background-size: 200% 200%;
-}
-
-@keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Modern button effects */
-.btn-modern {
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s;
-  z-index: 1;
-}
-
-.btn-modern::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transform: translateX(-100%);
-  transition: all 0.6s;
-  z-index: -1;
-}
-
-.btn-modern:hover::before {
-  transform: translateX(100%);
-}
-
 /* Node glow effects for different types */
 .node-glow-user {
   filter: drop-shadow(0 0 8px hsla(var(--user-color), 0.5));
@@ -162,44 +119,7 @@
 /* Glass-like UI components */
 .glass-panel {
   @apply bg-opacity-20 backdrop-blur-md border border-white/10 rounded-lg shadow-lg;
-  background-color: rgba(30, 41, 59, 0.65);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-}
-
-/* Shiny glass borders and neon glows */
-.glass-neon {
-  position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 
-    0 0 10px rgba(100, 108, 255, 0.5),
-    0 0 20px rgba(100, 108, 255, 0.3),
-    inset 0 0 30px rgba(100, 108, 255, 0.1);
-  overflow: hidden;
-  z-index: 0;
-}
-
-.glass-neon::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -150%;
-  width: 150%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
-  transform: rotate(25deg);
-  z-index: -1;
-  animation: shine 6s infinite;
-}
-
-@keyframes shine {
-  0% { left: -150%; }
-  20% { left: 100%; }
-  100% { left: 100%; }
+  background-color: rgba(30, 41, 59, 0.7);
 }
 
 /* Animations */
@@ -213,33 +133,6 @@
   to { transform: translateY(0); opacity: 1; }
 }
 
-@keyframes slideInRight {
-  from { transform: translateX(20px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
-}
-
-@keyframes slideInLeft {
-  from { transform: translateX(-20px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
-}
-
-@keyframes scaleIn {
-  from { transform: scale(0.9); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-@keyframes pulseGlow {
-  0% { box-shadow: 0 0 10px rgba(100, 108, 255, 0.5); }
-  50% { box-shadow: 0 0 20px rgba(100, 108, 255, 0.8); }
-  100% { box-shadow: 0 0 10px rgba(100, 108, 255, 0.5); }
-}
-
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-  100% { transform: translateY(0); }
-}
-
 .animate-fade-in {
   animation: fadeIn 0.3s ease-out forwards;
 }
@@ -247,38 +140,6 @@
 .animate-slide-in {
   animation: slideIn 0.3s ease-out forwards;
 }
-
-.animate-slide-in-right {
-  animation: slideInRight 0.4s ease-out forwards;
-}
-
-.animate-slide-in-left {
-  animation: slideInLeft 0.4s ease-out forwards;
-}
-
-.animate-scale-in {
-  animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.animate-pulse-glow {
-  animation: pulseGlow 2s infinite ease-in-out;
-}
-
-.animate-float {
-  animation: float 3s infinite ease-in-out;
-}
-
-/* Staggered animation for lists */
-.stagger-item {
-  opacity: 0;
-}
-
-.stagger-item:nth-child(1) { animation: slideIn 0.3s 0.1s forwards; }
-.stagger-item:nth-child(2) { animation: slideIn 0.3s 0.2s forwards; }
-.stagger-item:nth-child(3) { animation: slideIn 0.3s 0.3s forwards; }
-.stagger-item:nth-child(4) { animation: slideIn 0.3s 0.4s forwards; }
-.stagger-item:nth-child(5) { animation: slideIn 0.3s 0.5s forwards; }
-.stagger-item:nth-child(6) { animation: slideIn 0.3s 0.6s forwards; }
 
 /* Edge styling to improve the visibility of connections */
 .edge-label {
