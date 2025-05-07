@@ -59,9 +59,9 @@ export default function GraphViewer({
             'text-outline-opacity': 0.9,
             'transition-property': 'background-color, border-color, width, height, background-opacity, border-opacity',
             'transition-duration': '300ms',
-            'text-margin-y': -5,
-            'text-wrap': 'ellipsis',
-            'text-max-width': 80,
+            'text-margin-y': -2,
+            'text-wrap': 'wrap',
+            'text-max-width': 120,
             'overlay-padding': 6,
             'min-zoomed-font-size': 8
           }
@@ -374,6 +374,32 @@ export default function GraphViewer({
         initialTemp: 200,
         coolingFactor: 0.95,
         minTemp: 1.0
+      });
+    } else if (layoutName === 'concentric') {
+      Object.assign(layoutOptions, {
+        minNodeSpacing: 120, // Increase the minimum spacing between nodes
+        concentric: function(node: any) {
+          // Define how nodes are arranged in concentric circles
+          // Higher values = placed more toward the center
+          if (node.data('type') === 'Policy') return 5; // Central node
+          return 2; // Outer nodes
+        },
+        levelWidth: function(nodes: any) {
+          // Define how many nodes to put in each concentric level
+          return 2;
+        },
+        spacingFactor: 1.5,  // More space between levels
+        avoidOverlap: true,  // Prevent node overlap
+        nodeDimensionsIncludeLabels: true // Include labels in layout calculations
+      });
+    } else if (layoutName === 'circle') {
+      Object.assign(layoutOptions, {
+        // Circular layout options
+        radius: 250,  // Circle radius
+        startAngle: 3 / 2 * Math.PI, // Start at top (in radians)
+        sweep: 2 * Math.PI, // Full circle
+        clockwise: true,
+        avoidOverlap: true
       });
     }
     
