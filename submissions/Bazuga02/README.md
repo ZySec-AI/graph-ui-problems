@@ -33,7 +33,7 @@
 - **Customizable Styles:** Node and edge styles (color, shape, dashed lines) are respected from the input JSON.
 - **Search & Grouping:** Users can search nodes and group them by type or custom group fields.
 
-## (Optional) Deployed Link
+##  Deployed Link
 
 
 ---
