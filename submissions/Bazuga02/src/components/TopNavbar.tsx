@@ -6,9 +6,10 @@ interface TopNavbarProps {
   onFileImport: () => void;
   searchTerm: string;
   onSearch: (search: string) => void;
+  onExportImage: () => void;
 }
 
-export default function TopNavbar({ onFileImport, searchTerm, onSearch }: TopNavbarProps) {
+export default function TopNavbar({ onFileImport, searchTerm, onSearch, onExportImage }: TopNavbarProps) {
   const [isVisible, setIsVisible] = useState(false);
   
   useEffect(() => {
@@ -39,7 +40,7 @@ export default function TopNavbar({ onFileImport, searchTerm, onSearch }: TopNav
               </div>
               <div>
                 <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
-                  Graph Crafter
+                  Graph Crafter by bazuga
                 </h1>
                 <div className="text-xs text-white/50 -mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
                   Knowledge Graph Visualizer
@@ -75,6 +76,19 @@ export default function TopNavbar({ onFileImport, searchTerm, onSearch }: TopNav
                 <line x1="12" y1="3" x2="12" y2="15" />
               </svg>
               Import JSON
+            </Button>
+            <Button
+              variant="outline"
+              className="flex items-center text-sm bg-white/5 border-white/20 text-white/80 hover:bg-white/10 hover:text-white transition-colors animate-slide-in"
+              style={{ animationDelay: '220ms' }}
+              onClick={onExportImage}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <path d="M21 15l-5-5L5 21" />
+              </svg>
+              Export as Image
             </Button>
           </div>
         </div>

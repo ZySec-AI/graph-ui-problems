@@ -47,7 +47,7 @@ export default function GraphViewer({
             'text-outline-color': 'data(color)',
             'background-color': 'data(color)',
             'background-opacity': 0.9,
-            'shape': 'data(shape)',
+            'shape': 'data(shape)' as any,
             'width': 68,
             'height': 68,
             'font-size': 14,
@@ -58,10 +58,10 @@ export default function GraphViewer({
             'border-opacity': 0.7,
             'text-outline-opacity': 0.9,
             'transition-property': 'background-color, border-color, width, height, background-opacity, border-opacity',
-            'transition-duration': '300ms',
+            'transition-duration': 0.3,
             'text-margin-y': -2,
             'text-wrap': 'wrap',
-            'text-max-width': 120,
+            'text-max-width': '120',
             'overlay-padding': 6,
             'min-zoomed-font-size': 8
           }
@@ -93,13 +93,13 @@ export default function GraphViewer({
             'color': '#FFF',
             'text-background-color': 'rgba(0, 10, 30, 0.7)',
             'text-background-opacity': 0.9,
-            'text-background-padding': 5,
+            'text-background-padding': '5',
             'text-background-shape': 'roundrectangle',
             'text-border-opacity': 0.8,
             'text-border-width': 1,
             'text-border-color': 'data(color)',
             'transition-property': 'line-color, target-arrow-color, opacity, width',
-            'transition-duration': '300ms'
+            'transition-duration': 0.3
           }
         },
         {
@@ -142,7 +142,7 @@ export default function GraphViewer({
             'border-opacity': 0.6,
             'background-opacity': 0.85,
             'transition-property': 'border-width, border-color, border-opacity, background-opacity',
-            'transition-duration': '200ms'
+            'transition-duration': 0.2
           }
         },
         {
@@ -154,7 +154,7 @@ export default function GraphViewer({
             'target-arrow-color': '#ffffff',
             'z-index': 14,
             'transition-property': 'width, line-color, target-arrow-color, line-opacity',
-            'transition-duration': '150ms'
+            'transition-duration': 0.15
           }
         },
         // Type-specific styling for different node types

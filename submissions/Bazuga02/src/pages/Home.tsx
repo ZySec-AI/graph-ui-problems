@@ -83,11 +83,13 @@ export default function Home() {
   };
 
   return (
+    <>
     <div className="flex flex-col h-screen">
       <TopNavbar 
         onFileImport={() => setImportModalOpen(true)} 
         searchTerm={searchTerm}
         onSearch={setSearchTerm}
+        onExportImage={handleExportImage}
       />
       
       <main className="flex-1 flex overflow-hidden">
@@ -100,7 +102,6 @@ export default function Home() {
             onGroupChange={setGroupBy}
             layout={layout}
             onLayoutChange={setLayout}
-            onExportImage={handleExportImage}
           />
         )}
         
@@ -121,15 +122,16 @@ export default function Home() {
         />
       </main>
       
-      <footer className="bg-white border-t border-gray-200 py-2 px-4 text-center text-sm text-gray-500">
-        Graph Crafter - Powered by ZySec AI
-      </footer>
       
       <ImportModal 
         isOpen={importModalOpen} 
         onClose={() => setImportModalOpen(false)}
         onImport={handleImportGraph}
       />
-    </div>
+      </div>
+      <footer className="bg-white border-t border-gray-200 py-2 px-4 text-center text-sm text-gray-500">
+        Graph Crafter - Powered by ZySec AI (Bazuga02)
+      </footer>
+    </>
   );
 }

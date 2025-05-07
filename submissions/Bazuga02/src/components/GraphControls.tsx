@@ -17,7 +17,6 @@ export default function GraphControls({
 }: GraphControlsProps) {
   const [visible, setVisible] = useState(false);
   
-  // Animated entrance effect
   useEffect(() => {
     const timer = setTimeout(() => {
       setVisible(true);
