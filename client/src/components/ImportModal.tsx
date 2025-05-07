@@ -67,18 +67,11 @@ export default function ImportModal({ isOpen, onClose, onImport }: ImportModalPr
     if (!jsonInput.trim()) return;
     
     try {
-      // Clean up the JSON content - replace escaped brackets and other common issues
-      let cleanedInput = jsonInput
-        .replace(/\\\[/g, '[')  // Replace escaped opening brackets
-        .replace(/\\\]/g, ']')  // Replace escaped closing brackets
-        .replace(/\\"/g, '"')   // Replace escaped quotes
-        .replace(/([{,]\s*)(\w+)(\s*:)/g, '$1"$2"$3'); // Ensure property names are quoted
-      
       // Validate JSON
-      JSON.parse(cleanedInput);
-      onImport(cleanedInput);
+      JSON.parse(jsonInput);
+      onImport(jsonInput);
     } catch (err) {
-      alert('Invalid JSON format. Please check your input. Common issues include escaping characters (\\) before brackets or unquoted property names.');
+      alert('Invalid JSON format. Please check your input.');
     }
   };
 
@@ -178,42 +171,13 @@ export default function ImportModal({ isOpen, onClose, onImport }: ImportModalPr
           </div>
           
           <div className="space-y-2">
-            <div className="flex justify-between items-center">
-              <h4 className="text-sm font-semibold text-white/90 mb-2 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-white/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                  <polyline points="14 2 14 8 20 8"></polyline>
-                </svg>
-                Or paste JSON directly
-              </h4>
-              <Button 
-                variant="ghost" 
-                className="text-xs text-blue-400 hover:text-blue-300 p-1 h-auto"
-                onClick={() => {
-                  if (!jsonInput.trim()) return;
-                  try {
-                    // Clean up the JSON content first
-                    let cleanedInput = jsonInput
-                      .replace(/\\\[/g, '[')
-                      .replace(/\\\]/g, ']')
-                      .replace(/\\"/g, '"')
-                      .replace(/([{,]\s*)(\w+)(\s*:)/g, '$1"$2"$3');
-                    
-                    // Format the JSON with proper indentation
-                    const parsed = JSON.parse(cleanedInput);
-                    setJsonInput(JSON.stringify(parsed, null, 2));
-                  } catch (err) {
-                    alert('Cannot format: Invalid JSON format. Please fix syntax errors first.');
-                  }
-                }}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 21v-7m0 0V5a2 2 0 012-2h12a2 2 0 012 2v1M4 14h16M4 14l5-5M4 14l5 5"></path>
-                </svg>
-                Format JSON
-              </Button>
-            </div>
-            
+            <h4 className="text-sm font-semibold text-white/90 mb-2 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-white/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
+              Or paste JSON directly
+            </h4>
             <Textarea 
               rows={8} 
               className="w-full font-mono text-sm bg-white/5 border-white/10 text-white/90 focus:border-blue-500" 
