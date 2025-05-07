@@ -1,4 +1,6 @@
-{
+import { GraphData } from '../types/graph';
+
+export const sampleData: GraphData = {
   "meta": {
     "title": "Sample Knowledge Graph",
     "description": "A sample knowledge graph containing users, documents, policies, and infrastructure components."
@@ -250,226 +252,251 @@
       "source": "user1",
       "target": "group2",
       "label": "member of",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "solid"
+        "dashed": false,
+        "color": "#555"
       }
     },
     {
       "source": "user4",
       "target": "group2",
       "label": "member of",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "solid"
+        "dashed": false,
+        "color": "#555"
       }
     },
     {
       "source": "user2",
       "target": "group1",
       "label": "member of",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "solid"
+        "dashed": false,
+        "color": "#555"
       }
     },
     {
       "source": "user3",
       "target": "group1",
       "label": "member of",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "solid"
+        "dashed": false,
+        "color": "#555"
       }
     },
     {
       "source": "user5",
       "target": "group1",
       "label": "member of",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "solid"
+        "dashed": false,
+        "color": "#555"
       }
     },
     {
       "source": "user1",
       "target": "doc1",
       "label": "accesses",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "dotted"
+        "dashed": true,
+        "color": "#555"
       }
     },
     {
       "source": "user2",
       "target": "doc2",
       "label": "edits",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "dashed"
+        "dashed": true,
+        "color": "#555"
       }
     },
     {
       "source": "user3",
       "target": "doc3",
       "label": "reads",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "dashed"
+        "dashed": true,
+        "color": "#555"
       }
     },
     {
       "source": "user4",
       "target": "doc4",
       "label": "reads",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "dashed"
+        "dashed": true,
+        "color": "#555"
       }
     },
     {
       "source": "user5",
       "target": "doc5",
       "label": "edits",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "dashed"
+        "dashed": true,
+        "color": "#555"
       }
     },
     {
       "source": "group2",
       "target": "doc4",
       "label": "enforces",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "solid"
+        "dashed": false,
+        "color": "#555"
       }
     },
     {
       "source": "policy1",
       "target": "user2",
       "label": "applies to",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "dotted"
+        "dashed": true,
+        "color": "#555"
       }
     },
     {
       "source": "policy1",
       "target": "user3",
       "label": "applies to",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "dotted"
+        "dashed": true,
+        "color": "#555"
       }
     },
     {
       "source": "policy2",
       "target": "group2",
       "label": "applies to",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "dotted"
+        "dashed": true,
+        "color": "#555"
       }
     },
     {
       "source": "policy3",
       "target": "router1",
       "label": "applies to",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "dotted"
+        "dashed": true,
+        "color": "#555"
       }
     },
     {
       "source": "server1",
       "target": "router1",
       "label": "connected to",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "solid"
+        "dashed": false,
+        "color": "#555"
       }
     },
     {
       "source": "server2",
       "target": "firewall1",
       "label": "protected by",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "solid"
+        "dashed": false,
+        "color": "#555"
       }
     },
     {
       "source": "router1",
       "target": "switch1",
       "label": "connects to",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "solid"
+        "dashed": false,
+        "color": "#555"
       }
     },
     {
       "source": "switch1",
       "target": "server1",
       "label": "connects to",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "solid"
+        "dashed": false,
+        "color": "#555"
       }
     },
     {
       "source": "doc2",
       "target": "server1",
       "label": "stored on",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "dashed"
+        "dashed": true,
+        "color": "#555"
       }
     },
     {
       "source": "doc3",
       "target": "server2",
       "label": "stored on",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "dashed"
+        "dashed": true,
+        "color": "#555"
       }
     },
     {
       "source": "doc5",
       "target": "server1",
       "label": "stored on",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "dashed"
+        "dashed": true,
+        "color": "#555"
       }
     },
     {
       "source": "user5",
       "target": "policy2",
       "label": "subject to",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "dotted"
+        "dashed": true,
+        "color": "#555"
       }
     },
     {
       "source": "server1",
       "target": "server2",
       "label": "connected to",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "solid"
+        "dashed": false,
+        "color": "#555"
       }
     },
     {
       "source": "group1",
       "target": "doc5",
       "label": "works on",
-      "direction": "->",
+      "direction": "one-way",
       "style": {
-        "lineType": "dashed"
+        "dashed": true,
+        "color": "#555"
       }
     }
   ]
-}
+};

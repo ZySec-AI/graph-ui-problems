@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Animation for tooltips */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Cytoscape highlighting styles */
+.highlighted {
+  z-index: 999 !important;
+}
+
+node.highlighted {
+  border-width: 3px !important;
+  border-color: #ff5722 !important;
+  border-opacity: 1 !important;
+  background-color: data(style.color) !important;
+  color: #000000 !important;
+  text-outline-color: #ffffff !important;
+  text-outline-width: 2px !important;
+  font-weight: bold !important;
+  opacity: 1 !important;
+}
+
+edge.highlighted {
+  width: 3px !important;
+  opacity: 1 !important;
+  z-index: 998 !important;
+}
+
+node.dimmed, edge.dimmed {
+  opacity: 0.2 !important;
+}
