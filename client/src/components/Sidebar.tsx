@@ -15,7 +15,6 @@ interface SidebarProps {
   onGroupChange: (groupBy: GroupByType) => void;
   layout: LayoutType;
   onLayoutChange: (layout: LayoutType) => void;
-  onResetView: () => void;
   onExportImage?: () => void;
 }
 
@@ -27,7 +26,6 @@ export default function Sidebar({
   onGroupChange,
   layout,
   onLayoutChange,
-  onResetView,
   onExportImage
 }: SidebarProps) {
   const [visible, setVisible] = useState(false);
@@ -196,19 +194,6 @@ export default function Sidebar({
         
         {/* Controls Section */}
         <div className="p-5 border-t border-white/10 backdrop-blur-md bg-opacity-30 animate-slide-in" style={{ animationDelay: '500ms' }}>
-          <Button
-            variant="default"
-            className="w-full mb-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white border-0 shadow-md shadow-blue-900/20"
-            onClick={onResetView}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <polyline points="15 3 21 3 21 9"></polyline>
-              <polyline points="9 21 3 21 3 15"></polyline>
-              <line x1="21" y1="3" x2="14" y2="10"></line>
-              <line x1="3" y1="21" x2="10" y2="14"></line>
-            </svg>
-            Reset View
-          </Button>
           <Button
             variant="outline"
             className="w-full border-white/20 text-white/80 bg-white/5 hover:bg-white/10 hover:text-white"

@@ -100,13 +100,6 @@ export default function Home() {
             onGroupChange={setGroupBy}
             layout={layout}
             onLayoutChange={setLayout}
-            onResetView={() => {
-              if (cyRef && cyRef.current) {
-                cyRef.current.fit();
-                cyRef.current.zoom(1);
-                cyRef.current.center();
-              }
-            }}
             onExportImage={handleExportImage}
           />
         )}
