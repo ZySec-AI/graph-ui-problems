@@ -12,6 +12,10 @@
 
 > [abhirai1802@gmail.com]
 
+## Screenshot
+
+![App Screenshot](./image.png)
+
 ## Libraries/Tools Used
 
 - React
