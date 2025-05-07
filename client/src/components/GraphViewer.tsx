@@ -46,111 +46,158 @@ export default function GraphViewer({
             'text-outline-width': 2,
             'text-outline-color': 'data(color)',
             'background-color': 'data(color)',
+            'background-opacity': 0.85,
             'shape': 'data(shape)',
-            'width': 60,
-            'height': 60,
-            'font-size': 14,
+            'width': 70,
+            'height': 70,
+            'font-size': 15,
             'font-weight': 'bold',
             'z-index': 10,
-            'border-width': 3,
+            'border-width': 4,
             'border-color': 'data(color)',
-            'border-opacity': 0.7,
-            'text-outline-opacity': 0.9,
+            'border-opacity': 0.8,
+            'text-outline-opacity': 1,
             'text-max-width': 120,
-            'transition-property': 'background-color, border-color',
-            'transition-duration': '300ms'
+            'transition-property': 'background-color, border-color, width, height, background-opacity',
+            'transition-duration': '300ms',
+            'compound-sizing-wrt-labels': 'include'
           }
         },
         {
           selector: 'edge',
           style: {
-            'width': 3,
+            'width': 4,
             'curve-style': 'unbundled-bezier',
-            'control-point-distances': [40, -40],
-            'control-point-weights': [0.25, 0.75],
+            'control-point-distances': [60, -60],
+            'control-point-weights': [0.3, 0.7],
             'line-color': 'data(color)',
+            'line-opacity': 0.85,
             'target-arrow-color': 'data(color)',
             'target-arrow-shape': (ele) => {
               return ele.data('direction') === '->' ? 'triangle' : 'none';
             },
             'target-arrow-fill': 'filled',
-            'arrow-scale': 1.5,
+            'arrow-scale': 1.8,
+            'source-endpoint': 'outside-to-node-or-label',
+            'target-endpoint': 'outside-to-node-or-label',
             'line-style': (ele) => {
               return ele.data('lineType') === 'dotted' ? 'dotted' : 
                     ele.data('lineType') === 'dashed' ? 'dashed' : 'solid';
             },
             'label': 'data(label)',
-            'font-size': 12,
+            'font-size': 13,
             'text-rotation': 'autorotate',
             'color': '#FFF',
-            'text-background-color': 'rgba(0, 0, 0, 0.5)',
-            'text-background-opacity': 0.7,
-            'text-background-padding': 4,
+            'text-background-color': 'rgba(0, 10, 30, 0.7)',
+            'text-background-opacity': 0.9,
+            'text-background-padding': 5,
             'text-background-shape': 'roundrectangle',
-            'transition-property': 'line-color, target-arrow-color, opacity',
+            'text-border-opacity': 0.8,
+            'text-border-width': 1,
+            'text-border-color': 'data(color)',
+            'transition-property': 'line-color, target-arrow-color, opacity, width',
             'transition-duration': '300ms'
           }
         },
         {
           selector: 'node:selected',
           style: {
-            'border-width': 6,
-            'border-color': '#FFF',
-            'border-opacity': 0.8,
-            'background-opacity': 1,
+            'width': 82,
+            'height': 82,
+            'border-width': 7,
+            'border-color': '#ffffff',
+            'border-opacity': 0.9,
+            'background-opacity': 0.95,
             'z-index': 20,
-            'text-outline-color': '#FFF',
+            'text-outline-color': '#ffffff',
             'text-outline-width': 3,
-            'text-outline-opacity': 0.9
+            'text-outline-opacity': 1,
+            'font-size': 16
           }
         },
         {
           selector: 'edge:selected',
           style: {
-            'width': 5,
-            'line-color': '#FFF',
-            'target-arrow-color': '#FFF',
+            'width': 6,
+            'line-color': '#ffffff',
+            'line-opacity': 0.95,
+            'target-arrow-color': '#ffffff',
+            'text-background-color': 'rgba(0, 0, 0, 0.8)',
+            'text-border-color': '#ffffff',
             'opacity': 1,
-            'z-index': 15
+            'z-index': 15,
+            'font-size': 14
           }
         },
         {
           selector: '.hover',
           style: {
-            'border-width': 4,
-            'border-color': '#FFF',
-            'border-opacity': 0.7
+            'border-width': 5,
+            'border-color': '#ffffff',
+            'border-opacity': 0.9,
+            'background-opacity': 0.9,
+            'width': 76,
+            'height': 76,
+            'transition-property': 'width, height, border-width, border-color, border-opacity, background-opacity',
+            'transition-duration': '150ms'
+          }
+        },
+        {
+          selector: 'edge.hover',
+          style: {
+            'width': 5,
+            'line-color': '#ffffff',
+            'line-opacity': 0.9,
+            'target-arrow-color': '#ffffff',
+            'z-index': 14,
+            'transition-property': 'width, line-color, target-arrow-color, line-opacity',
+            'transition-duration': '150ms'
           }
         },
         // Type-specific styling for different node types
         {
           selector: 'node[type = "User"]',
           style: {
-            'background-color': 'hsl(221, 83%, 65%)'
+            'background-color': 'hsl(221, 83%, 65%)',
+            'border-color': 'hsl(221, 83%, 75%)',
+            'border-width': 5,
+            'border-opacity': 0.6
           }
         },
         {
           selector: 'node[type = "Document"]',
           style: {
-            'background-color': 'hsl(142, 76%, 36%)'
+            'background-color': 'hsl(142, 76%, 36%)',
+            'border-color': 'hsl(142, 76%, 46%)',
+            'border-width': 5,
+            'border-opacity': 0.6
           }
         },
         {
           selector: 'node[type = "Policy"]',
           style: {
-            'background-color': 'hsl(35, 92%, 65%)'
+            'background-color': 'hsl(35, 92%, 65%)',
+            'border-color': 'hsl(35, 92%, 75%)',
+            'border-width': 5,
+            'border-opacity': 0.6
           }
         },
         {
           selector: 'node[type = "Infrastructure"]',
           style: {
-            'background-color': 'hsl(354, 70%, 54%)'
+            'background-color': 'hsl(354, 70%, 54%)',
+            'border-color': 'hsl(354, 70%, 64%)',
+            'border-width': 5,
+            'border-opacity': 0.6
           }
         },
         {
           selector: 'node[type = "Group"]',
           style: {
-            'background-color': 'hsl(267, 83%, 60%)'
+            'background-color': 'hsl(267, 83%, 60%)',
+            'border-color': 'hsl(267, 83%, 70%)',
+            'border-width': 5,
+            'border-opacity': 0.6
           }
         }
       ],
@@ -190,6 +237,17 @@ export default function GraphViewer({
     cy.on('mouseout', 'node', function(evt) {
       const node = evt.target;
       node.removeClass('hover');
+    });
+    
+    // Edge hover effects
+    cy.on('mouseover', 'edge', function(evt) {
+      const edge = evt.target;
+      edge.addClass('hover');
+    });
+    
+    cy.on('mouseout', 'edge', function(evt) {
+      const edge = evt.target;
+      edge.removeClass('hover');
     });
 
     cyRef.current = cy;
