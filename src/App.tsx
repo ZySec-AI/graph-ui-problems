@@ -89,7 +89,7 @@ function App() {
             onClick={toggleLayout}
             className=" px-4 py-2 rounded-lg bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-600 hover:to-cyan-600 transition-all shadow-lg shadow-emerald-500/20"
           >
-            Toggle Layout :{layoutMode === "column" ? "Column" : "Random"}
+            Layout :{layoutMode === "column" ? "Column" : "Random"}
           </button>
 
           <button
