@@ -3,7 +3,7 @@
 ## Developer Information
 - **Full Name**: PRANAY KUMAR INDRAKANTI
 - **GitHub**: Pranay-chary
-- **Email**: pranaykumar.indrakanti@gmail.com
+- **Email**: pranay2004indrakanti@gmail.com
 
 ## Project Overview
 A modern, interactive graph visualization tool built for the ZySec AI Hackathon. This application visualizes knowledge graphs with nodes, edges, and their relationships in an intuitive and interactive way.
@@ -52,9 +52,6 @@ A modern, interactive graph visualization tool built for the ZySec AI Hackathon.
 - Vitest
 - React Testing Library
 
-### Build/Deploy
-- GitHub Actions
-- Netlify/Vercel
 
 
 
