@@ -11,3 +11,4 @@
 </video>
 
 
+<img src="./gif.gif" alt="into video"/>
