@@ -14,10 +14,10 @@ It supports multiple layouts (force-directed, circular, grid), node/edge interac
 Designed to be modular, reusable, and easy to extend.
 
 ### 📊 Graph Viewer Interface
-![Graph Viewer Screenshot](.submissions/rohit20047/src/assets/pic1.png)
+![Graph Viewer Screenshot](./submissions/rohit20047/src/assets/pic1.png)
 
 ### ⚙️ Controls and Details Panel
-![Graph Viewer Controls](https://your-image-hosting-link.com/image2.png)
+![drive link for video is below](./submissions/rohit20047/src/assets/record.mp4)
 ---
 
 ## 🚀 Live Demo
