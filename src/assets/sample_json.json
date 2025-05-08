@@ -1,0 +1,168 @@
+{
+    "nodes": [
+      {
+        "id": "user_1",
+        "label": "Alice",
+        "type": "Person",
+        "properties": {
+          "email": "alice@example.com",
+          "role": "Analyst"
+        },
+        "style": {
+          "color": "#10b981",
+          "shape": "circle"
+        },
+        "group": "Team A"
+      },
+      {
+        "id": "user_2",
+        "label": "Bob",
+        "type": "Person",
+        "properties": {
+          "email": "bob@example.com",
+          "role": "Developer"
+        },
+        "style": {
+          "color": "#10b981",
+          "shape": "circle"
+        },
+        "group": "Team B"
+      },
+      {
+        "id": "doc_1",
+        "label": "Report Q1",
+        "type": "Document",
+        "properties": {
+          "created": "2024-03-01",
+          "status": "approved"
+        },
+        "style": {
+          "color": "#0ea5e9",
+          "shape": "rectangle"
+        },
+        "group": "Documents"
+      },
+      {
+        "id": "doc_2",
+        "label": "Report Q2",
+        "type": "Document",
+        "properties": {
+          "created": "2024-06-15",
+          "status": "draft"
+        },
+        "style": {
+          "color": "#0ea5e9",
+          "shape": "rectangle"
+        },
+        "group": "Documents"
+      },
+      {
+        "id": "policy_1",
+        "label": "Finance Policy",
+        "type": "Policy",
+        "properties": {
+          "scope": "global",
+          "updated": "2024-01-10"
+        },
+        "style": {
+          "color": "#f59e0b",
+          "shape": "diamond"
+        },
+        "group": "Policies"
+      },
+      {
+        "id": "system_1",
+        "label": "CRM System",
+        "type": "System",
+        "properties": {
+          "version": "3.2.1",
+          "status": "online"
+        },
+        "style": {
+          "color": "#8b5cf6",
+          "shape": "hexagon"
+        },
+        "group": "Systems"
+      }
+    ],
+    "edges": [
+      {
+        "source": "user_1",
+        "target": "doc_1",
+        "label": "authored",
+        "direction": "one-way",
+        "style": {
+          "dashed": false,
+          "color": "#64748b"
+        }
+      },
+      {
+        "source": "user_2",
+        "target": "doc_2",
+        "label": "authored",
+        "direction": "one-way",
+        "style": {
+          "dashed": false,
+          "color": "#64748b"
+        }
+      },
+      {
+        "source": "user_1",
+        "target": "policy_1",
+        "label": "approved",
+        "direction": "one-way",
+        "style": {
+          "dashed": false,
+          "color": "#64748b"
+        }
+      },
+      {
+        "source": "policy_1",
+        "target": "doc_1",
+        "label": "governs",
+        "direction": "one-way",
+        "style": {
+          "dashed": true,
+          "color": "#f59e0b",
+          "animated": true
+        }
+      },
+      {
+        "source": "policy_1",
+        "target": "doc_2",
+        "label": "governs",
+        "direction": "one-way",
+        "style": {
+          "dashed": true,
+          "color": "#f59e0b",
+          "animated": true
+        }
+      },
+      {
+        "source": "user_1",
+        "target": "system_1",
+        "label": "accesses",
+        "direction": "two-way",
+        "style": {
+          "dashed": false,
+          "color": "#8b5cf6"
+        }
+      },
+      {
+        "source": "user_2",
+        "target": "system_1",
+        "label": "administers",
+        "direction": "one-way",
+        "style": {
+          "dashed": false,
+          "color": "#8b5cf6",
+          "width": 3
+        }
+      }
+    ],
+    "meta": {
+      "title": "Knowledge Graph - Access Control",
+      "description": "Sample graph representing users, documents, policies, and systems with their relationships."
+    }
+  }
+  
