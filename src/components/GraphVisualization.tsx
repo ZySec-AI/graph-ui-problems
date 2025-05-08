@@ -20,6 +20,9 @@ import type { GraphData, GraphNode, GraphEdge } from "../types"
 import CustomNode from "./CustomNode"
 import CustomEdge from "./CustomEdge"
 import { Search, ZoomIn, ZoomOut } from "lucide-react"
+import { useLayoutStore } from '../store/layout'
+
+
 
 interface GraphVisualizationProps {
   data: GraphData
@@ -33,6 +36,9 @@ const edgeTypes: EdgeTypes = {
   custom: CustomEdge,
 }
 
+
+
+
 function GraphVisualizationInner({ data }: GraphVisualizationProps) {
   const [nodes, setNodes, onNodesChange] = useNodesState([])
   const [edges, setEdges, onEdgesChange] = useEdgesState([])
@@ -43,26 +49,49 @@ function GraphVisualizationInner({ data }: GraphVisualizationProps) {
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 })
 
   const { fitView, zoomIn, zoomOut } = useReactFlow()
-
+  const layoutMode = useLayoutStore((state) => state.layoutMode)
+  
   useMemo(() => {
     if (!data) return
 
-    const graphNodes: Node[] = data.nodes.map((node) => ({
-      id: node.id,
-      type: "custom",
-      position: {
-        x: Math.random() * 800,
-        y: Math.random() * 600,
-      },
-      data: {
-        ...node,
-        selected: selectedGroups.size === 0 || selectedGroups.has(node.group || ""),
-        searchMatch:
-          searchTerm === "" ||
-          node.label.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          node.type.toLowerCase().includes(searchTerm.toLowerCase()),
-      },
-    }))
+    // const graphNodes: Node[] = data.nodes.map((node,i) => ({
+    //   id: node.id,
+    //   type: "custom",
+    //   position: {
+    //     x: (i % 5) * 200, 
+    //     y: Math.floor(i / 5) * 150,
+    //   },
+    //   data: {
+    //     ...node,
+    //     selected: selectedGroups.size === 0 || selectedGroups.has(node.group || ""),
+    //     searchMatch:
+    //       searchTerm === "" ||
+    //       node.label.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    //       node.type.toLowerCase().includes(searchTerm.toLowerCase()),
+    //   },
+    // }))
+
+    const graphNodes: Node[] = data.nodes.map((node, i) => {
+      const position =
+        layoutMode === "column"
+          ? { x: (i % 5) * 200, y: Math.floor(i / 5) * 150 }
+          : { x: Math.random() * 800, y: Math.random() * 600 }
+    
+      return {
+        id: node.id,
+        type: "custom",
+        position,
+        data: {
+          ...node,
+          selected: selectedGroups.size === 0 || selectedGroups.has(node.group || ""),
+          searchMatch:
+            searchTerm === "" ||
+            node.label.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            node.type.toLowerCase().includes(searchTerm.toLowerCase()),
+        },
+      }
+    })
+    
 
     const graphEdges: Edge[] = data.edges.map((edge) => ({
       id: `${edge.source}-${edge.target}`,
@@ -81,7 +110,7 @@ function GraphVisualizationInner({ data }: GraphVisualizationProps) {
     setTimeout(() => {
       fitView({ padding: 0.2 })
     }, 100)
-  }, [data, selectedGroups, searchTerm, fitView, setNodes, setEdges])
+  }, [data, selectedGroups, searchTerm, fitView, setNodes, setEdges,layoutMode])
 
   const groups = useMemo(() => {
     if (!data) return []
