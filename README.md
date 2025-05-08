@@ -6,7 +6,7 @@
 
 
 <video width="640" height="360" controls>
-    <source src="./ScreenRecording.mp4" type="video/mp4">
+    <source src="./gif.gif" type="video/gif">
     Your browser does not support the video tag.
 </video>
 
