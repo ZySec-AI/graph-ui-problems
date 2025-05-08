@@ -1,0 +1,26 @@
+.react-flow-wrapper {
+  flex-grow: 1;
+  position: relative;
+}
+
+.react-flow__node {
+  cursor: pointer;
+}
+
+.react-flow__node-custom {
+  font-size: 12px;
+  background: #fff;
+  border: 1px solid #555;
+  border-radius: 5px;
+  text-align: center;
+  padding: 10px;
+  width: auto;
+}
+
+.react-flow__edge-path {
+  stroke-width: 2;
+}
+
+.react-flow__controls {
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.08);
+} 
