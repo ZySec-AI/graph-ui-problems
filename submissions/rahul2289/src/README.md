@@ -2,7 +2,7 @@
 
 **Full Name**: Rahul  
 **GitHub Username**: [rahul2289](https://github.com/rahul2289)  
-**Email**: rahul@example.com
+**Email**: burrarahulgoud1999@gmail.com
 
 ## 🚀 Description
 
@@ -41,3 +41,6 @@ This is a React-based interactive knowledge graph visualizer built using **Cytos
     └── main.jsx
 ```
 
+## 🔗 Deployed Link
+
+[Live Demo on Netlify](https://graphcrafter.netlify.app/)
