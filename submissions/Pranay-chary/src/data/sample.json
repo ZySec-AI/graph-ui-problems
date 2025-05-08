@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "title": "Sample Knowledge Graph",
+    "description": "A sample knowledge graph containing users, documents, policies, and infrastructure components."
+  },
+  "nodes": [
+    {
+      "id": "user1",
+      "label": "Alice",
+      "type": "User",
+      "properties": {
+        "role": "Administrator"
+      },
+      "style": {
+        "color": "blue"
+      },
+      "group": "Personnel"
+    },
+    {
+      "id": "user2",
+      "label": "Bob",
+      "type": "User",
+      "properties": {
+        "role": "Developer"
+      },
+      "style": {
+        "color": "blue"
+      },
+      "group": "Personnel"
+    },
+    {
+      "id": "doc1",
+      "label": "Employee Handbook",
+      "type": "Document",
+      "properties": {
+        "category": "HR"
+      },
+      "style": {
+        "color": "green"
+      },
+      "group": "Documents"
+    },
+    {
+      "id": "policy1",
+      "label": "Password Policy",
+      "type": "Policy",
+      "properties": {
+        "strength": "High"
+      },
+      "style": {
+        "color": "orange"
+      },
+      "group": "Policies"
+    }
+  ],
+  "edges": [
+    {
+      "source": "user1",
+      "target": "doc1",
+      "label": "accesses",
+      "direction": "->",
+      "style": {
+        "lineType": "dotted"
+      }
+    },
+    {
+      "source": "policy1",
+      "target": "user2",
+      "label": "applies to",
+      "direction": "->",
+      "style": {
+        "lineType": "dotted"
+      }
+    }
+  ]
+} 

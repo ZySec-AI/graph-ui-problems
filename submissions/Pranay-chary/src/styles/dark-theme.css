@@ -1,0 +1,78 @@
+/* Dark theme styles for React Flow */
+.dark-theme {
+  --bg-color: #1f2937;
+  --text-color: #f3f4f6;
+  --node-color: #374151;
+  --node-border: #4b5563;
+  --selected-color: #3b82f6;
+  --handle-color: #6b7280;
+  --minimap-mask-bg: rgba(31, 41, 55, 0.8);
+}
+
+.dark-theme .react-flow__node {
+  background: var(--node-color);
+  color: var(--text-color);
+  border-color: var(--node-border);
+}
+
+.dark-theme .react-flow__handle {
+  background: var(--handle-color);
+  border-color: var(--node-border);
+}
+
+.dark-theme .react-flow__edge-path {
+  stroke: var(--handle-color);
+}
+
+.dark-theme .react-flow__controls {
+  background: var(--bg-color);
+  border-color: var(--node-border);
+}
+
+.dark-theme .react-flow__controls button {
+  background: var(--node-color);
+  color: var(--text-color);
+  border-color: var(--node-border);
+}
+
+.dark-theme .react-flow__controls button:hover {
+  background: var(--selected-color);
+}
+
+.dark-theme .react-flow__minimap {
+  background-color: var(--bg-color);
+  border-color: var(--node-border);
+}
+
+.dark-theme .react-flow__minimap-mask {
+  fill: var(--minimap-mask-bg);
+}
+
+.dark-theme .react-flow__node.selected,
+.dark-theme .react-flow__node:focus,
+.dark-theme .react-flow__node:focus-visible {
+  outline: none;
+  border-color: var(--selected-color);
+  box-shadow: 0 0 0 2px var(--selected-color);
+}
+
+.dark-theme .react-flow__edge.selected .react-flow__edge-path,
+.dark-theme .react-flow__edge:focus .react-flow__edge-path,
+.dark-theme .react-flow__edge:focus-visible .react-flow__edge-path {
+  stroke: var(--selected-color);
+  stroke-width: 3;
+}
+
+.dark-theme .react-flow__node-custom {
+  border-radius: 0.5rem;
+  padding: 1rem;
+  border-width: 2px;
+}
+
+.dark-theme .react-flow__edge-textbg {
+  fill: var(--bg-color);
+}
+
+.dark-theme .react-flow__edge-text {
+  fill: var(--text-color);
+}
