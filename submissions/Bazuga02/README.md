@@ -31,10 +31,6 @@
 
 ---
 
-## (Optional) Deployed Link
+ Deployed Link
 
-[Add your deployed link here if available]
 
-## (Optional) Demo Video
-
-[Add your demo video link here if available]
