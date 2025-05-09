@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Graph UI</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/tippy.css" />
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/themes/light.css"/>
+
+</head>
+<body>
+    <header>
+        <h1 id="graphTitle">Graph Visualizer</h1>
+        <p id="graphDescription"></p>
+        <input type="file" id="jsonFile" accept=".json,application/json">
+    </header>
+
+    <main>
+        <div id="graph-container"></div>
+        <div id="errorMessage"></div>
+    </main>
+
+    <footer>
+        <p>Graph UI - Interactive Visualization - Powered by Cytoscape.js</p>
+    </footer>
+
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
+
+    <script src="js/app.js"></script>
+
+</body>
+</html>

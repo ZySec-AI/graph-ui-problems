@@ -1,0 +1,119 @@
+/* General Body Styling */
+body {
+    font-family: 'Arial', sans-serif; /* Simple, clean font */
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: #e0e0e0; /* Light grey text */
+    background-color: #1e1e1e; /* Very dark background */
+    min-height: 100vh; /* Ensure body takes at least full viewport height */
+}
+
+/* Basic Header, Main, Footer Layout */
+header, main, footer {
+    text-align: center;
+    margin: 15px auto; /* Increased margin for more separation */
+    padding: 20px; /* Increased padding */
+    max-width: 960px;
+    background-color: #2d2d2d; /* Slightly lighter dark grey */
+    border: 1px solid #444; /* Dark border */
+    border-radius: 4px; /* Slightly rounded corners */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Darker shadow */
+}
+
+header {
+    margin-top: 0; /* No top margin on the very first element */
+    border-top-left-radius: 0; /* Make top corners square */
+    border-top-right-radius: 0;
+    background-color: #3a3a3a; /* Darker header background */
+    border-bottom: 1px solid #555; /* Separator line */
+}
+
+header h1 {
+    color: #ffffff; /* White text for title */
+    margin-bottom: 5px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Subtle shadow */
+}
+
+header p {
+    color: #b0b0b0; /* Lighter grey text */
+    margin-top: 0;
+    font-size: 1em;
+}
+
+main {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+/* File Input Styling */
+#jsonFile {
+    margin: 10px auto;
+    display: block;
+    padding: 8px;
+    border: 1px solid #555; /* Dark border */
+    border-radius: 4px;
+    background-color: #3a3a3a; /* Match header background */
+    cursor: pointer;
+    font-size: 0.9em;
+    color: #e0e0e0; /* Light text */
+    transition: border-color 0.3s ease;
+}
+
+#jsonFile:hover {
+    border-color: #777; /* Lighter border on hover */
+    background-color: #444; /* Slightly lighter background on hover */
+}
+
+/* Graph Container Styling - ESSENTIAL FOR CYTOSCAPE */
+#graph-container {
+    width: 100%;
+    height: 600px; /* **IMPORTANT:** Cytoscape requires a defined height */
+    /* Using a light background for the graph area itself for standard element styling */
+    background-color: #ffffff; /* White background for the graph canvas */
+    border: 1px solid #555; /* Dark border for the container */
+    display: block;
+    box-sizing: border-box;
+    margin: 20px auto;
+    max-width: 960px;
+    border-radius: 4px;
+
+    /* --- SCROLLING AND LAYERING MODIFICATIONS --- */
+    /* overflow: auto; makes the container scrollable if content overflows */
+    overflow: auto;
+    /* position: relative; and z-index help control layering, ensuring the graph canvas */
+    /* appears above its background and other potential overlapping elements */
+    position: relative;
+    z-index: 10; /* Choose a value high enough to stack above other potential content */
+    /* --- END MODIFICATIONS --- */
+}
+
+/* Error Message Styling */
+#errorMessage {
+    color: #ffeb3b; /* Yellow text for visibility on dark background */
+    background-color: #424242; /* Dark background */
+    border: 1px solid #fbc02d; /* Darker yellow border */
+    border-radius: 4px;
+    text-align: center;
+    padding: 10px;
+    margin: 15px auto;
+    max-width: 960px;
+    min-height: 1.2em;
+    font-weight: bold;
+}
+
+/* Footer Styling */
+footer {
+    margin-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: #3a3a3a; /* Match header background */
+    border-top: 1px solid #555; /* Separator line */
+    font-size: 0.9em;
+    color: #b0b0b0; /* Lighter grey text */
+}
+
+footer p {
+    margin: 0;
+    color: #b0b0b0;
+}

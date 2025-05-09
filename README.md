@@ -1,156 +1,50 @@
-# 🌐 Graph Crafter Hackathon: Visualize the Knowledge  
+Graph Crafter Submission
+Full Name: Sharanyo Chatterjee
+GitHub Username: sharanyocr7
+Email: sharanyo123@gmail.com
+Contact: 9674012373
 
-Welcome to **Graph Crafter**, a frontend-focused hackathon hosted by **ZySec AI**. Your challenge is to build a powerful, elegant, and interactive **Graph UI** from structured JSON data — similar to tools like Neo4j, Memgraph, or network visualizations used in security, compliance, and knowledge management.
+Problem Statement
+Build a web-based Graph UI that reads a structured JSON file describing nodes, edges, metadata, and styling — and renders it into an interactive, pannable, zoomable, and understandable graph.
 
----
+ UI must:
 
-## 📘 Background  
+Visualize labeled nodes and edges
 
-Graphs are everywhere — from policy engines and user access systems to social networks and LLM knowledge graphs. But visualizing them clearly and interactively is a hard UI/UX problem.  
+Support directional edges and metadata tooltips
 
-This hackathon challenges you to build a **modern, reactive, and insightful Graph UI** that reads a JSON representation of nodes and edges, and turns it into an interactive visualization.
+Respect styles (e.g., shape, color, dashed lines)
 
----
+Allow node/edge interactions (hover/click)
 
-## 🚩 Problem Statement  
+Be responsive and user-friendly
 
-> Build a web-based **Graph UI** that reads a structured JSON file describing nodes, edges, metadata, and styling — and renders it into an interactive, pannable, zoomable, and understandable graph.
+Libraries/Tools Used
+Cytoscape.js: Core library for graph visualization and interaction.
 
-Your UI must:
-- Visualize labeled nodes and edges  
-- Support directional edges and metadata tooltips  
-- Respect styles (e.g., shape, color, dashed lines)  
-- Allow node/edge interactions (hover/click)  
-- Be responsive and user-friendly  
+Tippy.js: Used for creating interactive tooltips on graph elements.
 
----
+Popper.js: A dependency required by Tippy.js for positioning.
 
-## 📦 JSON Input Format  
+HTML: For the basic page structure.
 
-The UI must accept input like this:
+CSS: For styling the page layout and the graph container.
 
-```json
-{
-  "nodes": [
-    {
-      "id": "user_1",
-      "label": "Alice",
-      "type": "Person",
-      "properties": {
-        "email": "alice@example.com",
-        "role": "Analyst"
-      },
-      "style": {
-        "color": "#4CAF50",
-        "shape": "circle"
-      },
-      "group": "Team A"
-    },
-    {
-      "id": "doc_1",
-      "label": "Report Q1",
-      "type": "Document",
-      "properties": {
-        "created": "2024-03-01",
-        "status": "approved"
-      },
-      "style": {
-        "color": "#2196F3",
-        "shape": "rectangle"
-      },
-      "group": "Documents"
-    }
-  ],
-  "edges": [
-    {
-      "source": "user_1",
-      "target": "doc_1",
-      "label": "authored",
-      "direction": "one-way",
-      "style": {
-        "dashed": false,
-        "color": "#555"
-      }
-    }
-  ],
-  "meta": {
-    "title": "Knowledge Graph - Access Control",
-    "description": "Sample graph representing users, documents, and policies."
-  }
-}
-```
+JavaScript (Vanilla JS): For handling file input, parsing JSON, initializing Cytoscape, and implementing interactive behaviors.
 
-👉 [Download sample_json.json](./sample_json.json)
+Design Decisions
+Visualization Library: Cytoscape.js was chosen for its robust features, performance with interactive graphs, and extensive documentation, making it suitable for rendering complex relational data.
 
+JSON Data Structure: The UI is designed to strictly adhere to the specified JSON structure containing nodes, edges, meta, and styling sections, ensuring flexibility in defining graph content and appearance.
 
-## ✅ Must-Have Features
+Interactive Features: Panning, zooming, and element selection are handled natively by Cytoscape.js. Hover effects and detailed metadata tooltips (powered by Tippy.js) were implemented using Cytoscape's event API to provide additional information on interaction.
 
-- 🎯 Render nodes and edges using input JSON  
-- 🖱️ Pan and zoom  
-- 📌 Node labels and types  
-- 🔄 Directional edges (arrows or icons)  
-- 🧠 Tooltip on hover (show properties)  
-- 🎨 Respect optional style attributes (color, shape, dashed lines)  
-- 🧱 Grouping or clustering (optional)  
+Styling: The implementation respects styling information provided in the JSON (data.style on elements and styling for global defaults). Node shapes and colors are dynamically applied based on data properties like type and group. Edge direction and line styles (solid, dashed/dotted) are also derived from the edge data.
 
----
+Layout Handling: The application is configured to use core Cytoscape.js layouts (such as grid, cose, circle, etc.) by default or as specified in the JSON's styling.layout.name. Logic was included to bypass potential issues with external layout extensions like cose-bilkent by defaulting to a reliable core layout if the preferred one is not available. Default layout parameters are set to encourage a more spread-out graph appearance.
 
-## 💡 Tech Suggestions (Optional)
+Responsiveness and Container: The graph container (#graph-container) is styled with a percentage width and a fixed height. CSS overflow: auto; is applied to ensure the container is scrollable if the graph content exceeds its dimensions, making the full graph accessible.
 
-You may use:
-- `D3.js`, `Cytoscape.js`, `Vis.js`, `React Flow`, `Sigma.js`, or any graph rendering engine  
-- `React`, `Vue`, `Svelte`, or vanilla JS  
-- `Tailwind`, `SCSS`, or your own styling approach  
+Theme: A dark theme was implemented in the style.css to provide a distinct visual appearance.
 
----
-
-## 🛠️ Deliverables
-
-1. **Fork this repository**  
-2. **Create a new branch**: `graphcrafter_<github-username>`  
-3. **Add your work to**: `submissions/<github-username>/`  
-
-Your folder must include:
-- `src/`: Your full working project code  
-- `README.md`: With your:  
-  - Full name  
-  - GitHub username  
-  - Email  
-  - Libraries/tools used  
-  - Short description of design decisions  
-  - (Optional) Deployed link (e.g., Netlify/Vercel)  
-  - (Optional) Demo video (3–5 minutes)  
-
-4. **Submit a Pull Request (PR)** with the title:  
-   `[Graph Crafter] Submission - <Your Name>`  
-
----
-
-## 🧪 Scoring Rubric (100 Points)
-
-| Category              | Points | Description                                 |
-|-----------------------|--------|---------------------------------------------|
-| Graph Rendering       | 25     | Visual clarity, accuracy, responsiveness    |
-| Interactivity & UX    | 20     | Tooltips, zoom, pan, click behavior         |
-| Styling & Theming     | 15     | Use of color, shapes, consistency           |
-| Code Quality          | 15     | Modularity, naming, comments                |
-| JSON Handling         | 15     | Dynamic parsing, robustness                 |
-| Bonus Features        | 10     | Groups, search, dark mode, edge animation   |
-
----
-
-## 🏆 Rewards
-
-- 🥇 **Top Winner**: Interview for a full-time role at ZySec AI  
-- 🏅 **Top 4 Finalists**: Each receives **$100 USD**
-
----
-
-## 📬 Contact
-
-Connect with us on [LinkedIn](https://www.linkedin.com/company/zysec-ai/)
-
-
----
-
-> “Craft the graph. Create clarity. Control complexity.” 🔗
+Error Handling: Basic validation for the JSON structure and error handling for file reading and Cytoscape initialization are included to provide feedback to the user via a dedicated error message area.
