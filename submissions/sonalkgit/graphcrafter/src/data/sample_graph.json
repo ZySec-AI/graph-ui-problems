@@ -1,0 +1,476 @@
+{
+    "meta": {
+      "title": "Sample Knowledge Graph",
+      "description": "A sample knowledge graph containing users, documents, policies, and infrastructure components."
+    },
+    "nodes": [
+      {
+        "id": "user1",
+        "label": "Alice",
+        "type": "User",
+        "properties": {
+          "role": "Administrator"
+        },
+        "style": {
+          "color": "blue",
+          "shape": "circle"
+        },
+        "group": "Personnel"
+      },
+      {
+        "id": "user2",
+        "label": "Bob",
+        "type": "User",
+        "properties": {
+          "role": "Developer"
+        },
+        "style": {
+          "color": "blue"
+        },
+        "group": "Personnel"
+      },
+      {
+        "id": "user3",
+        "label": "Charlie",
+        "type": "User",
+        "properties": {
+          "role": "Analyst"
+        },
+        "style": {
+          "color": "blue"
+        },
+        "group": "Personnel"
+      },
+      {
+        "id": "user4",
+        "label": "Diana",
+        "type": "User",
+        "properties": {
+          "role": "Manager"
+        },
+        "style": {
+          "color": "blue"
+        },
+        "group": "Personnel"
+      },
+      {
+        "id": "user5",
+        "label": "Eve",
+        "type": "User",
+        "properties": {
+          "role": "Support"
+        },
+        "style": {
+          "color": "blue"
+        },
+        "group": "Personnel"
+      },
+      {
+        "id": "doc1",
+        "label": "Employee Handbook",
+        "type": "Document",
+        "properties": {
+          "category": "HR"
+        },
+        "style": {
+          "color": "green"
+        },
+        "group": "Documents"
+      },
+      {
+        "id": "doc2",
+        "label": "Network Diagram",
+        "type": "Document",
+        "properties": {
+          "category": "IT"
+        },
+        "style": {
+          "color": "green"
+        },
+        "group": "Documents"
+      },
+      {
+        "id": "doc3",
+        "label": "Financial Report",
+        "type": "Document",
+        "properties": {
+          "category": "Finance"
+        },
+        "style": {
+          "color": "green"
+        },
+        "group": "Documents"
+      },
+      {
+        "id": "doc4",
+        "label": "Security Policy",
+        "type": "Document",
+        "properties": {
+          "category": "Security"
+        },
+        "style": {
+          "color": "green"
+        },
+        "group": "Documents"
+      },
+      {
+        "id": "doc5",
+        "label": "Project Plan",
+        "type": "Document",
+        "properties": {
+          "category": "Management"
+        },
+        "style": {
+          "color": "green"
+        },
+        "group": "Documents"
+      },
+      {
+        "id": "policy1",
+        "label": "Password Policy",
+        "type": "Policy",
+        "properties": {
+          "strength": "High"
+        },
+        "style": {
+          "color": "orange"
+        },
+        "group": "Policies"
+      },
+      {
+        "id": "policy2",
+        "label": "Access Policy",
+        "type": "Policy",
+        "properties": {
+          "strength": "Medium"
+        },
+        "style": {
+          "color": "orange"
+        },
+        "group": "Policies"
+      },
+      {
+        "id": "policy3",
+        "label": "Network Policy",
+        "type": "Policy",
+        "properties": {
+          "strength": "High"
+        },
+        "style": {
+          "color": "orange"
+        },
+        "group": "Policies"
+      },
+      {
+        "id": "server1",
+        "label": "Web Server",
+        "type": "Infrastructure",
+        "properties": {
+          "os": "Linux"
+        },
+        "style": {
+          "color": "red"
+        },
+        "group": "Infrastructure"
+      },
+      {
+        "id": "server2",
+        "label": "Database Server",
+        "type": "Infrastructure",
+        "properties": {
+          "os": "Windows Server"
+        },
+        "style": {
+          "color": "red"
+        },
+        "group": "Infrastructure"
+      },
+      {
+        "id": "router1",
+        "label": "Core Router",
+        "type": "Infrastructure",
+        "properties": {
+          "manufacturer": "Cisco"
+        },
+        "style": {
+          "color": "red"
+        },
+        "group": "Infrastructure"
+      },
+      {
+        "id": "switch1",
+        "label": "Switch 1",
+        "type": "Infrastructure",
+        "properties": {
+          "ports": 24
+        },
+        "style": {
+          "color": "red"
+        },
+        "group": "Infrastructure"
+      },
+      {
+        "id": "firewall1",
+        "label": "Firewall",
+        "type": "Infrastructure",
+        "properties": {
+          "manufacturer": "Palo Alto"
+        },
+        "style": {
+          "color": "red"
+        },
+        "group": "Infrastructure"
+      },
+      {
+        "id": "group1",
+        "label": "Engineering Group",
+        "type": "Group",
+        "properties": {
+          "description": "Engineering Department"
+        },
+        "style": {
+          "color": "purple"
+        },
+        "group": "Groups"
+      },
+      {
+        "id": "group2",
+        "label": "Admins Group",
+        "type": "Group",
+        "properties": {
+          "description": "System Administrators"
+        },
+        "style": {
+          "color": "purple"
+        },
+        "group": "Groups"
+      }
+    ],
+    "edges": [
+      {
+        "source": "user1",
+        "target": "group2",
+        "label": "member of",
+        "direction": "->",
+        "style": {
+          "lineType": "solid"
+        }
+      },
+      {
+        "source": "user4",
+        "target": "group2",
+        "label": "member of",
+        "direction": "->",
+        "style": {
+          "lineType": "solid"
+        }
+      },
+      {
+        "source": "user2",
+        "target": "group1",
+        "label": "member of",
+        "direction": "->",
+        "style": {
+          "lineType": "solid"
+        }
+      },
+      {
+        "source": "user3",
+        "target": "group1",
+        "label": "member of",
+        "direction": "->",
+        "style": {
+          "lineType": "solid"
+        }
+      },
+      {
+        "source": "user5",
+        "target": "group1",
+        "label": "member of",
+        "direction": "->",
+        "style": {
+          "lineType": "solid"
+        }
+      },
+      {
+        "source": "user1",
+        "target": "doc1",
+        "label": "accesses",
+        "direction": "->",
+        "style": {
+          "lineType": "dotted"
+        }
+      },
+      {
+        "source": "user2",
+        "target": "doc2",
+        "label": "edits",
+        "direction": "->",
+        "style": {
+          "lineType": "dashed"
+        }
+      },
+      {
+        "source": "user3",
+        "target": "doc3",
+        "label": "reads",
+        "direction": "->",
+        "style": {
+          "lineType": "dashed"
+        }
+      },
+      {
+        "source": "user4",
+        "target": "doc4",
+        "label": "reads",
+        "direction": "->",
+        "style": {
+          "lineType": "dashed"
+        }
+      },
+      {
+        "source": "user5",
+        "target": "doc5",
+        "label": "edits",
+        "direction": "->",
+        "style": {
+          "lineType": "dashed"
+        }
+      },
+      {
+        "source": "group2",
+        "target": "doc4",
+        "label": "enforces",
+        "direction": "->",
+        "style": {
+          "lineType": "solid"
+        }
+      },
+      {
+        "source": "policy1",
+        "target": "user2",
+        "label": "applies to",
+        "direction": "->",
+        "style": {
+          "lineType": "dotted"
+        }
+      },
+      {
+        "source": "policy1",
+        "target": "user3",
+        "label": "applies to",
+        "direction": "->",
+        "style": {
+          "lineType": "dotted"
+        }
+      },
+      {
+        "source": "policy2",
+        "target": "group2",
+        "label": "applies to",
+        "direction": "->",
+        "style": {
+          "lineType": "dotted"
+        }
+      },
+      {
+        "source": "policy3",
+        "target": "router1",
+        "label": "applies to",
+        "direction": "->",
+        "style": {
+          "lineType": "dotted"
+        }
+      },
+      {
+        "source": "server1",
+        "target": "router1",
+        "label": "connected to",
+        "direction": "->",
+        "style": {
+          "lineType": "solid"
+        }
+      },
+      {
+        "source": "server2",
+        "target": "firewall1",
+        "label": "protected by",
+        "direction": "->",
+        "style": {
+          "lineType": "solid"
+        }
+      },
+      {
+        "source": "router1",
+        "target": "switch1",
+        "label": "connects to",
+        "direction": "->",
+        "style": {
+          "lineType": "solid"
+        }
+      },
+      {
+        "source": "switch1",
+        "target": "server1",
+        "label": "connects to",
+        "direction": "->",
+        "style": {
+          "lineType": "solid"
+        }
+      },
+      {
+        "source": "doc2",
+        "target": "server1",
+        "label": "stored on",
+        "direction": "->",
+        "style": {
+          "lineType": "dashed"
+        }
+      },
+      {
+        "source": "doc3",
+        "target": "server2",
+        "label": "stored on",
+        "direction": "->",
+        "style": {
+          "lineType": "dashed"
+        }
+      },
+      {
+        "source": "doc5",
+        "target": "server1",
+        "label": "stored on",
+        "direction": "->",
+        "style": {
+          "lineType": "dashed"
+        }
+      },
+      {
+        "source": "user5",
+        "target": "policy2",
+        "label": "subject to",
+        "direction": "->",
+        "style": {
+          "lineType": "dotted"
+        }
+      },
+      {
+        "source": "server1",
+        "target": "server2",
+        "label": "connected to",
+        "direction": "->",
+        "style": {
+          "lineType": "solid"
+        }
+      },
+      {
+        "source": "group1",
+        "target": "doc5",
+        "label": "works on",
+        "direction": "->",
+        "style": {
+          "lineType": "dashed"
+        }
+      }
+    ]
+  }
