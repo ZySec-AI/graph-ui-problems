@@ -1,0 +1,399 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary-light: #4F46E5;
+  --primary-dark: #4338CA;
+  --success-light: #10B981;
+  --success-dark: #059669;
+  --danger-light: #EF4444;
+  --danger-dark: #B91C1C;
+  --warning-light: #F59E0B;
+  --warning-dark: #D97706;
+  --info-light: #3B82F6;
+  --info-dark: #2563EB;
+  --background-light: #F3F4F6;
+  --background-dark: #1F2937;
+  --card-light: #FFFFFF;
+  --card-dark: #374151;
+  --text-primary-light: #111827;
+  --text-primary-dark: #F9FAFB;
+  --text-secondary-light: #4B5563;
+  --text-secondary-dark: #D1D5DB;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+/* Reset default styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #1F2937;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 6px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #4B5563;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #6B7280;
+}
+
+/* Tooltip styles */
+.tippy-box {
+  background-color: white;
+  color: #333;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
+  max-width: 320px !important;
+  padding: 0.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.dark .tippy-box {
+  background-color: #1F2937;
+  color: #F3F4F6;
+  border-color: #374151;
+}
+
+.tippy-arrow {
+  color: white;
+}
+
+.dark .tippy-arrow {
+  color: #1F2937;
+}
+
+.graph-tooltip {
+  font-size: 12px;
+  padding: 8px;
+}
+
+/* Graph element transitions */
+.highlighted, .faded, .search-highlight {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(79, 70, 229, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(79, 70, 229, 0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.animate-slideInUp {
+  animation: slideInUp 0.5s ease-out;
+}
+
+.animate-pulse-subtle {
+  animation: pulse 2s infinite;
+}
+
+.graph-container {
+  animation: fadeIn 0.5s ease-in-out;
+  position: relative;
+}
+
+/* Responsive container */
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+/* Button styles */
+button {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Focus styles for accessibility */
+a:focus, button:focus, input:focus, textarea:focus, select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+}
+
+/* Dark mode transitions */
+.dark {
+  color-scheme: dark;
+}
+
+/* Transition for color/background changes during dark/light mode switch */
+*, *::before, *::after {
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+/* React Flow Custom Styling */
+.react-flow-graph {
+  background-color: #0f172a; /* Dark navy background for better graph visibility */
+}
+
+.dark .react-flow-graph {
+  background-color: #0f172a;
+}
+
+/* Custom node styles */
+.custom-node {
+  border-style: solid;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: rgba(255, 255, 255, 0.95);
+  min-width: 120px;
+}
+
+.dark .custom-node {
+  background-color: rgba(30, 41, 59, 0.95);
+}
+
+.custom-node:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+  z-index: 100;
+}
+
+.custom-node.triangle-node {
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  padding: 20px 10px 10px 10px;
+}
+
+.custom-node.hexagon-node {
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+
+.custom-node.rotate-45 {
+  transform: rotate(45deg);
+}
+
+.custom-node.rotate-45 > * {
+  transform: rotate(-45deg);
+}
+
+/* React Flow specific overrides */
+.react-flow__controls {
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  background-color: white;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.dark .react-flow__controls {
+  background-color: #334155;
+}
+
+.react-flow__controls-button {
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+  color: #475569;
+  width: 24px;
+  height: 24px;
+  padding: 2px;
+  margin: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dark .react-flow__controls-button {
+  background-color: transparent;
+  color: #e2e8f0;
+  border: none;
+}
+
+.react-flow__controls-button:hover {
+  background-color: #e2e8f0;
+}
+
+.dark .react-flow__controls-button:hover {
+  background-color: #475569;
+}
+
+.react-flow__controls-button svg {
+  fill: currentColor;
+  width: 16px;
+  height: 16px;
+}
+
+/* Animation for search results */
+@keyframes pulse-highlight {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 87, 34, 0.7); }
+  50% { box-shadow: 0 0 0 10px rgba(255, 87, 34, 0); }
+}
+
+.search-highlight {
+  animation: pulse-highlight 2s infinite;
+}
+
+/* Edge styling */
+.react-flow__edge {
+  z-index: 5;
+}
+
+.react-flow__edge-path {
+  transition: stroke 0.3s, stroke-width 0.3s;
+}
+
+.react-flow__edge:hover .react-flow__edge-path {
+  stroke-width: 3;
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: #3182ce;
+  stroke-width: 3;
+}
+
+.react-flow__edge-text {
+  font-size: 12px;
+  fill: #64748b;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.dark .react-flow__edge-text {
+  fill: #94a3b8;
+}
+
+/* Node selection styling */
+.react-flow__node.selected {
+  /* box-shadow: 0 0 0 2px #3182ce !important; */
+  z-index: 50;
+}
+
+/* Handle styling */
+.react-flow__handle {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #64748b;
+  border: 2px solid white;
+}
+
+.dark .react-flow__handle {
+  border-color: #334155;
+}
+
+.react-flow__handle:hover {
+  background-color: #3182ce;
+}
+
+/* Background dots */
+.react-flow__background {
+  opacity: 0.3;
+}
+
+.dark .react-flow__background {
+  opacity: 0.2;
+}
+
+/* Additional styling for minimap if needed */
+.react-flow__minimap {
+  border-radius: 8px;
+  overflow: hidden;
+  opacity: 0.9;
+}
+
+.react-flow__minimap-mask {
+  fill: rgba(49, 130, 206, 0.3);
+}
+
+/* Custom panel styling */
+.react-flow__panel.top-right {
+  right: 10px;
+  top: 10px;
+}
