@@ -1,5 +1,6 @@
-import React from "react";
+import React,{ useState } from "react";
 import GraphView from "./components/GraphView";
+import JsonInput from "./components/JsonInput";
 
 const sampleData = {
   nodes: [
@@ -51,9 +52,11 @@ const sampleData = {
 };
 
 function App() {
+  const [graphData, setGraphData] = useState(null);
   return (
     <div>
-      <GraphView data={sampleData} />
+      <JsonInput onDataLoad={(json) => setGraphData(json)} />
+      {graphData ? <GraphView data={graphData} /> : <p>No graph data loaded yet.</p>}
     </div>
   );
 }
