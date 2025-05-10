@@ -157,7 +157,7 @@ const App = () => {
           
           {/* Footer for sidebar */}
           <div className="mt-auto pt-6 border-t border-gray-200 dark:border-gray-700 text-xs text-gray-500 dark:text-gray-400">
-            <p>Built with React, Vite, and Cytoscape.js</p>
+            <p>Built with React, Vite, and React Flow</p>
           </div>
         </aside>
         

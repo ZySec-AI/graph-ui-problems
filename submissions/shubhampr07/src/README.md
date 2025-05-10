@@ -5,6 +5,9 @@
 - **GitHub Username:** shubhampr07
 - **Email:** shubhampaul756@gmail.com
 
+## Deployed Link 
+"https://graphy-ui.netlify.app/"
+
 ## Project Overview
 An interactive graph visualization tool that allows users to visualize and explore complex network relationships through an intuitive interface. The application supports dynamic graph rendering, search functionality, and both light and dark themes for optimal viewing experience.
 
