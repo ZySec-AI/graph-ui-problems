@@ -24,15 +24,11 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    /* Alias */
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-    }
   },
   "include": [
     "src"
+  ],
+  "extends": [
+    "./ts-paths.json"
   ]
 }
