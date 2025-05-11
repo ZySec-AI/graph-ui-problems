@@ -1,63 +1,32 @@
-import React,{ useState } from "react";
+import React, { useState } from "react";
+import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
 import GraphView from "./components/GraphView";
-import JsonInput from "./components/JsonInput";
-
-const sampleData = {
-  nodes: [
-    {
-      id: "user_1",
-      label: "Alice",
-      type: "Person",
-      properties: {
-        email: "alice@example.com",
-        role: "Analyst"
-      },
-      style: {
-        color: "#4CAF50",
-        shape: "circle"
-      },
-      group: "Team A"
-    },
-    {
-      id: "doc_1",
-      label: "Report Q1",
-      type: "Document",
-      properties: {
-        created: "2024-03-01",
-        status: "approved"
-      },
-      style: {
-        color: "#2196F3",
-        shape: "rectangle"
-      },
-      group: "Documents"
-    }
-  ],
-  edges: [
-    {
-      source: "user_1",
-      target: "doc_1",
-      label: "authored",
-      direction: "one-way",
-      style: {
-        dashed: false,
-        color: "#555"
-      }
-    }
-  ],
-  meta: {
-    title: "Knowledge Graph - Access Control",
-    description: "Sample graph representing users, documents, and policies."
-  }
-};
 
 function App() {
   const [graphData, setGraphData] = useState(null);
+
   return (
-    <div>
-      <JsonInput onDataLoad={(json) => setGraphData(json)} />
-      {graphData ? <GraphView data={graphData} /> : <p>No graph data loaded yet.</p>}
-    </div>
+    <>
+      <Navbar />
+      <div className="flex h-screen bg-gray-100">
+        <Sidebar onDataLoad={setGraphData} />
+        <div className="flex-1 overflow-auto">
+          {graphData ? (
+            <GraphView data={graphData} />
+          ) : (
+            <div className="text-center mt-32">
+              <h2 className="text-3xl font-semibold text-gray-700">
+                Graph Viewer
+              </h2>
+              <p className="text-gray-500 mt-2">
+                Upload or paste JSON to visualize the graph.
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+    </>
   );
 }
 
