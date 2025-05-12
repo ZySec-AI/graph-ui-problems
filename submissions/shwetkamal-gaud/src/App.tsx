@@ -53,11 +53,11 @@ function App() {
   return (
     <ReactFlowProvider>
       <div className={`min-h-screen ${theme === 'dark' ? 'dark bg-gray-900' : 'bg-gray-100'}`}>
-        <header className="bg-white dark:bg-gray-800 shadow-md">
+        <header className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} shadow-md`}>
           <div className="container mx-auto px-4 py-4">
             <div className="flex justify-between items-center">
               <div className="flex items-center space-x-4">
-                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">GraphCrafter</div>
+                <div className={`text-2xl font-bold  ${theme === 'dark' ? 'text-blue-400' :'text-blue-600'}`}>GraphCrafter</div>
               </div>
             </div>
           </div>
