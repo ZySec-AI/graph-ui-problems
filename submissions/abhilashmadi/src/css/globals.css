@@ -94,13 +94,3 @@
     @apply bg-foreground;
   }
 }
-
-.animated-edge {
-  animation: dash-flow 1s linear infinite;
-}
-
-@keyframes dash-flow {
-  to {
-    stroke-dashoffset: -10;
-  }
-}

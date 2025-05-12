@@ -6,8 +6,9 @@ import NodeTooltip from "@components/node-tooltip";
 import EmptyGraph from "@components/empty-graph";
 import GraphToolbox from "@components/graph-toolbox";
 import { useTheme } from "@hooks/use-theme";
+import NodeDetails from "@components/node-details";
 
-interface SimulationNode extends GraphNode {
+export interface SimulationNode extends GraphNode {
   x?: number;
   y?: number;
   fx?: number | null;
@@ -21,7 +22,7 @@ interface SimulationEdge extends Omit<GraphEdge, "source" | "target"> {
 }
 
 const GraphCanvas: FC = () => {
-  const [, setSelectedNode] = useState<SimulationNode | null>(null);
+  const [selectedNode, setSelectedNode] = useState<SimulationNode | null>(null);
   const [hoveredNode, setHoveredNode] = useState<SimulationNode | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState<{ x: number; y: number } | null>(null);
 
@@ -287,12 +288,15 @@ const GraphCanvas: FC = () => {
   //     .call(d3.zoom<SVGSVGElement, unknown>().transform, d3.zoomIdentity.scale(1)); // Reset zoom to default
   // };
 
-  if (!graphData.nodes.length) return <EmptyGraph />
+  if (!graphData.nodes.length) return <EmptyGraph />;
+
+  console.log(selectedNode);
 
   return (<main className="h-dvh">
     <div ref={containerRef} className="w-full h-full relative">
       <svg ref={svgRef} className="w-full h-full absolute top-0 left-0" />
       <GraphToolbox />
+      {selectedNode && <NodeDetails details={selectedNode} />}
       <NodeTooltip visible={!!hoveredNode} node={hoveredNode} position={tooltipPosition} />
     </div>
   </main>);
