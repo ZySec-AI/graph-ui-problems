@@ -1,54 +1,79 @@
-# React + TypeScript + Vite
+# Submission: Interactive Knowledge Graph Visualization
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A dynamic and visually interactive graph editor and viewer designed to model relationships between users, documents, policies, infrastructure, and tools using a force-directed graph layout.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Links
 
-## Expanding the ESLint configuration
+- **Live Demo**: [https://graphy-by-abhilash.netlify.app](https://graphy-by-abhilash.netlify.app)
+- **Source Code**: [https://github.com/AbhilashMadi/graph-ui-problems](https://github.com/AbhilashMadi/graph-ui-problems)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## ✨ Features
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- Load **sample graph data**
+- **Import** `.json` graph files
+- Build **custom schemas** in the embedded editor
+- **Semantic visualization** based on node type, group, and style
+- Node **glow highlight** on click
+- **Hover previews** to show node summaries
+- **Light/Dark mode** toggle
+- **Animated edges** with directional cues
+- **Draggable** nodes
+- **Zoom & Pan** capabilities
+- **JSON editor** for live graph modification
+- **Search & Filter** support
+- Group-based rendering
+- Clean, scalable, and readable **code structure**
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## Developer Info
+
+- **Full Name**: Madi Abhilash
+- **GitHub**: [@AbhilashMadi](https://github.com/AbhilashMadi)
+- **Email**: madiabhilash1563@gmail.com
+
+---
+
+## Tech Stack
+
+- **Frontend**: React, TypeScript
+- **Styling**: Tailwind CSS, shadcn/ui (Radix UI)
+- **Graph Engine**: D3.js
+- **Validation**: Zod
+- **JSON Editor**: react-json-viewer
+
+---
+
+## Design Decisions
+
+- Leveraged **D3.js** for flexible and physics-based force-directed graph rendering.
+- Used **Zod** to strongly validate imported JSON data and editor inputs.
+- Created a **component-driven UI** using `shadcn/ui` for consistency and accessibility, scale.
+- Ensured **UX clarity** with hover summaries, click highlights, and theme support.
+- Wrote **clean, modular code** with extensibility in mind for future plugins (e.g., export, minimap).
+
+---
+
+## Demo Images
+
+<!-- Add screenshots here if available -->
+
+![Graph Demo 1](./screenshots/light-sh-1.png)
+![Graph Demo 2](./screenshots/dark-sh-1.png)
+![Graph Demo 3](./screenshots/light-sh-2.png)
+![Graph Demo 4](./screenshots/dark-sh-2.png)
+
+---
+
+## Future Improvements
+
+- [ ] Add minimap/overview panel
+- [ ] Add collapsible group clustering
+- [ ] Real-time collaboration support
+- [ ] Export graph as PNG/SVG
+
+---
