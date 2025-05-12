@@ -19,6 +19,8 @@ export default defineConfig({
       '@hooks': resolve(__dirname, 'src/hooks'),
       '@components': resolve(__dirname, 'src/components'),
       '@css': resolve(__dirname, 'src/css'),
+      '@redux': resolve(__dirname, 'src/redux'),
+      '@schema': resolve(__dirname, 'src/schema'),
     }
   },
   server: {

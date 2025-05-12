@@ -30,8 +30,8 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
 
-    --font-sans: "Montserrat", sans-serif;
-    --font-mono: "IBM Plex Mono", monospace;
+    --font-sans: "Inter", sans-serif;
+    --font-mono: "Space Mono", monospace;
   }
 
   .dark {
@@ -59,6 +59,11 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+
+    --editor: 221, 16%, 20%;
+
+    --xy-controls-button-color-default: hsl(var(--background));
+    --xy-node-color-default: hsl(var(--background));
   }
 }
 
@@ -68,5 +73,23 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-foreground;
   }
 }

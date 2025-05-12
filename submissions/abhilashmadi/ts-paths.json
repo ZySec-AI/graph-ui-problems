@@ -25,6 +25,12 @@
       ],
       "@css/*": [
         "./src/css/*"
+      ],
+      "@redux/*": [
+        "./src/redux/*"
+      ],
+      "@schema/*": [
+        "./src/schema/*"
       ]
     }
   }
