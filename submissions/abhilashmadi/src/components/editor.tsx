@@ -91,7 +91,7 @@ const Editor: FC = () => {
       {/* DOCUMENT META */}
       <div className="basis-[5%] p-2 shadow rounded border bg-editor space-y-1">
         <h2 className="text-primary text-sm font-medium">{data?.meta?.title}</h2>
-        <p className="text-xs">{data?.meta?.description}</p>
+        <p className="text-xs font-mono">{data?.meta?.description}</p>
       </div>
 
       {/* EDITOR */}

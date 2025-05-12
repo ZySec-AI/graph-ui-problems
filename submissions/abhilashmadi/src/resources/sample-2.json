@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "title": "Sample Knowledge Graph",
+    "description": "A sample knowledge graph containing users, documents, policies, and infrastructure components."
+  },
+  "nodes": [
+    {
+      "id": "user_1",
+      "label": "Alice",
+      "type": "Person",
+      "properties": {
+        "email": "alice@example.com",
+        "role": "Analyst"
+      },
+      "style": {
+        "color": "#4CAF50",
+        "shape": "circle"
+      },
+      "group": "Team A"
+    },
+    {
+      "id": "doc_1",
+      "label": "Report Q1",
+      "type": "Document",
+      "properties": {
+        "created": "2024-03-01",
+        "status": "approved"
+      },
+      "style": {
+        "color": "#2196F3",
+        "shape": "rectangle"
+      },
+      "group": "Documents"
+    },
+    {
+      "id": "user_2",
+      "label": "Bob",
+      "type": "Person",
+      "properties": {
+        "email": "bob@example.com",
+        "role": "Manager"
+      },
+      "style": {
+        "color": "#4CAF50",
+        "shape": "circle"
+      },
+      "group": "Team B"
+    },
+    {
+      "id": "policy_1",
+      "label": "Edit Policy",
+      "type": "Policy",
+      "properties": {
+        "permission": "write",
+        "scope": "team"
+      },
+      "style": {
+        "color": "#F44336",
+        "shape": "diamond"
+      },
+      "group": "Policies"
+    }
+  ],
+  "edges": [
+    {
+      "source": "user_1",
+      "target": "doc_1",
+      "label": "authored",
+      "direction": "->",
+      "style": {
+        "dashed": false,
+        "color": "#555"
+      }
+    },
+    {
+      "source": "user_2",
+      "target": "doc_1",
+      "label": "reviewed",
+      "direction": "->",
+      "style": {
+        "dashed": true,
+        "color": "#777"
+      }
+    },
+    {
+      "source": "policy_1",
+      "target": "user_1",
+      "label": "applies_to",
+      "direction": "->",
+      "style": {
+        "dashed": false,
+        "color": "#F44336"
+      }
+    }
+  ]
+}

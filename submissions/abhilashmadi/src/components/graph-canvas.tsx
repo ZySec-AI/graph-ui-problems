@@ -92,13 +92,30 @@ const GraphCanvas: FC = () => {
       .attr("fill", "none");
 
     const edgeLabel = edgeGroup
-      .append("text")
-      .attr("class", "edge-label")
-      .attr("dy", -5)
-      .attr("text-anchor", "middle")
-      .attr("fill", theme === "dark" ? "#ddd" : "#666")
-      .attr("font-size", "10px")
-      .text(d => d.label);
+      .append("g") // wrap rect + text in a group
+      .each(function (d) {
+        const g = d3.select(this);
+
+        const label = d.label ? d.label.charAt(0).toUpperCase() + d.label.slice(1) : "";
+
+        const text = g
+          .append("text")
+          .attr("dy", -5)
+          .attr("text-anchor", "middle")
+          .attr("fill", theme === "dark" ? "#ddd" : "#666")
+          .attr("font-size", "10px")
+          .text(label);
+
+        const bbox = text.node().getBBox();
+
+        g.insert("rect", "text")
+          .attr("x", bbox.x - 2)
+          .attr("y", bbox.y - 1)
+          .attr("width", bbox.width + 4)
+          .attr("height", bbox.height + 2)
+          .attr("fill", theme === "dark" ? "#333" : "#eee")
+          .attr("rx", 2);
+      });
 
     const nodeGroup = container
       .selectAll(".node")
