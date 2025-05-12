@@ -1,6 +1,5 @@
-import useEditorStore from "@/hooks/use-app-store";
-import { InputJsonSchema } from "@schema/input-json-schema";
 import { useTheme } from '@hooks/use-theme';
+import { InputJsonSchema } from "@schema/input-json-schema";
 import { Button } from "@ui/button";
 import {
   Tooltip,
@@ -11,11 +10,12 @@ import { DatabaseBackup, Eraser, FileInput } from "lucide-react";
 import { type FC, useRef, useState } from "react";
 import ReactJson, { type InteractionProps } from "react-json-view";
 import { z } from "zod";
+import useGraphyEditorContext from "@/hooks/use-graphy-store";
 
 
 const Editor: FC = () => {
   const { theme } = useTheme();
-  const { data, updateData } = useEditorStore();
+  const { state, resetGraph, updateData } = useGraphyEditorContext();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -30,8 +30,6 @@ const Editor: FC = () => {
       throw error;
     }
   };
-
-
 
   const handleChooseFile = async (): Promise<void> => {
     if (!fileInputRef.current?.files?.[0]) return;
@@ -70,7 +68,7 @@ const Editor: FC = () => {
   };
 
   const handleClearInput = () => {
-    updateData({});
+    resetGraph();
     setErrorMsg(null);
   }
 
@@ -90,14 +88,14 @@ const Editor: FC = () => {
     <aside className="h-dvh flex flex-col gap-2 p-2">
       {/* DOCUMENT META */}
       <div className="basis-[5%] p-2 shadow rounded border bg-editor space-y-1">
-        <h2 className="text-primary text-sm font-medium">{data?.meta?.title}</h2>
-        <p className="text-xs font-mono">{data?.meta?.description}</p>
+        <h2 className="text-primary text-sm font-medium">{state?.meta?.title}</h2>
+        <p className="text-xs font-mono">{state?.meta?.description}</p>
       </div>
 
       {/* EDITOR */}
       <section className="flex-1 basis-[90%] shadow rounded p-2 border overflow-y-auto bg-editor">
         <ReactJson
-          src={data}
+          src={state}
           onEdit={handleEdit}
           onAdd={handleAdd}
           onDelete={handleDelete}

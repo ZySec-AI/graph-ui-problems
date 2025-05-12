@@ -1,4 +1,4 @@
-import useEditorStore from "@/hooks/use-app-store";
+import useGraphyEditorContext from "@/hooks/use-graphy-store";
 import NodeTooltip from '@components/node-tooltip';
 import { useTheme } from '@hooks/use-theme';
 import type { Edge, Node } from "@schema/input-json-schema";
@@ -24,7 +24,7 @@ const GraphCanvas: FC = () => {
   const [hoveredNode, setHoveredNode] = useState<Node | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState<{ x: number; y: number } | null>(null);
 
-  const { data: graphData } = useEditorStore();
+  const { state: graphData } = useGraphyEditorContext();
   const { theme } = useTheme();
 
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -284,9 +284,9 @@ const GraphCanvas: FC = () => {
   }
 
   return (
-    <main className="flex flex-1 overflow-hidden min-h-dvh">
-      <div className="relative flex-1" ref={containerRef}>
-        <svg ref={svgRef} className="w-full h-full" />
+    <main className="h-dvh">
+      <div ref={containerRef} className="w-full h-full relative">
+        <svg ref={svgRef} className="w-full h-full absolute top-0 left-0" />
         <GraphToolbox />
         <NodeTooltip
           visible={true}
