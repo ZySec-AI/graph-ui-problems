@@ -1,91 +1,80 @@
 import React, { useEffect, useRef } from 'react';
 import cytoscape from 'cytoscape';
+import qtip from 'cytoscape-qtip';
+
+cytoscape.use(qtip);
 
 const GraphView = ({ data }) => {
   const cyRef = useRef(null);
 
-  const formatElements = (data) => {
-    const nodes = data.nodes.map((node) => ({
-      data: { id: node.id, label: node.label, ...node.properties },
-      classes: node.type,
-      style: {
-        backgroundColor: node.style?.color || '#ff6600',
-        shape: node.style?.shape || 'ellipse',
-        color: '#fff',
-      },
-    }));
-
-    const edges = data.edges.map((edge, index) => ({
-      data: {
-        id: `edge-${index}`,
-        source: edge.source,
-        target: edge.target,
-        label: edge.label,
-      },
-      style: {
-        width: 2,
-        lineColor: edge.style?.color || '#ff6600',
-        targetArrowColor: edge.style?.color || '#ff6600',
-        targetArrowShape: edge.direction === 'one-way' ? 'triangle' : 'none',
-        lineStyle: edge.style?.dashed ? 'dashed' : 'solid',
-      },
-    }));
-
-    return [...nodes, ...edges];
-  };
-
   useEffect(() => {
     if (!data || !cyRef.current) return;
-    cyRef.current.innerHTML = '';
 
-    cytoscape({
+    const cy = cytoscape({
       container: cyRef.current,
-      elements: formatElements(data),
-      layout: { name: 'cose' },
+      elements: data.elements,
       style: [
         {
           selector: 'node',
           style: {
             label: 'data(label)',
-            textValign: 'center',
-            textHalign: 'center',
-            color: '#fff',
-            fontSize: 14,
-            textWrap: 'wrap',
-            width: 50,
-            height: 50,
+            width: 40,
+            height: 40,
+            'background-color': 'data(color)',
+            shape: 'data(shape)',
+            'font-size': 10,
+            'text-valign': 'center',
+            'text-halign': 'center',
           },
         },
         {
           selector: 'edge',
           style: {
             label: 'data(label)',
-            fontSize: 12,
-            curveStyle: 'bezier',
-            targetArrowShape: 'triangle',
+            width: 2,
+            'line-color': 'data(color)',
+            'target-arrow-color': 'data(color)',
+            'target-arrow-shape': 'triangle',
+            'curve-style': 'bezier',
+            'font-size': 8,
           },
         },
       ],
+      layout: { name: 'cose' },
     });
+
+    cy.nodes().forEach((node) => {
+      node.qtip({
+        content: node.data('tooltip'),
+        position: {
+          my: 'top center',
+          at: 'bottom center',
+        },
+        style: {
+          classes: 'qtip-bootstrap',
+        },
+      });
+    });
+
+    cy.edges().forEach((edge) => {
+      edge.qtip({
+        content: edge.data('tooltip'),
+        position: {
+          my: 'top center',
+          at: 'bottom center',
+        },
+        style: {
+          classes: 'qtip-bootstrap',
+        },
+      });
+    });
+
+    return () => {
+      cy.destroy();
+    };
   }, [data]);
 
-  return (
-    <div className="w-full ">
-      <div className="bg-white shadow-lg rounded-lg p-8 border border-gray-300">
-        <h2 className="text-3xl font-semibold text-gray-800 mb-4">
-          {data.meta?.title || 'Graph'}
-        </h2>
-        <p className="text-gray-600 mb-6">{data.meta?.description}</p>
-
-        <div className="overflow-hidden rounded-lg">
-          <div
-            ref={cyRef}
-            className="w-full h-[500px] bg-gray-900 rounded-md border border-orange-500"
-          />
-        </div>
-      </div>
-    </div>
-  );
+  return <div ref={cyRef} style={{ width: '100%', height: '500px' }} />;
 };
 
 export default GraphView;

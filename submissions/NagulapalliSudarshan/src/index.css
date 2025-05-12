@@ -1,6 +1,5 @@
 @import "tailwindcss";
-
-:root {
+/* :root {
   --bg-dark: #1a1a1a;
   --text-light: #f1f1f1;
   --orange: #ff8800;
@@ -50,4 +49,4 @@ button:hover {
 
 .tab.active {
   @apply border-b-2 border-orange-400 text-orange-400;
-}
+} */
