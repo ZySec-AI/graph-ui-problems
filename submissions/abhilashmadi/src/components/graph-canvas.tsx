@@ -288,6 +288,36 @@ const GraphCanvas: FC = () => {
   //     .call(d3.zoom<SVGSVGElement, unknown>().transform, d3.zoomIdentity.scale(1)); // Reset zoom to default
   // };
 
+  useEffect(() => {
+    if (!selectedNode || !svgRef.current) return;
+
+    const nodeId = selectedNode.id;
+    const pulseTarget = d3.select(svgRef.current)
+      .selectAll<SVGGElement, SimulationNode>(".node")
+      .filter(d => d.id === nodeId);
+
+    // Select the actual shape element inside the node group
+    const shape = pulseTarget.select("circle, rect, path");
+
+    if (!shape.empty()) {
+      function pulse() {
+        shape
+          .transition()
+          .duration(600)
+          .attr("transform", "scale(1.2)")
+          .transition()
+          .duration(600)
+          .attr("transform", "scale(1)")
+          .on("end", pulse); // Loop
+      }
+
+      pulse();
+    }
+
+    // Optional: Remove previous animations when node deselected
+    return () => { shape.interrupt().attr("transform", "scale(1)") };
+  }, [selectedNode]);
+
   if (!graphData.nodes.length) return <EmptyGraph />;
 
   console.log(selectedNode);
