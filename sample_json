@@ -189,7 +189,8 @@
       "label": "Core Router",
       "type": "Infrastructure",
       "properties": {
-        "manufacturer": "Cisco"
+        "manufacturer": "Cisco",
+        "model": "ISR 4000"
       },
       "style": {
         "color": "red"

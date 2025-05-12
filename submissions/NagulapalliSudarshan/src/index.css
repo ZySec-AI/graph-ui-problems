@@ -50,3 +50,29 @@ button:hover {
 .tab.active {
   @apply border-b-2 border-orange-400 text-orange-400;
 } */
+
+.cy-bg-dots {
+  background-image: radial-gradient(#323232 1px, transparent 0);
+  background-size: 20px 20px;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #1f2937; /* Tailwind's gray-800 */
+  border-radius: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #4b5563; /* Tailwind's gray-600 */
+  border-radius: 8px;
+  border: 2px solid #1f2937; /* Same as track background */
+}
+
+/* Optional: for Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #4b5563 #1f2937;
+}
