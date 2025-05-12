@@ -1,5 +1,5 @@
 import { useTheme } from '@hooks/use-theme';
-import { graphSchema } from "@schema/input-json-schema";
+import { graphSchema, type GraphData } from "@schema/input-json-schema";
 import { Button } from "@ui/button";
 import {
   Tooltip,
@@ -24,7 +24,7 @@ const Editor: FC = () => {
     try {
       setErrorMsg(null);
       const module = await import("@/resources/sample.json");
-      updateData(module.default);
+      updateData(module.default as GraphData);
     } catch (error) {
       console.error("Error loading JSON:", error);
       throw error;
@@ -73,15 +73,15 @@ const Editor: FC = () => {
   }
 
   const handleEdit = (edit: InteractionProps) => {
-    if (edit.updated_src) updateData(edit.updated_src);
+    if (edit.updated_src) updateData(edit.updated_src as GraphData);
   };
 
   const handleAdd = (add: InteractionProps) => {
-    if (add.updated_src) updateData(add.updated_src);
+    if (add.updated_src) updateData(add.updated_src as GraphData);
   };
 
   const handleDelete = (del: InteractionProps) => {
-    if (del.updated_src) updateData(del.updated_src);
+    if (del.updated_src) updateData(del.updated_src as GraphData);
   };
 
   return (

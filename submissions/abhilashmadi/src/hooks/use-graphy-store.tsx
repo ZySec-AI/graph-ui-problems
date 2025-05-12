@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { GraphEditorContext } from "@context/graphy-context";
-import type { Graph } from "@/schema/input-json-schema";
+import type { GraphData } from "@/schema/input-json-schema";
 
 const useGraphyEditorContext = () => {
   const context = useContext(GraphEditorContext);
@@ -12,7 +12,7 @@ const useGraphyEditorContext = () => {
   return {
     state,
     dispatch,
-    updateData: (data: Graph) => dispatch({ type: "LOAD_DATA", payload: data }),
+    updateData: (data: GraphData) => dispatch({ type: "LOAD_DATA", payload: data }),
     resetGraph: () => dispatch({ type: "RESET_GRAPH" }),
   };
 };
