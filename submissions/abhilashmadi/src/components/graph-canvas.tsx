@@ -1,11 +1,11 @@
-import useGraphyEditorContext from "@/hooks/use-graphy-store";
-import NodeTooltip from "@components/node-tooltip";
-import { useTheme } from "@hooks/use-theme";
-import type { GraphNode, GraphEdge, GraphData } from "@schema/input-json-schema";
 import * as d3 from "d3";
 import { type FC, useEffect, useRef, useState } from "react";
-import GraphToolbox from "./graph-toolbox";
-import EmptyGraph from "./empty-graph";
+import type { GraphData, GraphEdge, GraphNode } from "@schema/input-json-schema";
+import useGraphyEditorContext from "@/hooks/use-graphy-store";
+import NodeTooltip from "@components/node-tooltip";
+import EmptyGraph from "@components/empty-graph";
+import GraphToolbox from "@components/graph-toolbox";
+import { useTheme } from "@hooks/use-theme";
 
 interface SimulationNode extends GraphNode {
   x?: number;
@@ -255,17 +255,47 @@ const GraphCanvas: FC = () => {
     };
   }, [graphData, theme]);
 
+  // Function to bring the graph to the center
+  // const centerGraph = () => {
+  //   if (!svgContainerRef.current) return;
+
+  //   const svg = d3.select(svgRef.current);
+  //   const container = svgContainerRef.current;
+
+  //   // Get the bounding box of all the nodes
+  //   const bbox = container.getBBox();
+  //   const centerX = (bbox.x + bbox.width) / 2;
+  //   const centerY = (bbox.y + bbox.height) / 2;
+
+  //   // Get the current SVG dimensions
+  //   const width = containerRef.current!.clientWidth;
+  //   const height = containerRef.current!.clientHeight;
+
+  //   // Calculate the transform needed to center the graph
+  //   const translateX = width / 2 - centerX;
+  //   const translateY = height / 2 - centerY;
+
+  //   // Apply the transformation to center the graph
+  //   svg.transition().duration(500)
+  //     .call(d3.zoom<SVGSVGElement, unknown>().transform, d3.zoomIdentity.translate(translateX, translateY).scale(1));
+  // };
+
+  // const resetZoom = () => {
+  //   if (!svgRef.current) return;
+  //   const svg = d3.select(svgRef.current);
+  //   svg.transition().duration(500)
+  //     .call(d3.zoom<SVGSVGElement, unknown>().transform, d3.zoomIdentity.scale(1)); // Reset zoom to default
+  // };
+
   if (!graphData.nodes.length) return <EmptyGraph />
 
-  return (
-    <main className="h-dvh">
-      <div ref={containerRef} className="w-full h-full relative">
-        <svg ref={svgRef} className="w-full h-full absolute top-0 left-0" />
-        <GraphToolbox />
-        <NodeTooltip visible={!!hoveredNode} node={hoveredNode} position={tooltipPosition} />
-      </div>
-    </main>
-  );
+  return (<main className="h-dvh">
+    <div ref={containerRef} className="w-full h-full relative">
+      <svg ref={svgRef} className="w-full h-full absolute top-0 left-0" />
+      <GraphToolbox />
+      <NodeTooltip visible={!!hoveredNode} node={hoveredNode} position={tooltipPosition} />
+    </div>
+  </main>);
 };
 
 export default GraphCanvas;
