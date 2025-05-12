@@ -19,20 +19,6 @@
       "group": "Team A"
     },
     {
-      "id": "doc_1",
-      "label": "Report Q1",
-      "type": "Document",
-      "properties": {
-        "created": "2024-03-01",
-        "status": "approved"
-      },
-      "style": {
-        "color": "#2196F3",
-        "shape": "rectangle"
-      },
-      "group": "Documents"
-    },
-    {
       "id": "user_2",
       "label": "Bob",
       "type": "Person",
@@ -47,6 +33,48 @@
       "group": "Team B"
     },
     {
+      "id": "user_3",
+      "label": "Charlie",
+      "type": "Person",
+      "properties": {
+        "email": "charlie@example.com",
+        "role": "Engineer"
+      },
+      "style": {
+        "color": "#4CAF50",
+        "shape": "circle"
+      },
+      "group": "Team A"
+    },
+    {
+      "id": "doc_1",
+      "label": "Report Q1",
+      "type": "Document",
+      "properties": {
+        "created": "2024-03-01",
+        "status": "approved"
+      },
+      "style": {
+        "color": "#2196F3",
+        "shape": "rectangle"
+      },
+      "group": "Documents"
+    },
+    {
+      "id": "doc_2",
+      "label": "Design Spec",
+      "type": "Document",
+      "properties": {
+        "created": "2024-04-10",
+        "status": "draft"
+      },
+      "style": {
+        "color": "#2196F3",
+        "shape": "rectangle"
+      },
+      "group": "Documents"
+    },
+    {
       "id": "policy_1",
       "label": "Edit Policy",
       "type": "Policy",
@@ -59,6 +87,47 @@
         "shape": "diamond"
       },
       "group": "Policies"
+    },
+    {
+      "id": "infra_1",
+      "label": "Database Server",
+      "type": "Infrastructure",
+      "properties": {
+        "ip": "192.168.1.100",
+        "status": "active"
+      },
+      "style": {
+        "color": "#9C27B0",
+        "shape": "rectangle"
+      },
+      "group": "Infrastructure"
+    },
+    {
+      "id": "infra_2",
+      "label": "Load Balancer",
+      "type": "Infrastructure",
+      "properties": {
+        "ip": "192.168.1.10",
+        "status": "active"
+      },
+      "style": {
+        "color": "#9C27B0",
+        "shape": "rectangle"
+      },
+      "group": "Infrastructure"
+    },
+    {
+      "id": "tool_1",
+      "label": "Jira",
+      "type": "Tool",
+      "properties": {
+        "category": "Project Management"
+      },
+      "style": {
+        "color": "#FFC107",
+        "shape": "circle"
+      },
+      "group": "Tools"
     }
   ],
   "edges": [
@@ -90,6 +159,66 @@
       "style": {
         "dashed": false,
         "color": "#F44336"
+      }
+    },
+    {
+      "source": "user_3",
+      "target": "doc_2",
+      "label": "authored",
+      "direction": "->",
+      "style": {
+        "dashed": false,
+        "color": "#555"
+      }
+    },
+    {
+      "source": "policy_1",
+      "target": "user_3",
+      "label": "applies_to",
+      "direction": "->",
+      "style": {
+        "dashed": false,
+        "color": "#F44336"
+      }
+    },
+    {
+      "source": "user_2",
+      "target": "infra_1",
+      "label": "manages",
+      "direction": "->",
+      "style": {
+        "dashed": false,
+        "color": "#673AB7"
+      }
+    },
+    {
+      "source": "infra_1",
+      "target": "infra_2",
+      "label": "connected_to",
+      "direction": "->",
+      "style": {
+        "dashed": false,
+        "color": "#9C27B0"
+      }
+    },
+    {
+      "source": "user_1",
+      "target": "tool_1",
+      "label": "uses",
+      "direction": "->",
+      "style": {
+        "dashed": true,
+        "color": "#FFC107"
+      }
+    },
+    {
+      "source": "user_3",
+      "target": "tool_1",
+      "label": "uses",
+      "direction": "->",
+      "style": {
+        "dashed": true,
+        "color": "#FFC107"
       }
     }
   ]
