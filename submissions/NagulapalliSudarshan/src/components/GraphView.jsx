@@ -7,23 +7,40 @@ const GraphView = ({ data }) => {
   const [tooltip, setTooltip] = useState({ visible: false, content: {}, x: 0, y: 0 });
   const [isHandCursor, setIsHandCursor] = useState(false);  
   const [selectedDetails, setSelectedDetails] = useState({});
+  const [zoomLevel, setZoomLevel] = useState(1);
+  const [nodeFixed, setNodeFixed] = useState(false);
 
   const formatElements = (data) => {
-    const nodes = data.nodes?.map((node) => {
+    const groupMap = {};
+    let xSpacing = 150;
+    let ySpacing = 100;
+  
+    const nodes = data.nodes?.map((node, index) => {
+      const group = node.group || 'default';
+      if (!groupMap[group]) {
+        groupMap[group] = [];
+      }
+      const groupIndex = groupMap[group].length;
+      groupMap[group].push(node);
+  
       const tooltipData = {
         id: node.id,
         label: node.label,
         type: node.type,
-        group: node.group,
+        group: group,
         ...node.properties,
       };
-
+  
       return {
         data: {
           id: node.id,
           label: node.label,
           ...node.properties,
           tooltip: tooltipData,
+        },
+        position: {
+          x: Object.keys(groupMap).indexOf(group) * xSpacing,
+          y: groupIndex * ySpacing,
         },
         classes: node.type || '',
         style: {
@@ -32,10 +49,10 @@ const GraphView = ({ data }) => {
         },
       };
     }) || [];
-
+  
     const edges = data.edges?.map((edge, index) => {
       const isDirected = edge.direction === '->' || edge.direction === 'one-way';
-
+  
       const tooltipData = {
         source: edge.source,
         target: edge.target,
@@ -43,32 +60,33 @@ const GraphView = ({ data }) => {
         direction: edge.direction,
         ...edge.style,
       };
-
+  
       return {
         data: {
           id: `edge-${index}`,
           source: edge.source,
           target: edge.target,
           label: edge.label,
-          tooltip: tooltipData,  
+          tooltip: tooltipData,
         },
         classes: isDirected ? 'directed' : 'undirected',
         style: {
           width: 1.5,
           lineColor: edge.style?.color || '#FF851B',
           targetArrowColor: edge.style?.color || '#FF851B',
-          targetArrowShape: isDirected ?  'triangle' : 'none',
-          lineStyle: edge.style?.lineType === 'dashed' 
-            ? 'dashed' 
-            : edge.style?.lineType === 'dotted' 
-            ? 'dotted' 
-            : 'solid'
+          targetArrowShape: isDirected ? 'triangle' : 'none',
+          lineStyle: edge.style?.lineType === 'dashed'
+            ? 'dashed'
+            : edge.style?.lineType === 'dotted'
+            ? 'dotted'
+            : 'solid',
         },
       };
     }) || [];
-
+  
     return [...nodes, ...edges];
   };
+  
 
   useEffect(() => {
     if (!data || !cyRef.current) return;
@@ -78,11 +96,11 @@ const GraphView = ({ data }) => {
       container: cyRef.current,
       elements: formatElements(data),
       layout: {
-        name: data.meta?.layout || 'cose',
-        animate: true,
+        name: 'preset',
         fit: true,
         padding: 30,
       },
+      
       style: [
         {
           selector: 'node',
@@ -114,50 +132,14 @@ const GraphView = ({ data }) => {
             textBackgroundColor: '#000',
             textBackgroundOpacity: 1,
             textBackgroundShape: 'roundrectangle',
-            textMarginX: 6, 
+            textMarginX: 6,
             textMarginY: 4,
             textWrap: 'wrap',
-            textMaxWidth: 80
-          }
-        }
+            textMaxWidth: 80,
+          },
+        },
       ],
     });
-
-    const handleMouseOver = (e) => {
-      const pos = e.renderedPosition || e.target.renderedPosition();
-      const rect = cyRef.current.getBoundingClientRect();
-      const tooltipData = e.target.data('tooltip');
-
-      setTooltip({
-        visible: true,
-        content: tooltipData,  
-        x: rect.left + pos.x + 10,
-        y: rect.top + pos.y - 10,
-      });
-
-      setIsHandCursor(true);
-    };
-
-    const handleMouseOut = () => {
-      setTooltip({ visible: false, content: {}, x: 0, y: 0 });
-      setIsHandCursor(false);
-    };
-
-    const handleClick = (e) => {
-      const tooltipData = e.target.data('tooltip');
-      if (tooltipData) {
-        const type = e.target.isNode() ? 'node' : 'edge';
-        const color = e.target.isNode() ? e.target.style('background-color') : e.target.style('line-color');
-    
-        setSelectedDetails({
-          ...tooltipData,
-          label: e.target.data('label'),
-          type,
-          color
-        });
-      }
-    };
-    
 
     cy.on('mouseover', 'node, edge', handleMouseOver);
     cy.on('mouseout', 'node, edge', handleMouseOut);
@@ -167,6 +149,69 @@ const GraphView = ({ data }) => {
       cy.destroy();
     };
   }, [data]);
+
+  const handleMouseOver = (e) => {
+    const pos = e.renderedPosition || e.target.renderedPosition();
+    const rect = cyRef.current.getBoundingClientRect();
+    const tooltipData = e.target.data('tooltip');
+
+    setTooltip({
+      visible: true,
+      content: tooltipData,
+      x: rect.left + pos.x + 10,
+      y: rect.top + pos.y - 10,
+    });
+
+    setIsHandCursor(true);
+  };
+
+  const handleMouseOut = () => {
+    setTooltip({ visible: false, content: {}, x: 0, y: 0 });
+    setIsHandCursor(false);
+  };
+
+  const handleClick = (e) => {
+    const tooltipData = e.target.data('tooltip');
+    if (tooltipData) {
+      const type = e.target.isNode() ? 'node' : 'edge';
+      const color = e.target.isNode() ? e.target.style('background-color') : e.target.style('line-color');
+
+      setSelectedDetails({
+        ...tooltipData,
+        label: e.target.data('label'),
+        type,
+        color,
+      });
+    }
+  };
+
+  const zoomIn = () => {
+    if (cyInstance.current) {
+      const newZoom = zoomLevel + 0.1;
+      cyInstance.current.zoom(newZoom);
+      cyInstance.current.center();
+      setZoomLevel(newZoom);
+    }
+  };
+  
+  const zoomOut = () => {
+    if (cyInstance.current) {
+      const newZoom = zoomLevel - 0.1;
+      cyInstance.current.zoom(newZoom);
+      cyInstance.current.center();
+      setZoomLevel(newZoom);
+    }
+  };
+  
+  const toggleFixNode = () => {
+    if (cyInstance.current) {
+      const newFixed = !nodeFixed;
+      setNodeFixed(newFixed);
+      cyInstance.current.nodes().forEach((node) => {
+        node.locked(newFixed);
+      });
+    }
+  };
 
   return (
     <div className="w-full relative">
@@ -299,6 +344,13 @@ const GraphView = ({ data }) => {
           </pre>
         </div>
       )}
+
+      {/* Controls for Zoom and Node Fixing */}
+      {/* <div className="absolute bottom-10 right-5 bg-gray-800 p-2 rounded-lg shadow-lg">
+        <button onClick={zoomIn()} className="text-white p-2 rounded-full mr-2">+</button>
+        <button onClick={zoomOut()} className="text-white p-2 rounded-full mr-2">-</button>
+        <button onClick={toggleFixNode()} className="text-white p-2 rounded-full">Fix</button>
+      </div> */}
     </div>
   );
 };
