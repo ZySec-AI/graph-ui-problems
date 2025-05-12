@@ -1,12 +1,13 @@
 import useGraphyEditorContext from "@/hooks/use-graphy-store";
-import NodeTooltip from '@components/node-tooltip';
-import { useTheme } from '@hooks/use-theme';
-import type { Edge, Node } from "@schema/input-json-schema";
+import NodeTooltip from "@components/node-tooltip";
+import { useTheme } from "@hooks/use-theme";
+import type { GraphNode, GraphEdge, GraphData } from "@schema/input-json-schema";
 import * as d3 from "d3";
 import { type FC, useEffect, useRef, useState } from "react";
 import GraphToolbox from "./graph-toolbox";
+import EmptyGraph from "./empty-graph";
 
-interface SimulationNode extends Node {
+interface SimulationNode extends GraphNode {
   x?: number;
   y?: number;
   fx?: number | null;
@@ -14,17 +15,17 @@ interface SimulationNode extends Node {
   index?: number;
 }
 
-interface SimulationEdge extends Omit<Edge, "source" | "target"> {
+interface SimulationEdge extends Omit<GraphEdge, "source" | "target"> {
   source: string | SimulationNode;
   target: string | SimulationNode;
 }
 
 const GraphCanvas: FC = () => {
-  const [selectedNode, setSelectedNode] = useState<Node | null>(null);
-  const [hoveredNode, setHoveredNode] = useState<Node | null>(null);
+  const [, setSelectedNode] = useState<SimulationNode | null>(null);
+  const [hoveredNode, setHoveredNode] = useState<SimulationNode | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState<{ x: number; y: number } | null>(null);
 
-  const { state: graphData } = useGraphyEditorContext();
+  const { state: graphData } = useGraphyEditorContext() as { state: GraphData };
   const { theme } = useTheme();
 
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -34,11 +35,11 @@ const GraphCanvas: FC = () => {
     if (!graphData || !svgRef.current || !containerRef.current) return;
 
     const svg = d3.select(svgRef.current);
-    svg.selectAll("*").remove(); // clear previous content
+    svg.selectAll("*").remove();
 
     const container = svg.append("g");
-    const width = containerRef.current.clientWidth || 800;
-    const height = containerRef.current.clientHeight || 600;
+    const width = containerRef.current.clientWidth;
+    const height = containerRef.current.clientHeight;
 
     svg
       .attr("viewBox", `0 0 ${width} ${height}`)
@@ -52,15 +53,21 @@ const GraphCanvas: FC = () => {
         })
     );
 
-    const nodes: SimulationNode[] = graphData.nodes.map((n: Node) => ({ ...n }));
-    const edges: SimulationEdge[] = graphData.edges.map((e: Edge) => ({ ...e }));
+    const nodes: SimulationNode[] = graphData.nodes.map(n => ({ ...n }));
+    const edges: SimulationEdge[] = graphData.edges.map(e => ({ ...e }));
 
-    const simulation = d3.forceSimulation(nodes)
-      .force("link", d3.forceLink(edges).id(d => d.id).distance(120))
+    const simulation = d3.forceSimulation<SimulationNode>(nodes)
+      .force(
+        "link",
+        d3.forceLink<SimulationNode, SimulationEdge>(edges)
+          .id(d => d.id)
+          .distance(120)
+      )
       .force("charge", d3.forceManyBody().strength(-300))
       .force("center", d3.forceCenter(width / 2, height / 2))
       .force("collide", d3.forceCollide().radius(50));
 
+    // arrow marker
     svg.append("defs").append("marker")
       .attr("id", "arrow")
       .attr("viewBox", "0 -5 10 10")
@@ -73,41 +80,43 @@ const GraphCanvas: FC = () => {
       .attr("fill", theme === "dark" ? "#ccc" : "#999")
       .attr("d", "M0,-5L10,0L0,5");
 
-    const edgeGroup = container
-      .selectAll(".edge")
+    // edges
+    const edgeGroup = container.selectAll(".edge")
       .data(edges)
       .enter()
       .append("g")
       .attr("class", "edge");
 
-    const links = edgeGroup
-      .append("path")
+    const links = edgeGroup.append("path")
       .attr("stroke", d => d.style?.color || (theme === "dark" ? "#aaa" : "#999"))
       .attr("stroke-width", 2)
-      .attr("stroke-dasharray", d => d.style?.lineType === "dashed" ? "6,4" : d.style?.lineType === "dotted" ? "2,4" : "0")
-      .attr("marker-end", d =>
-        d.direction === "->"
-          ? "url(#arrow)"
-          : null)
-      .attr("fill", "none");
+      .attr("stroke-dasharray", d => {
+        return d.style?.lineType === "dashed"
+          ? "6,4"
+          : d.style?.lineType === "dotted"
+            ? "2,4"
+            : "0";
+      })
+      .attr("marker-end", d => (d.direction === "->" ? "url(#arrow)" : null))
+      .attr("fill", "none")
 
-    const edgeLabel = edgeGroup
-      .append("g") // wrap rect + text in a group
+
+    // edge labels with background
+    const edgeLabel = edgeGroup.append("g")
       .each(function (d) {
         const g = d3.select(this);
+        const textValue = d.label
+          ? d.label.charAt(0).toUpperCase() + d.label.slice(1)
+          : "";
 
-        const label = d.label ? d.label.charAt(0).toUpperCase() + d.label.slice(1) : "";
-
-        const text = g
-          .append("text")
+        const text = g.append("text")
           .attr("dy", -5)
           .attr("text-anchor", "middle")
           .attr("fill", theme === "dark" ? "#ddd" : "#666")
           .attr("font-size", "10px")
-          .text(label);
+          .text(textValue);
 
-        const bbox = text.node().getBBox();
-
+        const bbox = text.node()!.getBBox();
         g.insert("rect", "text")
           .attr("x", bbox.x - 2)
           .attr("y", bbox.y - 1)
@@ -117,45 +126,40 @@ const GraphCanvas: FC = () => {
           .attr("rx", 2);
       });
 
-    const nodeGroup = container
-      .selectAll(".node")
+    // nodes
+    const nodeGroup = container.selectAll(".node")
       .data(nodes)
       .enter()
       .append("g")
       .attr("class", "node")
-      .call(d3.drag<SVGGElement, SimulationNode>()
-        .on("start", (event, d) => {
-          if (!event.active) simulation.alphaTarget(0.3).restart();
-          d.fx = d.x;
-          d.fy = d.y;
-        })
-        .on("drag", (event, d) => {
-          d.fx = event.x;
-          d.fy = event.y;
-        })
-        .on("end", (event, d) => {
-          if (!event.active) simulation.alphaTarget(0);
-          d.fx = null;
-          d.fy = null;
-        }))
-      .on("mouseover", function (_, d) {
+      .call(
+        d3.drag<SVGGElement, SimulationNode>()
+          .on("start", (event, d) => {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+          })
+          .on("drag", (event, d) => {
+            d.fx = event.x;
+            d.fy = event.y;
+          })
+          .on("end", (event, d) => {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+          })
+      )
+      .on("mouseover", (_, d) => {
         if (!svgRef.current || !containerRef.current) return;
-
         const pt = svgRef.current.createSVGPoint();
         pt.x = d.x!;
         pt.y = d.y!;
-
         const screenCTM = (svgRef.current.querySelector("g") as SVGGElement).getScreenCTM();
         if (!screenCTM) return;
-
         const transformed = pt.matrixTransform(screenCTM);
-        const containerRect = containerRef.current.getBoundingClientRect();
-
+        // const rect = containerRef.current.getBoundingClientRect();
         setHoveredNode(d);
-        setTooltipPosition({
-          x: transformed.x + 20,
-          y: transformed.y - containerRect.top - 40
-        });
+        setTooltipPosition({ x: transformed.x + 20, y: transformed.y - 40 });
       })
       .on("mouseout", () => {
         setHoveredNode(null);
@@ -166,30 +170,28 @@ const GraphCanvas: FC = () => {
         setSelectedNode(d);
       });
 
-    // Node shape rendering
+    // draw node shapes
     nodeGroup.each(function (d) {
-      const shape = d.style?.shape ?? "circle";
-      const node = d3.select(this);
-
-      if (shape === "rectangle") {
-        node.append("rect")
-          .attr("x", -15)
-          .attr("y", -15)
-          .attr("width", 30)
-          .attr("height", 30)
-          .attr("fill", d.style?.color || "#999");
-      } else if (shape === "diamond") {
-        node.append("path")
-          .attr("d", d3.symbol().type(d3.symbolDiamond).size(400))
-          .attr("fill", d.style?.color || "#999");
-      } else {
-        node.append("circle")
-          .attr("r", 15)
-          .attr("fill", d.style?.color || "#999");
+      const sel = d3.select(this);
+      const color = d.style?.color || "#999";
+      switch (d.style?.shape) {
+        case "rectangle":
+          sel.append("rect")
+            .attr("x", -15).attr("y", -15)
+            .attr("width", 30).attr("height", 30)
+            .attr("fill", color);
+          break;
+        case "diamond":
+          sel.append("path")
+            .attr("d", d3.symbol().type(d3.symbolDiamond).size(400)()!)
+            .attr("fill", color);
+          break;
+        default:
+          sel.append("circle").attr("r", 15).attr("fill", color);
       }
     });
 
-    // Node label
+    // node labels
     nodeGroup.append("text")
       .attr("dy", 25)
       .attr("text-anchor", "middle")
@@ -197,7 +199,6 @@ const GraphCanvas: FC = () => {
       .attr("font-size", "10px")
       .text(d => d.label);
 
-    // Type label
     nodeGroup.append("text")
       .attr("dy", 35)
       .attr("text-anchor", "middle")
@@ -205,58 +206,36 @@ const GraphCanvas: FC = () => {
       .attr("font-size", "8px")
       .text(d => d.type);
 
-
+    // tick updates
     let tickCount = 0;
     simulation.on("tick", () => {
       tickCount++;
-
-      // update link paths
-      links.attr("d", (d) => {
-        const source = typeof d.source === "object" ? d.source : nodes.find(n => n.id === d.source);
-        const target = typeof d.target === "object" ? d.target : nodes.find(n => n.id === d.target);
-
-        if (!source || !target) return "";
-        return `M${source.x},${source.y}L${target.x},${target.y}`;
+      links.attr("d", d => {
+        const s = typeof d.source === "object" ? d.source : nodes.find(n => n.id === d.source)!;
+        const t = typeof d.target === "object" ? d.target : nodes.find(n => n.id === d.target)!;
+        return `M${s.x},${s.y}L${t.x},${t.y}`;
       });
-
-      // update edge labels
-      edgeLabel.attr("transform", (d) => {
-        const source = typeof d.source === "object" ? d.source : nodes.find(n => n.id === d.source);
-        const target = typeof d.target === "object" ? d.target : nodes.find(n => n.id === d.target);
-
-        if (!source || !target) return "";
-        const x = (source.x + target.x) / 2;
-        const y = (source.y + target.y) / 2;
+      edgeLabel.attr("transform", d => {
+        const s = typeof d.source === "object" ? d.source : nodes.find(n => n.id === d.source)!;
+        const t = typeof d.target === "object" ? d.target : nodes.find(n => n.id === d.target)!;
+        const x = (s.x! + t.x!) / 2;
+        const y = (s.y! + t.y!) / 2;
         return `translate(${x},${y})`;
       });
-
-      // update node positions
       nodeGroup.attr("transform", d => `translate(${d.x},${d.y})`);
 
-      // Auto fit graph after 50 ticks
-      if (tickCount === 50 && containerRef.current && svgRef.current) {
-        const bounds = containerRef.current.getBoundingClientRect();
-        const minX = Math.min(...nodes.map((n) => n.x ?? 0));
-        const maxX = Math.max(...nodes.map((n) => n.x ?? 0));
-        const minY = Math.min(...nodes.map((n) => n.y ?? 0));
-        const maxY = Math.max(...nodes.map((n) => n.y ?? 0));
-
-        const graphWidth = maxX - minX;
-        const graphHeight = maxY - minY;
-
-        const scale = 0.9 / Math.max(graphWidth / bounds.width, graphHeight / bounds.height);
-        const translate = [
-          (bounds.width - scale * (minX + maxX)) / 2,
-          (bounds.height - scale * (minY + maxY)) / 2,
-        ];
-
-        d3.select(svgRef.current)
-          .transition()
-          .duration(500)
-          .call(
-            d3.zoom<SVGSVGElement, unknown>().transform,
-            d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale)
-          );
+      if (tickCount === 50) {
+        const b = containerRef.current!.getBoundingClientRect();
+        const xs = nodes.map(n => n.x!);
+        const ys = nodes.map(n => n.y!);
+        const minX = Math.min(...xs), maxX = Math.max(...xs);
+        const minY = Math.min(...ys), maxY = Math.max(...ys);
+        const scale = 0.9 / Math.max((maxX - minX) / b.width, (maxY - minY) / b.height);
+        const tx = (b.width - scale * (minX + maxX)) / 2;
+        const ty = (b.height - scale * (minY + maxY)) / 2;
+        svg.transition().duration(500)
+          .call(d3.zoom<SVGSVGElement, unknown>().transform,
+            d3.zoomIdentity.translate(tx, ty).scale(scale));
       }
     });
 
@@ -264,34 +243,26 @@ const GraphCanvas: FC = () => {
 
     const handleResize = () => {
       if (!containerRef.current) return;
-      simulation.force("center", d3.forceCenter(
-        containerRef.current.clientWidth / 2,
-        containerRef.current.clientHeight / 2
-      ));
+      simulation.force("center",
+        d3.forceCenter(containerRef.current.clientWidth / 2, containerRef.current.clientHeight / 2)
+      );
       simulation.alpha(0.3).restart();
     };
-
     window.addEventListener("resize", handleResize);
-
     return () => {
       window.removeEventListener("resize", handleResize);
       simulation.stop();
     };
   }, [graphData, theme]);
 
-  if (!graphData) {
-    return <div className="p-4 text-center">Please upload a JSON file to view the graph.</div>;
-  }
+  if (!graphData.nodes.length) return <EmptyGraph />
 
   return (
     <main className="h-dvh">
       <div ref={containerRef} className="w-full h-full relative">
         <svg ref={svgRef} className="w-full h-full absolute top-0 left-0" />
         <GraphToolbox />
-        <NodeTooltip
-          visible={true}
-          node={hoveredNode}
-          position={tooltipPosition} />
+        <NodeTooltip visible={!!hoveredNode} node={hoveredNode} position={tooltipPosition} />
       </div>
     </main>
   );

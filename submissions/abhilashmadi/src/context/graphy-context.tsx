@@ -1,4 +1,4 @@
-import type { Graph } from "@/schema/input-json-schema";
+import type { GraphData } from "@/schema/input-json-schema";
 import {
   createContext,
   useReducer,
@@ -9,11 +9,11 @@ import {
 
 // Define action types
 type GraphAction =
-  | { type: "LOAD_DATA"; payload: Graph }
+  | { type: "LOAD_DATA"; payload: GraphData }
   | { type: "RESET_GRAPH" };
 
 // Initial state
-export const initialState: Graph = {
+export const initialState: GraphData = {
   meta: {
     title: "Design or Import Your Graph Schema",
     description:
@@ -24,7 +24,7 @@ export const initialState: Graph = {
 };
 
 // Reducer function
-const graphReducer = (state: Graph, action: GraphAction): Graph => {
+const graphReducer = (state: GraphData, action: GraphAction): GraphData => {
   switch (action.type) {
     case "LOAD_DATA":
       return action.payload;
@@ -37,7 +37,7 @@ const graphReducer = (state: Graph, action: GraphAction): Graph => {
 
 // Context type
 interface GraphEditorContextType {
-  state: Graph;
+  state: GraphData;
   dispatch: Dispatch<GraphAction>;
 }
 

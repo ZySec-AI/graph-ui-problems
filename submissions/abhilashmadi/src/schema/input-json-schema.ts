@@ -1,52 +1,52 @@
 import { z } from "zod";
 
-// Style object schema (used in both nodes and edges)
-const StyleSchema = z.object({
-  color: z.string().optional(),      // e.g., "#4CAF50", "blue"
-  shape: z.string().optional(),      // (if needed in future)
-  lineType: z.enum(["solid", "dashed", "dotted"]).optional() // used in edges
+// Common style options used in nodes and edges
+const styleSchema = z.object({
+  color: z.string().optional(),           // e.g., "#4CAF50", "blue"
+  shape: z.string().optional(),           // Reserved for future shape support
+  lineType: z.enum(["solid", "dashed", "dotted"]).optional() // Relevant for edges
 }).optional();
 
-// Node schema
-const NodeSchema = z.object({
+// Schema for individual node
+const nodeSchema = z.object({
   id: z.string({ required_error: 'Node "id" is required.' }),
   label: z.string({ required_error: 'Node "label" is required.' }),
   type: z.string({ required_error: 'Node "type" is required.' }),
   properties: z.record(z.any()).optional(),
-  style: StyleSchema,
+  style: styleSchema,
   group: z.string().optional()
 });
 
-// Edge schema
-const EdgeSchema = z.object({
+// Schema for individual edge
+const edgeSchema = z.object({
   source: z.string({ required_error: 'Edge "source" is required.' }),
   target: z.string({ required_error: 'Edge "target" is required.' }),
   label: z.string().optional(),
   direction: z.enum(["->", "<-", "<->"]).optional(),
-  style: StyleSchema
+  style: styleSchema
 });
 
-// Meta section schema
-const MetaSchema = z.object({
-  title: z.string({ required_error: 'Meta "title" is required.' }),
+// Meta information for the graph
+const metaSchema = z.object({
+  title: z.string({ required_error: 'Graph "title" is required.' }),
   description: z.string().optional()
 });
 
-// Full input schema
-export const InputJsonSchema = z.object({
-  meta: MetaSchema,
-  nodes: z.array(NodeSchema, {
+// Complete graph schema including meta, nodes, and edges
+export const graphSchema = z.object({
+  meta: metaSchema,
+  nodes: z.array(nodeSchema, {
     message:
       'The "nodes" field must be a valid array of node objects. Each node should contain a unique "id", a readable "label", a "type" (e.g., User, Document, etc.), and optional "properties", "style", and "group".'
   }).min(1, 'At least one node must be defined in the graph to visualize relationships.'),
-  edges: z.array(EdgeSchema, {
+  edges: z.array(edgeSchema, {
     message:
       'The "edges" field must be a valid array of edge objects. Each edge must include a "source" and "target" that match node IDs, and may include optional "label", "direction" (e.g., "->"), and "style" such as "lineType".'
   })
 });
 
-
-export type Meta = z.infer<typeof MetaSchema>;
-export type Node = z.infer<typeof NodeSchema>;
-export type Edge = z.infer<typeof EdgeSchema>;
-export type Graph = z.infer<typeof InputJsonSchema>;
+// Export types for inference
+export type GraphMeta = z.infer<typeof metaSchema>;
+export type GraphNode = z.infer<typeof nodeSchema>;
+export type GraphEdge = z.infer<typeof edgeSchema>;
+export type GraphData = z.infer<typeof graphSchema>;

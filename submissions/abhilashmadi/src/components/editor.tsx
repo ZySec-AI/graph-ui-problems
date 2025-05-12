@@ -1,5 +1,5 @@
 import { useTheme } from '@hooks/use-theme';
-import { InputJsonSchema } from "@schema/input-json-schema";
+import { graphSchema } from "@schema/input-json-schema";
 import { Button } from "@ui/button";
 import {
   Tooltip,
@@ -40,7 +40,7 @@ const Editor: FC = () => {
     reader.onload = () => {
       try {
         const json = JSON.parse(reader.result as string);
-        const validated = InputJsonSchema.parse(json);
+        const validated = graphSchema.parse(json);
 
         updateData(validated);
         setErrorMsg(null);

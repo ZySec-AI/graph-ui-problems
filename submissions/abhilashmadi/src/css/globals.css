@@ -30,7 +30,8 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
 
-    --font-sans: "Inter", sans-serif;
+    /* --font-sans: "Inter", sans-serif; */
+    --font-sans: "Sometype Mono", sans-serif;
     --font-mono: "Sometype Mono", monospace;
   }
 
@@ -91,5 +92,15 @@
 
   ::-webkit-scrollbar-thumb {
     @apply bg-foreground;
+  }
+}
+
+.animated-edge {
+  animation: dash-flow 1s linear infinite;
+}
+
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -10;
   }
 }

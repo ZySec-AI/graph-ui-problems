@@ -12,13 +12,14 @@ type SimulationNode = {
 };
 
 interface INodeTooltipProps {
-  node: SimulationNode;
-  position: { x: number; y: number };
+  node: SimulationNode | null;
+  position: { x: number; y: number } | null;
   visible: boolean;
 };
 
-export const NodeTooltip: React.FC<INodeTooltipProps> = ({ node, position, visible }) => {
-  if (!visible || !node) return null;
+export const NodeTooltip: React.FC<INodeTooltipProps> = (props) => {
+  const { node, position, visible } = props;
+  if (!visible || !node || !position) return null;
 
   return createPortal(<div
     className="absolute z-50 max-w-sm rounded border p-2 bg-background text-xs"
