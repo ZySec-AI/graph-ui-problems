@@ -36,7 +36,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({
     }, [nodes, onSearch]);
 
     return (
-        <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg">
+        <div className="bg-white dark:bg-gray-800 p-4 relative rounded-lg shadow-lg">
             <div className="mb-4">
                 <input
                     type="text"
@@ -47,7 +47,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({
                 />
             </div>
             {searchResults.length > 0 && (
-                <div className="max-h-60 overflow-y-auto">
+                <div className="max-h-60 absolute z-30 bg-white w-full left-0 overflow-y-auto">
                     {searchResults.map((node) => (
                         <div
                             key={node.id}
