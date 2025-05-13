@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Upload, Trash2, Zap, CheckCircle2 } from "lucide-react";
 
-const Sidebar = ({ onDataLoad }) => {
+const Sidebar = ({ onDataLoad, handleClear }) => {
   const [activeTab, setActiveTab] = useState("File Upload");
   const [rawText, setRawText] = useState("");
   const [error, setError] = useState("");
-  const [jsonLoaded, setJsonLoaded] = useState(false); // NEW STATE
+  const [jsonLoaded, setJsonLoaded] = useState(false);
+  const fileInputRef = useRef(null);
 
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
@@ -43,6 +44,10 @@ const Sidebar = ({ onDataLoad }) => {
     setRawText("");
     setError("");
     setJsonLoaded(false);
+    handleClear();
+    if (fileInputRef.current) {
+      fileInputRef.current.value = null;
+    }
   };
 
   const loadSample = () => {
@@ -188,6 +193,7 @@ const Sidebar = ({ onDataLoad }) => {
                 <input
                   type="file"
                   id="jsonFileInput"
+                  ref={fileInputRef}
                   onChange={handleFileChange}
                   className="hidden"
                 />
@@ -200,7 +206,7 @@ const Sidebar = ({ onDataLoad }) => {
 
               <div className="space-y-2">
                 <button
-                  onClick={() => rawText && handleTextSubmit()}
+                  onClick={handleTextSubmit}
                   className="w-full py-2 bg-blue-900 hover:bg-blue-950 rounded-md text-white flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Zap size={16} />

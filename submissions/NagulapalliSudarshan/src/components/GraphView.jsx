@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import cytoscape from 'cytoscape';
-import { Users, Move, Tally5 } from "lucide-react";
+import { Users, Move, Tally5, ZoomIn, ZoomOut } from "lucide-react";
 
 const GraphView = ({ data }) => {
   const cyRef = useRef(null);
+  const cyInstance = useRef(null);
   const [tooltip, setTooltip] = useState({ visible: false, content: {}, x: 0, y: 0 });
   const [isHandCursor, setIsHandCursor] = useState(false);  
   const [selectedDetails, setSelectedDetails] = useState({});
@@ -109,13 +110,13 @@ const GraphView = ({ data }) => {
             textValign: 'center',
             textHalign: 'center',
             color: '#fff',
-            fontSize: 4,
+            fontSize: 9,
             textWrap: 'wrap',
-            textMaxWidth: 40,
-            width: 30,
-            height: 30,
+            textMaxWidth: 50,
+            width: 40,
+            height: 40,
             borderWidth: 0.5,
-            borderColor: '#ccc',
+            borderColor: 'black',
             shape: 'data(shape)',
           },
         },
@@ -123,7 +124,7 @@ const GraphView = ({ data }) => {
           selector: 'edge',
           style: {
             label: ele => `  ${ele.data('label')}  `,
-            fontSize: 8,
+            fontSize: 9,
             color: '#fff',
             curveStyle: 'bezier',
             lineColor: '#888',
@@ -140,7 +141,7 @@ const GraphView = ({ data }) => {
         },
       ],
     });
-
+    cyInstance.current = cy;
     cy.on('mouseover', 'node, edge', handleMouseOver);
     cy.on('mouseout', 'node, edge', handleMouseOut);
     cy.on('click', 'node, edge', handleClick);
@@ -203,16 +204,6 @@ const GraphView = ({ data }) => {
     }
   };
   
-  const toggleFixNode = () => {
-    if (cyInstance.current) {
-      const newFixed = !nodeFixed;
-      setNodeFixed(newFixed);
-      cyInstance.current.nodes().forEach((node) => {
-        node.locked(newFixed);
-      });
-    }
-  };
-
   return (
     <div className="w-full relative">
       <div className="flex flex-wrap md:flex-nowrap items-start justify-between space-x-2 m-2 gap-y-2">
@@ -345,12 +336,23 @@ const GraphView = ({ data }) => {
         </div>
       )}
 
-      {/* Controls for Zoom and Node Fixing */}
-      {/* <div className="absolute bottom-10 right-5 bg-gray-800 p-2 rounded-lg shadow-lg">
-        <button onClick={zoomIn()} className="text-white p-2 rounded-full mr-2">+</button>
-        <button onClick={zoomOut()} className="text-white p-2 rounded-full mr-2">-</button>
-        <button onClick={toggleFixNode()} className="text-white p-2 rounded-full">Fix</button>
-      </div> */}
+      {/* Zoom Controls */}
+      <div className="absolute bottom-4 right-4 flex flex-col z-10">
+        <button
+          onClick={zoomIn}
+          className="text-white px-3 py-1 shadow hover:text-gray-400 cursor-pointer"
+        >
+          <ZoomIn size={18} />
+        </button>
+        <button
+          onClick={zoomOut}
+          className="text-white px-3 py-1 shadow hover:text-gray-400 cursor-pointer"
+        >
+          <ZoomOut size={18} />
+        </button>
+
+      </div>
+
     </div>
   );
 };

@@ -7,11 +7,15 @@ import { ChartNetwork } from "lucide-react";
 function App() {
   const [graphData, setGraphData] = useState(null);
 
+  const handleClear = () => {
+    setGraphData(null);
+  };
+
   return (
     <div className="flex flex-col h-screen overflow-hidden">
       <Navbar />
       <div className="flex flex-1 overflow-hidden bg-gray-900">
-        <Sidebar onDataLoad={setGraphData} />
+        <Sidebar onDataLoad={setGraphData} handleClear={handleClear} />
         <div className="flex-1 m-3 rounded-md bg-gradient-to-r from-gray-800 to-slate-800 overflow-hidden border">
           {graphData ? (
             <GraphView data={graphData} />
