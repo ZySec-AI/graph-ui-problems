@@ -2,13 +2,23 @@ import React, { useEffect, useRef, useState } from 'react';
 import cytoscape from 'cytoscape';
 import { Users, Move, Tally5, ZoomIn, ZoomOut, Group } from "lucide-react";
 
-const GraphView = ({ data }) => {
+const GraphView = ({ data, search }) => {
+  console.log(search)
+  const svgRef = useRef(null);
   const cyRef = useRef(null);
   const cyInstance = useRef(null);
   const [tooltip, setTooltip] = useState({ visible: false, content: {}, x: 0, y: 0 });
   const [isHandCursor, setIsHandCursor] = useState(false);  
   const [selectedDetails, setSelectedDetails] = useState({});
   const [zoomLevel, setZoomLevel] = useState(1);
+
+  const isSearchMatch = (node) => {
+    return (
+      search &&
+      (node.id.toLowerCase().includes(search.toLowerCase()) ||
+        node.label?.toLowerCase().includes(search.toLowerCase()))
+    );
+  };
 
   const formatElements = (data) => {
     const groupMap = {};
@@ -138,6 +148,13 @@ const GraphView = ({ data }) => {
             textMaxWidth: 80,
           },
         },
+        {
+          selector: '.search-highlight',
+          style: {
+            borderColor: 'yellow',
+            borderWidth: 3,
+          },
+        },
       ],
     });
     cyInstance.current = cy;
@@ -149,6 +166,29 @@ const GraphView = ({ data }) => {
       cy.destroy();
     };
   }, [data]);
+
+  useEffect(() => {
+    if (!cyInstance.current) return;
+  
+    const cy = cyInstance.current;
+  
+    // Remove previous highlights
+    cy.nodes().removeClass('search-highlight');
+  
+    // If search is empty, do not highlight or zoom
+    if (!search || search.trim() === "") return;
+  
+    const matchedNodes = cy.nodes().filter((node) =>
+      isSearchMatch(node.data())
+    );
+  
+    if (matchedNodes.length > 0) {
+      matchedNodes.addClass('search-highlight');
+      cy.center(matchedNodes[0]);
+      cy.zoom(1.2);
+      setZoomLevel(1.2);
+    }
+  }, [search]);
 
   const handleMouseOver = (e) => {
     const pos = e.renderedPosition || e.target.renderedPosition();

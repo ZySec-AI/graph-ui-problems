@@ -6,6 +6,7 @@ import { ChartNetwork } from "lucide-react";
 
 function App() {
   const [graphData, setGraphData] = useState(null);
+  const [search, setSearch] = useState("");
 
   const handleClear = () => {
     setGraphData(null);
@@ -15,10 +16,10 @@ function App() {
     <div className="flex flex-col h-screen overflow-hidden">
       <Navbar />
       <div className="flex flex-1 overflow-hidden bg-gray-900">
-        <Sidebar onDataLoad={setGraphData} handleClear={handleClear} />
+        <Sidebar onDataLoad={setGraphData} handleClear={handleClear} setSearch={setSearch} />
         <div className="flex-1 m-3 rounded-md bg-gradient-to-r from-gray-800 to-slate-800 overflow-hidden border">
           {graphData ? (
-            <GraphView data={graphData} />
+            <GraphView data={graphData} search={search} />
           ) : (
             <div className="flex flex-col justify-center items-center h-full text-center">
               <h2 className="text-3xl font-semibold text-gray-300 flex items-center gap-2">
