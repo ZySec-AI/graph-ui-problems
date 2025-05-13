@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
-import { Upload, Trash2, LogOut, CheckCircle2, FileJson2, Braces, Search, SearchX } from "lucide-react";
+import { Upload, Trash2, LogOut, CheckCircle2, FileJson2, Braces, Search, SearchX, CircleX } from "lucide-react";
+import  validateJsonStructure from "../utils/JsonValidation";
 
 const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
   const [activeTab, setActiveTab] = useState("File Upload");
@@ -15,7 +16,7 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
     setSearchInput(val);
   };
 
-  const handleFileChange = (e) => {
+  const handleFileChange = e => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -23,6 +24,15 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
     reader.onload = (event) => {
       try {
         const fileName = file.name;
+        const text = event.target.result;
+        
+        const result = validateJsonStructure(text);
+        if (!result.valid) {
+          setError(result.error);
+          setJsonLoaded(false);
+          return;
+        }
+
         setFileName(fileName);
         const json = JSON.parse(event.target.result);
         onDataLoad(json);
@@ -30,7 +40,7 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
         setError("");
         setJsonLoaded(true);
       } catch {
-        setError("❌ Invalid JSON in file.");
+        setError("Error occured while file upload :(.");
         setJsonLoaded(false);
       }
     };
@@ -39,12 +49,19 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
 
   const handleTextSubmit = () => {
     try {
+      const result = validateJsonStructure(rawText);
+      if (!result.valid) {
+        setError(result.error);
+        setJsonLoaded(false);
+        return;
+      }
+
       const json = JSON.parse(rawText);
       onDataLoad(json);
       setError("");
       setJsonLoaded(true);
     } catch {
-      setError("❌ Invalid JSON in editor.");
+      setError("Invalid JSON on submit :(.");
       setJsonLoaded(false);
     }
   };
@@ -261,7 +278,12 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
         </div>
 
         {error && (
-          <div className="mt-4 text-red-500 text-sm font-medium">{error}</div>
+          <div className="m-2 text-red-500 text-sm p-2 border border-red-500 rounded-md flex items-center gap-2">
+            <CircleX size={26} />
+            <span>
+              {error}
+            </span>
+          </div>
         )}
       </div>
       {
