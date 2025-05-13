@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Upload, Trash2, Zap, CheckCircle2, FileJson2, Braces } from "lucide-react";
+import { Upload, Trash2, LogOut, CheckCircle2, FileJson2, Braces, Search, SearchX } from "lucide-react";
 
 const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
   const [activeTab, setActiveTab] = useState("File Upload");
@@ -8,6 +8,12 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
   const [jsonLoaded, setJsonLoaded] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const fileInputRef = useRef(null);
+  const [ fileName, setFileName ] = useState("");
+
+  const handleSearchChange = e => {
+    const val = e.target.value;
+    setSearchInput(val);
+  };
 
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
@@ -16,6 +22,8 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
     const reader = new FileReader();
     reader.onload = (event) => {
       try {
+        const fileName = file.name;
+        setFileName(fileName);
         const json = JSON.parse(event.target.result);
         onDataLoad(json);
         setRawText(JSON.stringify(json, null, 2));
@@ -27,11 +35,6 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
       }
     };
     reader.readAsText(file);
-  };
-
-  const handleSearchChange = e => {
-    const val = e.target.value;
-    setSearchInput(val);
   };
 
   const handleTextSubmit = () => {
@@ -49,6 +52,7 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
   const clearInput = () => {
     setRawText("");
     setError("");
+    setFileName("");
     setJsonLoaded(false);
     handleClear();
     if (fileInputRef.current) {
@@ -109,12 +113,13 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
     setRawText(JSON.stringify(sample, null, 2));
     onDataLoad(sample);
     setError("");
+    setFileName("");
     setJsonLoaded(true);
   };
 
   return (
     <div className="w-[26rem] bg-slate-900 h-full text-white p-6 border-r border-slate-800 overflow-y-auto custom-scrollbar">
-      <div className="shadow-[7px_8px_0px_0px_#12171f] rounded">
+      <div className="shadow-[7px_8px_0px_0px_#12171f] border border-slate-800 rounded-xl">
         <h2 className="text-xl text-white mb-4 bg-gradient-to-r from-gray-800 to-slate-800 w-full border-transparent pt-4 px-2 pb-2 rounded-t-xl">Graph Input</h2>
         <div className="p-2">
 
@@ -159,7 +164,7 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
                 onClick={handleTextSubmit}
                 className="w-full py-2 bg-blue-900 hover:bg-blue-950 rounded-md text-white flex items-center justify-center gap-2 cursor-pointer hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"
               >
-                <Zap size={16} />
+                <LogOut size={16} />
                 Apply JSON
               </button>
 
@@ -174,7 +179,7 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
 
                 <button
                   onClick={clearInput}
-                  className="w-full py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-md flex items-center justify-center gap-2 cursor-pointer hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"
+                  className="w-full py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-md flex items-center justify-center gap-2 cursor-pointer hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"
                 >
                   <Trash2 size={16} />
                   Clear
@@ -191,17 +196,19 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
                 <p className="text-sm text-slate-400 mb-4">
                   Drag and drop your JSON file or
                 </p>
-                {jsonLoaded && (
-                  <div className="absolute top-2 right-2 flex items-center text-green-500 text-sm">
-                    <CheckCircle2 size={16} />
-                    <span className="ml-1">JSON Loaded</span>
-                  </div>
-                )}
+                {
+                  jsonLoaded && (
+                    <div className="absolute top-2 right-2 flex items-center text-green-500 text-sm">
+                      <CheckCircle2 size={16} />
+                      <span className="ml-1">JSON Loaded</span>
+                    </div>
+                  )
+                }
                 <input
                   type="file"
                   id="jsonFileInput"
                   ref={fileInputRef}
-                  // accept=".json"
+                  accept=".json"
                   onChange={handleFileChange}
                   className="hidden"
                 />
@@ -211,6 +218,15 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
                     Choose File
                   </span>
                 </label>
+                {fileName && (
+                  <div className="flex items-center gap-2 text-sm shadow-sm border-t border-slate-600 pt-1">
+                    <span className="text-slate-400">Selected File:</span>
+                    <div className="truncate max-w-xs flex items-center gap-1"> 
+                      {/* <FileJson size={16} /> */}
+                      <span className="text-sky-600">{fileName}</span>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -218,7 +234,7 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
                   onClick={handleTextSubmit}
                   className="w-full py-2 bg-blue-900 hover:bg-blue-950 rounded-md text-white flex items-center justify-center gap-2 cursor-pointer hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"
                 >
-                  <Zap size={16} />
+                  <LogOut size={16} />
                   Apply JSON
                 </button>
 
@@ -233,7 +249,7 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
 
                   <button
                     onClick={clearInput}
-                    className="w-full py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-md flex items-center justify-center gap-2 cursor-pointer transition hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"
+                    className="w-full py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-md flex items-center justify-center gap-2 cursor-pointer transition hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"
                   >
                     <Trash2 size={16} />
                     Clear
@@ -250,30 +266,32 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
       </div>
       {
         jsonLoaded && (
-          <div className="shadow-[7px_8px_0px_0px_#12171f] rounded">
-            <h2 className="text-lg text-white mb-4 mt-6 bg-gradient-to-r from-gray-800 to-slate-800 w-full border-transparent pt-4 px-2 pb-2 rounded-t-xl">Actions</h2>
-            <input
-              type="text"
-              placeholder="🔍 Search nodes by ID or label..."
-              className="w-full px-3 py-2 rounded bg-gray-700 text-white border border-gray-600 placeholder-gray-400"
-              value={searchInput}
-              onChange={handleSearchChange}
-            />
-            <div className="flex flex-row gap-2">
-              <button
-                onClick={() => setSearch(searchInput)}
-                className="w-full py-2 bg-blue-900 hover:bg-blue-950 rounded-md text-white flex items-center justify-center gap-2 cursor-pointer mt-2"
-              >
-                <Zap size={16} />
-                Search
-              </button>
-              <button
-                onClick={() => setSearch("")}
-                className="w-full py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-md flex items-center justify-center gap-2 cursor-pointer mt-2"
-              >
-                <Trash2 size={16} />
-                Clear Search
-              </button>
+          <div className="shadow-[7px_8px_0px_0px_#12171f] border border-slate-800 rounded-xl mt-4">
+            <h2 className="text-lg text-white mb-4 bg-gradient-to-r from-gray-800 to-slate-800 w-full border-transparent pt-4 px-2 pb-2 rounded-t-xl">Actions</h2>
+            <div className="p-2">
+              <input
+                type="text"
+                placeholder="Search nodes by ID or label..."
+                className="w-full px-3 py-2 rounded bg-gray-700 text-white border border-gray-600 placeholder-gray-400"
+                value={searchInput}
+                onChange={handleSearchChange}
+              />
+              <div className="flex flex-row gap-2">
+                <button
+                  onClick={() => setSearch(searchInput)}
+                  className="w-full py-2 bg-blue-900 hover:bg-blue-950 rounded-md text-white flex items-center justify-center gap-2 cursor-pointer mt-2 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"
+                >
+                  <Search size={16} />
+                  Search
+                </button>
+                <button
+                  onClick={() => {setSearch(""); setSearchInput("");}}
+                  className="w-full py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-md flex items-center justify-center gap-2 cursor-pointer mt-2 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"
+                >
+                  <SearchX size={16} />
+                  Clear Search
+                </button>
+              </div>
             </div>
           </div>
         )

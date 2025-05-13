@@ -24,12 +24,13 @@ function App() {
             <div className="flex flex-col justify-center items-center h-full text-center">
               <h2 className="text-3xl font-semibold text-gray-300 flex items-center gap-2">
                 <ChartNetwork size={40} className="text-blue-500" />
-                Graph Visualizer
+                Graph Crafter
               </h2>
               <span className="mt-4 text-white">
-                Upload or paste JSON to visualize the graph.
+
+                Upload or paste JSON to visualize your data. 
               </span>
-              <span className="mt-2 text-gray-400 text-3xl">
+              <span className="mt-4 text-gray-400 text-4xl">
                 ¯\_(ツ)_/¯
               </span>
             </div>

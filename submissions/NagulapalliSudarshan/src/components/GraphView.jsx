@@ -1,10 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import cytoscape from 'cytoscape';
-import { Users, Move, Tally5, ZoomIn, ZoomOut, Group } from "lucide-react";
+import { Users, Move, Tally5, ZoomIn, ZoomOut, Group, RotateCcw } from "lucide-react";
 
 const GraphView = ({ data, search }) => {
-  console.log(search)
-  const svgRef = useRef(null);
   const cyRef = useRef(null);
   const cyInstance = useRef(null);
   const [tooltip, setTooltip] = useState({ visible: false, content: {}, x: 0, y: 0 });
@@ -12,7 +10,7 @@ const GraphView = ({ data, search }) => {
   const [selectedDetails, setSelectedDetails] = useState({});
   const [zoomLevel, setZoomLevel] = useState(1);
 
-  const isSearchMatch = (node) => {
+  const isSearchMatch = node => {
     return (
       search &&
       (node.id.toLowerCase().includes(search.toLowerCase()) ||
@@ -20,7 +18,7 @@ const GraphView = ({ data, search }) => {
     );
   };
 
-  const formatElements = (data) => {
+  const formatElements = data => {
     const groupMap = {};
     let xSpacing = 150;
     let ySpacing = 100;
@@ -190,6 +188,10 @@ const GraphView = ({ data, search }) => {
     }
   }, [search]);
 
+  useEffect(() => {
+    setSelectedDetails({});
+  }, [data]);
+
   const handleMouseOver = (e) => {
     const pos = e.renderedPosition || e.target.renderedPosition();
     const rect = cyRef.current.getBoundingClientRect();
@@ -210,7 +212,7 @@ const GraphView = ({ data, search }) => {
     setIsHandCursor(false);
   };
 
-  const handleClick = (e) => {
+  const handleClick = e => {
     const tooltipData = e.target.data('tooltip');
     if (tooltipData) {
       const type = e.target.isNode() ? 'node' : 'edge';
@@ -242,6 +244,14 @@ const GraphView = ({ data, search }) => {
       setZoomLevel(newZoom);
     }
   };
+
+  const zoomReset = () => {
+    if (cyInstance.current) {
+      cyInstance.current.zoom(1);
+      cyInstance.current.center();
+      setZoomLevel(1);
+    }
+  };
   
   return (
     <div className="w-full relative">
@@ -250,14 +260,14 @@ const GraphView = ({ data, search }) => {
         {/* Title Card */}
         <div className="bg-gray-900 p-4 rounded-lg shadow-md w-full md:w-1/3 h-40 flex flex-col space-y-1">
           <div className="text-lg font-semibold text-white">
-            {data.meta?.title || 'Graph Visualizer'}
+            {data.meta?.title || 'Graph Crafter'}
           </div>
           <div className="text-md font-medium text-gray-300 overflow-y-auto">
             {data.meta?.description || 'Visualize your graph data here.'}
           </div>
         </div>
 
-        {/* Details */}
+        {/* Properties */}
         <div className="bg-gray-900 p-4 rounded-lg shadow-md w-full md:w-1/3 h-40 flex flex-col overflow-y-auto text-sm text-white">
           {Object.keys(selectedDetails).length > 0 ? (
             <div className='flex items-center gap-2 mb-2 justify-between'>
@@ -282,7 +292,7 @@ const GraphView = ({ data, search }) => {
                 )}
             </div>
           ) : (
-            <p className="text-lg font-semibold mb-2 text-white ">Details</p>
+            <p className="text-lg font-semibold mb-2 text-white">Properties</p>
           )}
           <div className="overflow-y-auto pr-1 custom-scrollbar max-h-40">
             {Object.keys(selectedDetails).length > 0 ? (
@@ -301,7 +311,7 @@ const GraphView = ({ data, search }) => {
                 </tbody>
               </table>
             ) : (
-              <p className="text-gray-400 italic">Click on a node or edge to see details here.</p>
+              <p className="text-gray-400 italic">Click on a node or edge to see it's properties here.</p>
             )}
           </div>
       </div>
@@ -366,7 +376,7 @@ const GraphView = ({ data, search }) => {
       {/* Tooltip */}
       {tooltip.visible && (
         <div
-          className="fixed bg-black text-white text-xs p-2 rounded shadow-lg z-50 max-w-xs"
+          className="fixed bg-black/75 text-white text-xs p-2 rounded shadow-lg z-50 max-w-xs"
           style={{
             top: tooltip.y,
             left: tooltip.x,
@@ -384,7 +394,7 @@ const GraphView = ({ data, search }) => {
       )}
 
       {/* Zoom Controls */}
-      <div className="absolute bottom-4 right-4 flex flex-col z-10">
+      <div className="absolute bottom-4 right-4 flex flex-col z-10 bg-black/30 py-1 rounded-lg">
         <button
           onClick={zoomIn}
           className="text-white px-3 py-1 shadow hover:text-gray-400 cursor-pointer"
@@ -396,6 +406,12 @@ const GraphView = ({ data, search }) => {
           className="text-white px-3 py-1 shadow hover:text-gray-400 cursor-pointer"
         >
           <ZoomOut size={18} />
+        </button>
+        <button
+          onClick={zoomReset}
+          className="text-white px-3 py-1 shadow hover:text-gray-400 cursor-pointer"
+        >
+          <RotateCcw size={18} />
         </button>
 
       </div>
