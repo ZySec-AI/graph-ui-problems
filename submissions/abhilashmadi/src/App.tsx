@@ -5,7 +5,6 @@ import storageKeys from "@utils/storage-keys";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@components/ui/resizable";
 import { ThemeProvider } from '@context/theme-provider';
 import { TooltipProvider } from "@ui/tooltip";
-import '@xyflow/react/dist/style.css';
 import GraphyContext from "@context/graphy-context";
 
 function App() {
