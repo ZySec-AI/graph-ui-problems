@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import cytoscape from 'cytoscape';
-import { Users, Move, Tally5, ZoomIn, ZoomOut } from "lucide-react";
+import { Users, Move, Tally5, ZoomIn, ZoomOut, Group } from "lucide-react";
 
 const GraphView = ({ data }) => {
   const cyRef = useRef(null);
@@ -9,14 +9,13 @@ const GraphView = ({ data }) => {
   const [isHandCursor, setIsHandCursor] = useState(false);  
   const [selectedDetails, setSelectedDetails] = useState({});
   const [zoomLevel, setZoomLevel] = useState(1);
-  const [nodeFixed, setNodeFixed] = useState(false);
 
   const formatElements = (data) => {
     const groupMap = {};
     let xSpacing = 150;
     let ySpacing = 100;
   
-    const nodes = data.nodes?.map((node, index) => {
+    const nodes = data.nodes?.map((node) => {
       const group = node.group || 'default';
       if (!groupMap[group]) {
         groupMap[group] = [];
@@ -207,6 +206,7 @@ const GraphView = ({ data }) => {
   return (
     <div className="w-full relative">
       <div className="flex flex-wrap md:flex-nowrap items-start justify-between space-x-2 m-2 gap-y-2">
+
         {/* Title Card */}
         <div className="bg-gray-900 p-4 rounded-lg shadow-md w-full md:w-1/3 h-40 flex flex-col space-y-1">
           <div className="text-lg font-semibold text-white">
@@ -264,7 +264,6 @@ const GraphView = ({ data }) => {
               <p className="text-gray-400 italic">Click on a node or edge to see details here.</p>
             )}
           </div>
-
       </div>
 
 
@@ -273,29 +272,37 @@ const GraphView = ({ data }) => {
           <table className="table-auto w-full text-gray-300 text-md">
             <thead>
               <tr className="border-b border-gray-700 text-left">
-                <th className="p-1">Type</th>
+                <th className="px-2 py-1">Type</th>
                 <th className="text-center">Count</th>
               </tr>
             </thead>
             <tbody>
               <tr className="hover:bg-gray-800 transition">
-                <td className="p-1 flex items-center gap-2">
+                <td className="px-2 pt-1 flex items-center gap-2">
                   <Users size={16} /> Nodes
                 </td>
-                <td className="py-1 text-center">{data.nodes?.length || 0}</td>
+                <td className="text-center">{data.nodes?.length || 0}</td>
               </tr>
               <tr className="hover:bg-gray-800 transition">
-                <td className="p-1 flex items-center gap-2">
+                <td className="px-2 pt-1 flex items-center gap-2">
                   <Move size={16} /> Edges
                 </td>
-                <td className="p-1 text-center">{data.edges?.length || 0}</td>
+                <td className="text-center">{data.edges?.length || 0}</td>
               </tr>
               <tr className="hover:bg-gray-800 transition font-semibold">
-                <td className="p-1 flex items-center gap-2">
+                <td className="px-2 pt-1 flex items-center gap-2">
                   <Tally5 size={16} /> Total
                 </td>
-                <td className="p-1 text-center">
+                <td className="text-center">
                   {(data.nodes?.length || 0) + (data.edges?.length || 0)}
+                </td>
+              </tr>
+              <tr className="hover:bg-gray-800 transition font-semibold">
+                <td className="px-2 pt-1 flex items-center gap-2">
+                  <Group size={16} /> Groups
+                </td>
+                <td className="text-center">
+                  {[...new Set(data.nodes?.map((node) => node.group || 'default'))].length}
                 </td>
               </tr>
             </tbody>
