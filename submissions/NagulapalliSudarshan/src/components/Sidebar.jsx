@@ -135,7 +135,7 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
   };
 
   return (
-    <div className="w-[26rem] bg-slate-900 h-full text-white p-6 border-r border-slate-800 overflow-y-auto custom-scrollbar">
+    <div className="w-[20rem] sm:w-[25rem] md:w-[25rem] lg:w-[25rem] bg-slate-900 h-full text-white p-6 border-r border-slate-800 overflow-y-auto custom-scrollbar">
       <div className="shadow-[7px_8px_0px_0px_#12171f] border border-slate-800 rounded-xl">
         <h2 className="text-xl text-white mb-4 bg-gradient-to-r from-gray-800 to-slate-800 w-full border-transparent pt-4 px-2 pb-2 rounded-t-xl">Graph Input</h2>
         <div className="p-2">
@@ -146,7 +146,7 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`flex-1 text-sm font-medium px-3 py-2 rounded-t-md transition-all ${
+                className={`w-1/2 text-sm font-medium px-3 py-2 rounded-t-md transition-all ${
                   activeTab === tab
                     ? "bg-blue-950 text-white borde border-b-0 shadow-inner cursor-pointer hover:bg-slate-700"
                     : "bg-slate-900 text-slate-400 cursor-pointer hover:bg-slate-700 hover:text-slate-200"
@@ -159,7 +159,7 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
 
           {/* JSON Editor Tab */}
           {activeTab === "JSON Data" && (
-            <div className="space-y-2">
+            <div className="space-y-2 w-full">
               {jsonLoaded && (
                 <div className="text-green-500 flex items-center justify-end gap-1 text-sm">
                   <CheckCircle2 size={16} />
@@ -185,13 +185,13 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
                 Apply JSON
               </button>
 
-              <div className="flex gap-2">
+              <div className="flex gap-2 flex-wrap sm:flex-nowrap">
                 <button
                   onClick={loadSample}
                   className="w-full py-2 bg-green-600 hover:bg-green-700 rounded-md text-white font-medium cursor-pointer hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform flex items-center justify-center gap-2"
                 >
                   <Braces size={16} />
-                  Load Sample Data
+                  Sample data
                 </button>
 
                 <button
@@ -207,7 +207,7 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
 
           {/* File Upload Tab */}
           {activeTab === "File Upload" && (
-            <div className="space-y-6 relative">
+            <div className="space-y-6 relative  w-full">
               <div className={`relative h-60 border-2 border-dashed ${jsonLoaded ? "border-green-500" : "border-slate-600"} rounded-lg p-6 text-center flex flex-col items-center justify-center gap-2`}>
                 <Upload className={`text-${jsonLoaded ? "green" : "slate"}-400`} size={36} />
                 <p className="text-sm text-slate-400 mb-4">
@@ -255,13 +255,13 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
                   Apply JSON
                 </button>
 
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-wrap sm:flex-nowrap">
                   <button
                     onClick={loadSample}
                     className="w-full py-2 bg-green-600 hover:bg-green-700 text-white rounded-md font-medium cursor-pointer flex items-center justify-center gap-2 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"
                   >
                     <Braces size={16} />
-                    Load Sample Data
+                    Sample data
                   </button>
 
                   <button
@@ -298,17 +298,17 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
                 value={searchInput}
                 onChange={handleSearchChange}
               />
-              <div className="flex flex-row gap-2">
+              <div className="flex flex-row gap-2 flex-wrap sm:flex-nowrap mt-2">
                 <button
                   onClick={() => setSearch(searchInput)}
-                  className="w-full py-2 bg-blue-900 hover:bg-blue-950 rounded-md text-white flex items-center justify-center gap-2 cursor-pointer mt-2 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"
+                  className="w-full py-2 bg-blue-900 hover:bg-blue-950 rounded-md text-white flex items-center justify-center gap-2 cursor-pointer hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"
                 >
                   <Search size={16} />
                   Search
                 </button>
                 <button
                   onClick={() => {setSearch(""); setSearchInput("");}}
-                  className="w-full py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-md flex items-center justify-center gap-2 cursor-pointer mt-2 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"
+                  className="w-full py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-md flex items-center justify-center gap-2 cursor-pointer hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"
                 >
                   <SearchX size={16} />
                   Clear Search
@@ -319,7 +319,6 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
         )
 
       }
-
 
       <div className="mt-4 text-xs text-slate-400 border-t border-slate-800 pt-2 text-center">
         <p>

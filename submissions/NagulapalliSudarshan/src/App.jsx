@@ -7,6 +7,7 @@ import { ChartNetwork } from "lucide-react";
 function App() {
   const [graphData, setGraphData] = useState(null);
   const [search, setSearch] = useState("");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); 
 
   const handleClear = () => {
     setGraphData(null);
@@ -14,10 +15,35 @@ function App() {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
-      <Navbar />
-      <div className="flex flex-1 overflow-hidden bg-gray-900">
-        <Sidebar onDataLoad={setGraphData} handleClear={handleClear} setSearch={setSearch} />
-        <div className="flex-1 m-3 rounded-md bg-gradient-to-r from-gray-800 to-slate-800 overflow-hidden border">
+      <Navbar
+        toggleSidebar={() => setIsSidebarOpen((prev) => !prev)}
+        isSidebarOpen={isSidebarOpen}
+      />
+
+      <div className="flex flex-1 bg-gray-900 overflow-hidden min-h-0 relative">
+        {/* Sidebar */}
+        <div
+          className={`z-20 transition-transform duration-300 fixed lg:static h-full ${
+            isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } lg:translate-x-0 overflow-y-auto custom-scrollbar`}
+        >
+          <Sidebar
+            onDataLoad={setGraphData}
+            handleClear={handleClear}
+            setSearch={setSearch}
+          />
+        </div>
+
+        {/* Overlay when sidebar is open on lg and smaller */}
+        {isSidebarOpen && (
+          <div
+            className="fixed inset-0 bg-black opacity-50 z-10 lg:hidden"
+            onClick={() => setIsSidebarOpen(false)}
+          />
+        )}
+
+        {/* Main Content */}
+        <div className="flex-1 m-3 rounded-md bg-gradient-to-r from-gray-800 to-slate-800 border overflow-auto min-h-0">
           {graphData ? (
             <GraphView data={graphData} search={search} />
           ) : (
@@ -27,8 +53,7 @@ function App() {
                 Graph Crafter
               </h2>
               <span className="mt-4 text-white">
-
-                Upload or paste JSON to visualize your data. 
+                Upload or paste JSON to visualize your data.
               </span>
               <span className="mt-4 text-gray-400 text-4xl">
                 ¯\_(ツ)_/¯
