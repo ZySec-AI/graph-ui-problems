@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import cytoscape from 'cytoscape';
-import { Users, Move, Tally5, ZoomIn, ZoomOut, Group, RotateCcw } from "lucide-react";
+import Properties from './ui/Graph/Properties';
+import SummaryTable from './ui/Graph/SummaryTable';
+import TitleCard from './ui/Graph/TitleCard';
+import Controls from './ui/Graph/Controls';
 
 const GraphView = ({ data, search }) => {
   const cyRef = useRef(null);
@@ -227,137 +230,12 @@ const GraphView = ({ data, search }) => {
     }
   };
 
-  const zoomIn = () => {
-    if (cyInstance.current) {
-      const newZoom = zoomLevel + 0.1;
-      cyInstance.current.zoom(newZoom);
-      cyInstance.current.center();
-      setZoomLevel(newZoom);
-    }
-  };
-  
-  const zoomOut = () => {
-    if (cyInstance.current) {
-      const newZoom = zoomLevel - 0.1;
-      cyInstance.current.zoom(newZoom);
-      cyInstance.current.center();
-      setZoomLevel(newZoom);
-    }
-  };
-
-  const zoomReset = () => {
-    if (cyInstance.current) {
-      cyInstance.current.zoom(1);
-      cyInstance.current.center();
-      setZoomLevel(1);
-    }
-  };
-  
   return (
     <div className="w-full relative">
       <div className="flex flex-wrap md:flex-nowrap items-start justify-between space-x-2 m-2 gap-y-2">
-
-        {/* Title Card */}
-        <div className="bg-gray-900 p-4 rounded-lg shadow-md w-full md:w-1/3 h-40 flex flex-col space-y-1">
-          <div className="text-lg font-semibold text-white">
-            {data.meta?.title || 'Graph Crafter'}
-          </div>
-          <div className="text-md font-medium text-gray-300 overflow-y-auto">
-            {data.meta?.description || 'Visualize your graph data here.'}
-          </div>
-        </div>
-
-        {/* Properties */}
-        <div className="bg-gray-900 p-4 rounded-lg shadow-md w-full md:w-1/3 h-40 flex flex-col overflow-y-auto text-sm text-white">
-          {Object.keys(selectedDetails).length > 0 ? (
-            <div className='flex items-center gap-2 mb-2 justify-between'>
-              <div className='flex items-center gap-2'>
-                {selectedDetails.type === 'node' && selectedDetails.color && (
-                  <div
-                    className='rounded-full w-3 h-3 border'
-                    style={{ backgroundColor: selectedDetails.color }}
-                  />
-                )}
-                <p className="text-lg font-semibold text-white  ">{selectedDetails.label}</p>
-              </div>
-              {selectedDetails.type=='node' ?
-                (
-                  <span className={`px-2 py-0.5 text-xs rounded-full font-semibold`} style={{ backgroundColor: selectedDetails.color }}>
-                    {selectedDetails.group?.toUpperCase()}
-                  </span>
-                ) : (
-                  <span className={`px-2 py-0.5 text-xs rounded-full font-semibold`} style={{ backgroundColor: selectedDetails.color }}>
-                    {selectedDetails.type?.toUpperCase()}
-                  </span>
-                )}
-            </div>
-          ) : (
-            <p className="text-lg font-semibold mb-2 text-white">Properties</p>
-          )}
-          <div className="overflow-y-auto pr-1 custom-scrollbar max-h-40">
-            {Object.keys(selectedDetails).length > 0 ? (
-              <table className="table-auto w-full text-sm text-left">
-                <tbody>
-                  {Object.entries(selectedDetails).map(([key, value]) =>
-                    key !== 'label' && key !== 'type' && key !== 'color' && key !='group' && key != 'id' ? (
-                      <tr key={key} className="border-b border-gray-700 last:border-0">
-                        <td className="py-1 pr-2 text-gray-300 font-medium capitalize">{key}</td>
-                        <td className="py-1 text-gray-100 max-w-[60%] truncate" title={String(value)}>
-                          {String(value)}
-                        </td>
-                      </tr>
-                    ) : null
-                  )}
-                </tbody>
-              </table>
-            ) : (
-              <p className="text-gray-400 italic">Click on a node or edge to see it's properties here.</p>
-            )}
-          </div>
-      </div>
-
-
-        {/* Stats Table */}
-        <div className="bg-gray-900 p-2 rounded-md w-full md:w-1/3 shadow h-40">
-          <table className="table-auto w-full text-gray-300 text-md">
-            <thead>
-              <tr className="border-b border-gray-700 text-left">
-                <th className="px-2 py-1">Type</th>
-                <th className="text-center">Count</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="hover:bg-gray-800 transition">
-                <td className="px-2 pt-1 flex items-center gap-2">
-                  <Users size={16} /> Nodes
-                </td>
-                <td className="text-center">{data.nodes?.length || 0}</td>
-              </tr>
-              <tr className="hover:bg-gray-800 transition">
-                <td className="px-2 pt-1 flex items-center gap-2">
-                  <Move size={16} /> Edges
-                </td>
-                <td className="text-center">{data.edges?.length || 0}</td>
-              </tr>
-              <tr className="hover:bg-gray-800 transition font-semibold">
-                <td className="px-2 pt-1 flex items-center gap-2">
-                  <Tally5 size={16} /> Total
-                </td>
-                <td className="text-center">
-                  {(data.nodes?.length || 0) + (data.edges?.length || 0)}
-                </td>
-              </tr>
-              <tr className="hover:bg-gray-800 transition font-semibold">
-                <td className="px-2 pt-1 flex items-center gap-2">
-                  <Group size={16} /> Groups
-                </td>
-                <td className="text-center">
-                  {[...new Set(data.nodes?.map((node) => node.group || 'default'))].length}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <TitleCard data={data} />
+        <Properties selectedDetails={selectedDetails} />
+        <SummaryTable data={data} />
       </div>
 
       {/* Graph Canvas */}
@@ -392,30 +270,7 @@ const GraphView = ({ data, search }) => {
           </pre>
         </div>
       )}
-
-      {/* Zoom Controls */}
-      <div className="absolute bottom-4 right-4 flex flex-col z-10 bg-black/30 py-1 rounded-lg">
-        <button
-          onClick={zoomIn}
-          className="text-white px-3 py-1 shadow hover:text-gray-400 cursor-pointer"
-        >
-          <ZoomIn size={18} />
-        </button>
-        <button
-          onClick={zoomOut}
-          className="text-white px-3 py-1 shadow hover:text-gray-400 cursor-pointer"
-        >
-          <ZoomOut size={18} />
-        </button>
-        <button
-          onClick={zoomReset}
-          className="text-white px-3 py-1 shadow hover:text-gray-400 cursor-pointer"
-        >
-          <RotateCcw size={18} />
-        </button>
-
-      </div>
-
+      <Controls cyInstance={cyInstance} zoomLevel={zoomLevel} setZoomLevel={setZoomLevel} />
     </div>
   );
 };
