@@ -11,6 +11,7 @@ import { type FC, useRef, useState } from "react";
 import ReactJson, { type InteractionProps } from "react-json-view";
 import { z } from "zod";
 import useGraphyEditorContext from "@/hooks/use-graphy-store";
+import SavedGraphsDialog from "./saved-graphs-dialog";
 
 
 const Editor: FC = () => {
@@ -23,7 +24,7 @@ const Editor: FC = () => {
   const handleLoadSampleData = async (): Promise<void> => {
     try {
       setErrorMsg(null);
-      const module = await import("@/resources/sample.json");
+      const module = await import("@/resources/sample-1.json");
       updateData(module.default as GraphData);
     } catch (error) {
       console.error("Error loading JSON:", error);
@@ -144,6 +145,7 @@ const Editor: FC = () => {
           </TooltipTrigger>
           <TooltipContent>Load Sample Data</TooltipContent>
         </Tooltip>
+        <SavedGraphsDialog />
         <Tooltip>
           <TooltipTrigger asChild>
             <Button size="icon" onClick={handleClearInput} variant="destructive">

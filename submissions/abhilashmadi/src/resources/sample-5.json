@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "title": "Corporate Compliance Overview",
+    "description": "A compliance graph showing policies, departments, violations, and audits."
+  },
+  "nodes": [
+    {
+      "id": "policy_anti_bribery",
+      "label": "Anti-Bribery Policy",
+      "type": "Policy",
+      "properties": {
+        "reviewed": "2025-01-10"
+      },
+      "style": {
+        "color": "#F44336",
+        "shape": "hexagon"
+      },
+      "group": "Policies"
+    },
+    {
+      "id": "dept_sales",
+      "label": "Sales Department",
+      "type": "Department",
+      "properties": {
+        "manager": "Carla Ruiz"
+      },
+      "style": {
+        "color": "#4CAF50",
+        "shape": "rectangle"
+      },
+      "group": "Departments"
+    },
+    {
+      "id": "audit_2024",
+      "label": "Q1 2024 Audit",
+      "type": "Audit",
+      "properties": {
+        "status": "completed"
+      },
+      "style": {
+        "color": "#9E9E9E",
+        "shape": "circle"
+      },
+      "group": "Audits"
+    },
+    {
+      "id": "violation_1",
+      "label": "Gift Violation",
+      "type": "Violation",
+      "properties": {
+        "severity": "medium",
+        "reported": "2024-03-12"
+      },
+      "style": {
+        "color": "#FF5722",
+        "shape": "triangle"
+      },
+      "group": "Violations"
+    }
+  ],
+  "edges": [
+    {
+      "source": "policy_anti_bribery",
+      "target": "dept_sales",
+      "label": "applies_to",
+      "direction": "->",
+      "style": {
+        "color": "#F44336"
+      }
+    },
+    {
+      "source": "dept_sales",
+      "target": "violation_1",
+      "label": "has_violation",
+      "direction": "->",
+      "style": {
+        "color": "#FF5722"
+      }
+    },
+    {
+      "source": "audit_2024",
+      "target": "violation_1",
+      "label": "reviewed",
+      "direction": "->",
+      "style": {
+        "color": "#9E9E9E"
+      }
+    }
+  ]
+}

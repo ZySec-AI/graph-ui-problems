@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "title": "University Academic Structure",
+    "description": "Represents faculty, departments, courses, and students in a university."
+  },
+  "nodes": [
+    {
+      "id": "faculty_sci",
+      "label": "Faculty of Science",
+      "type": "Faculty",
+      "properties": {
+        "dean": "Dr. Stone",
+        "founded": "1980"
+      },
+      "style": {
+        "color": "#4CAF50",
+        "shape": "hexagon"
+      },
+      "group": "Faculties"
+    },
+    {
+      "id": "dept_cs",
+      "label": "Computer Science Dept",
+      "type": "Department",
+      "properties": {
+        "head": "Prof. Alice",
+        "students": 1200
+      },
+      "style": {
+        "color": "#2196F3",
+        "shape": "rectangle"
+      },
+      "group": "Departments"
+    },
+    {
+      "id": "course_algos",
+      "label": "Algorithms",
+      "type": "Course",
+      "properties": {
+        "credits": 4,
+        "semester": "Fall"
+      },
+      "style": {
+        "color": "#FFC107",
+        "shape": "diamond"
+      },
+      "group": "Courses"
+    },
+    {
+      "id": "student_1",
+      "label": "Jane Doe",
+      "type": "Student",
+      "properties": {
+        "major": "CS",
+        "year": "3"
+      },
+      "style": {
+        "color": "#00BCD4",
+        "shape": "circle"
+      },
+      "group": "Students"
+    }
+  ],
+  "edges": [
+    {
+      "source": "faculty_sci",
+      "target": "dept_cs",
+      "label": "contains",
+      "direction": "->",
+      "style": {
+        "color": "#888"
+      }
+    },
+    {
+      "source": "dept_cs",
+      "target": "course_algos",
+      "label": "offers",
+      "direction": "->",
+      "style": {
+        "color": "#555"
+      }
+    },
+    {
+      "source": "student_1",
+      "target": "course_algos",
+      "label": "enrolled_in",
+      "direction": "->",
+      "style": {
+        "color": "#00BCD4"
+      }
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "meta": {
+    "title": "Cybersecurity Incident Map",
+    "description": "Graph representing a network of users, systems, vulnerabilities, and attack incidents in an enterprise security setup."
+  },
+  "nodes": [
+    {
+      "id": "user_1",
+      "label": "Eve",
+      "type": "User",
+      "properties": {
+        "email": "eve@corp.com",
+        "role": "Security Analyst"
+      },
+      "style": {
+        "color": "#4CAF50",
+        "shape": "circle"
+      },
+      "group": "Users"
+    },
+    {
+      "id": "user_2",
+      "label": "Mallory",
+      "type": "User",
+      "properties": {
+        "email": "mallory@corp.com",
+        "role": "Administrator"
+      },
+      "style": {
+        "color": "#4CAF50",
+        "shape": "circle"
+      },
+      "group": "Users"
+    },
+    {
+      "id": "sys_1",
+      "label": "Finance Server",
+      "type": "System",
+      "properties": {
+        "ip": "10.0.1.23",
+        "status": "compromised"
+      },
+      "style": {
+        "color": "#FF5722",
+        "shape": "rectangle"
+      },
+      "group": "Systems"
+    },
+    {
+      "id": "vuln_1",
+      "label": "Log4Shell",
+      "type": "Vulnerability",
+      "properties": {
+        "cve": "CVE-2021-44228",
+        "severity": "Critical"
+      },
+      "style": {
+        "color": "#E91E63",
+        "shape": "diamond"
+      },
+      "group": "Vulnerabilities"
+    },
+    {
+      "id": "incident_1",
+      "label": "Intrusion Detected",
+      "type": "Incident",
+      "properties": {
+        "timestamp": "2025-01-10T02:30:00Z",
+        "description": "Unauthorized access attempt detected on finance server."
+      },
+      "style": {
+        "color": "#9C27B0",
+        "shape": "hexagon"
+      },
+      "group": "Incidents"
+    }
+  ],
+  "edges": [
+    {
+      "source": "user_1",
+      "target": "incident_1",
+      "label": "investigated",
+      "direction": "->",
+      "style": {
+        "color": "#555"
+      }
+    },
+    {
+      "source": "sys_1",
+      "target": "vuln_1",
+      "label": "exploited_by",
+      "direction": "->",
+      "style": {
+        "color": "#E91E63"
+      }
+    },
+    {
+      "source": "incident_1",
+      "target": "sys_1",
+      "label": "targeted",
+      "direction": "->",
+      "style": {
+        "color": "#9C27B0"
+      }
+    },
+    {
+      "source": "user_2",
+      "target": "sys_1",
+      "label": "administers",
+      "direction": "->",
+      "style": {
+        "color": "#2196F3"
+      }
+    }
+  ]
+}

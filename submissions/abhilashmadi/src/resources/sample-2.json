@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Sample Knowledge Graph",
-    "description": "A sample knowledge graph containing users, documents, policies, and infrastructure components."
+    "title": "Enterprise Resource Interaction Graph",
+    "description": "This knowledge graph illustrates relationships between team members, documents, policies, infrastructure elements, and tools within an enterprise environment. It visualizes who authored or reviewed documents, which policies apply to whom, what infrastructure is managed by whom, and the tools in use, offering a holistic view of organizational interactions and dependencies."
   },
   "nodes": [
     {

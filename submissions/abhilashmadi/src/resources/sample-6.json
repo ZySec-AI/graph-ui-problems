@@ -1,0 +1,206 @@
+{
+  "meta": {
+    "title": "Enterprise Knowledge Graph",
+    "description": "A comprehensive knowledge graph representing an enterprise's organizational structure, projects, technologies, and collaborations."
+  },
+  "nodes": [
+    {
+      "id": "emp_1",
+      "label": "Alice Johnson",
+      "type": "Employee",
+      "properties": {
+        "email": "alice.johnson@enterprise.com",
+        "role": "Data Scientist",
+        "department": "Analytics"
+      },
+      "style": {
+        "color": "#1f77b4",
+        "shape": "circle"
+      },
+      "group": "Employees"
+    },
+    {
+      "id": "emp_2",
+      "label": "Bob Smith",
+      "type": "Employee",
+      "properties": {
+        "email": "bob.smith@enterprise.com",
+        "role": "Project Manager",
+        "department": "Operations"
+      },
+      "style": {
+        "color": "#1f77b4",
+        "shape": "circle"
+      },
+      "group": "Employees"
+    },
+    {
+      "id": "proj_1",
+      "label": "AI Development",
+      "type": "Project",
+      "properties": {
+        "start_date": "2023-01-15",
+        "status": "Ongoing"
+      },
+      "style": {
+        "color": "#ff7f0e",
+        "shape": "rectangle"
+      },
+      "group": "Projects"
+    },
+    {
+      "id": "tech_1",
+      "label": "TensorFlow",
+      "type": "Technology",
+      "properties": {
+        "category": "Machine Learning Framework"
+      },
+      "style": {
+        "color": "#2ca02c",
+        "shape": "hexagon"
+      },
+      "group": "Technologies"
+    },
+    {
+      "id": "dept_1",
+      "label": "Analytics",
+      "type": "Department",
+      "properties": {
+        "head": "Dr. Emily Zhang"
+      },
+      "style": {
+        "color": "#d62728",
+        "shape": "ellipse"
+      },
+      "group": "Departments"
+    },
+    {
+      "id": "dept_2",
+      "label": "Operations",
+      "type": "Department",
+      "properties": {
+        "head": "Mr. Michael Lee"
+      },
+      "style": {
+        "color": "#d62728",
+        "shape": "ellipse"
+      },
+      "group": "Departments"
+    },
+    {
+      "id": "tool_1",
+      "label": "Jira",
+      "type": "Tool",
+      "properties": {
+        "purpose": "Project Management"
+      },
+      "style": {
+        "color": "#9467bd",
+        "shape": "diamond"
+      },
+      "group": "Tools"
+    },
+    {
+      "id": "client_1",
+      "label": "GlobalCorp",
+      "type": "Client",
+      "properties": {
+        "industry": "Finance",
+        "region": "North America"
+      },
+      "style": {
+        "color": "#8c564b",
+        "shape": "parallelogram"
+      },
+      "group": "Clients"
+    },
+    {
+      "id": "policy_1",
+      "label": "Data Security Policy",
+      "type": "Policy",
+      "properties": {
+        "version": "2.1",
+        "enforced_by": "IT Department"
+      },
+      "style": {
+        "color": "#e377c2",
+        "shape": "octagon"
+      },
+      "group": "Policies"
+    }
+  ],
+  "edges": [
+    {
+      "source": "emp_1",
+      "target": "proj_1",
+      "label": "assigned_to",
+      "direction": "->",
+      "style": {
+        "color": "#17becf"
+      }
+    },
+    {
+      "source": "emp_2",
+      "target": "proj_1",
+      "label": "manages",
+      "direction": "->",
+      "style": {
+        "color": "#17becf"
+      }
+    },
+    {
+      "source": "proj_1",
+      "target": "tech_1",
+      "label": "utilizes",
+      "direction": "->",
+      "style": {
+        "color": "#bcbd22"
+      }
+    },
+    {
+      "source": "emp_1",
+      "target": "dept_1",
+      "label": "belongs_to",
+      "direction": "->",
+      "style": {
+        "color": "#7f7f7f"
+      }
+    },
+    {
+      "source": "emp_2",
+      "target": "dept_2",
+      "label": "belongs_to",
+      "direction": "->",
+      "style": {
+        "color": "#7f7f7f"
+      }
+    },
+    {
+      "source": "proj_1",
+      "target": "client_1",
+      "label": "delivers_to",
+      "direction": "->",
+      "style": {
+        "color": "#aec7e8"
+      }
+    },
+    {
+      "source": "dept_1",
+      "target": "policy_1",
+      "label": "adheres_to",
+      "direction": "->",
+      "style": {
+        "color": "#ffbb78"
+      }
+    },
+    {
+      "source": "proj_1",
+      "target": "tool_1",
+      "label": "managed_with",
+      "direction": "->",
+      "style": {
+        "color": "#c5b0d5"
+      }
+    }
+  ]
+}

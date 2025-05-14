@@ -66,6 +66,9 @@ A dynamic and visually interactive graph editor and viewer designed to model rel
 ![Graph Demo 2](./screenshots/dark-sh-1.png)
 ![Graph Demo 3](./screenshots/light-sh-2.png)
 ![Graph Demo 4](./screenshots/dark-sh-2.png)
+![Graph Demo 5](./screenshots/save-graph-sh.png)
+![Graph Demo 6](./screenshots/dark-sh-3.png)
+![Graph Demo 7](./screenshots/saved-graphs-sh.png)
 
 ---
 

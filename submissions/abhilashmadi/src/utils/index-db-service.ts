@@ -86,6 +86,18 @@ export default class IndexedDbService<T extends { id: number | string }> {
     return all.filter(doc => doc[field] === value);
   }
 
+  async getAllProjections<K extends keyof T>(fields: K[]): Promise<Pick<T, K>[]> {
+    const allDocs = await this.getAll();
+
+    return allDocs.map(doc => {
+      const projection: Partial<T> = {};
+      fields.forEach(field => {
+        projection[field] = doc[field];
+      });
+      return projection as Pick<T, K>;
+    });
+  }
+
   async getProjection<K extends keyof T>(id: string | number, fields: K[]): Promise<Pick<T, K> | undefined> {
     const doc = await this.getById(id);
     if (!doc) return undefined;
