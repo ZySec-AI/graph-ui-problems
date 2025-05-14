@@ -1,12 +1,12 @@
-import * as d3 from "d3";
-import { type FC, useEffect, useRef, useState } from "react";
-import type { GraphData, GraphEdge, GraphNode } from "@schema/input-json-schema";
 import useGraphyEditorContext from "@/hooks/use-graphy-store";
-import NodeTooltip from "@components/node-tooltip";
 import EmptyGraph from "@components/empty-graph";
 import GraphToolbox from "@components/graph-toolbox";
-import { useTheme } from "@hooks/use-theme";
 import NodeDetails from "@components/node-details";
+import NodeTooltip from "@components/node-tooltip";
+import { useTheme } from "@hooks/use-theme";
+import type { GraphData, GraphEdge, GraphNode } from "@schema/input-json-schema";
+import * as d3 from "d3";
+import { type FC, useEffect, useRef, useState } from "react";
 
 export interface SimulationNode extends GraphNode {
   x?: number;
@@ -288,6 +288,22 @@ const GraphCanvas: FC = () => {
   //     .call(d3.zoom<SVGSVGElement, unknown>().transform, d3.zoomIdentity.scale(1)); // Reset zoom to default
   // };
 
+  const downloadSVG = (): void => {
+    if (!svgRef.current) return;
+    const serializer = new XMLSerializer();
+    const source = serializer.serializeToString(svgRef.current);
+
+    const blob = new Blob([source], { type: "image/svg+xml;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${Date.now()}-graph.svg`;
+    link.click();
+
+    URL.revokeObjectURL(url);
+  };
+
   useEffect(() => {
     if (!selectedNode || !svgRef.current) return;
 
@@ -320,12 +336,10 @@ const GraphCanvas: FC = () => {
 
   if (!graphData.nodes.length) return <EmptyGraph />;
 
-  console.log(selectedNode);
-
   return (<main className="h-dvh">
     <div ref={containerRef} className="w-full h-full relative">
       <svg ref={svgRef} className="w-full h-full absolute top-0 left-0" />
-      <GraphToolbox />
+      <GraphToolbox onSaveSvgClick={downloadSVG} />
       {selectedNode && <NodeDetails details={selectedNode} />}
       <NodeTooltip visible={!!hoveredNode} node={hoveredNode} position={tooltipPosition} />
     </div>
