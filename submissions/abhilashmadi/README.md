@@ -6,6 +6,8 @@ A dynamic and visually interactive graph editor and viewer designed to model rel
 
 ## Links
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/c9f43da7-d508-4874-99fd-356770373745/deploy-status)](https://app.netlify.com/projects/graphy-by-abhilash/deploys)
+
 - **Live Demo**: [https://graphy-by-abhilash.netlify.app](https://graphy-by-abhilash.netlify.app)
 - **Source Code**: [https://github.com/AbhilashMadi/graph-ui-problems](https://github.com/AbhilashMadi/graph-ui-problems)
 

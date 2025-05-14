@@ -6,8 +6,13 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@component
 import { ThemeProvider } from '@context/theme-provider';
 import { TooltipProvider } from "@ui/tooltip";
 import GraphyContext from "@context/graphy-context";
+import { useEffect } from "react";
+import { seedInitialGraphsIfNeeded } from "./utils/index-db-service";
 
 function App() {
+
+  useEffect(() => { seedInitialGraphsIfNeeded() }, []);
+
   return (<GraphyContext>
     <ThemeProvider defaultTheme="dark" storageKey={storageKeys.APP_THEME}>
       <TooltipProvider>

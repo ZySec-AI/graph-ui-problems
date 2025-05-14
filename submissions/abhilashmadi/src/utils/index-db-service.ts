@@ -1,6 +1,7 @@
 import { ZodSchema } from 'zod';
 import StorageKeys from '@utils/storage-keys';
 import { graphDataDbDocSchema, type GraphDataDbDoc } from '@schema/graph-data-doc-schema';
+import type { GraphData } from "@/schema/input-json-schema";
 
 export default class IndexedDbService<T extends { id: number | string }> {
   private dbName: string;
@@ -117,3 +118,37 @@ export const graphStorageInstance = new IndexedDbService<GraphDataDbDoc>({
   storeName: StorageKeys.GRAPHS,
   version: 1,
 })
+
+export async function seedInitialGraphsIfNeeded(): Promise<void> {
+  const alreadySeeded = localStorage.getItem(StorageKeys.SEED_FLAG_KEY);
+  if (alreadySeeded) return;
+
+  try {
+    const graphModules = await Promise.all([
+      import('@/resources/sample-1.json'),
+      import('@/resources/sample-2.json'),
+      import('@/resources/sample-3.json'),
+      import('@/resources/sample-4.json'),
+      import('@/resources/sample-5.json'),
+      import('@/resources/sample-6.json'),
+      import('@/resources/sample-7.json'),
+      import('@/resources/sample-8.json'),
+    ]);
+
+    const graphDocs = graphModules.map(m => m.default);
+
+    let count = 1;
+    for await (const graph of graphDocs) {
+      graphStorageInstance.save({
+        id: Date.now(),
+        title: graph.meta?.title || `graph-${count}`,
+        data: graph as GraphData
+      });
+      count++;
+    }
+
+    localStorage.setItem(StorageKeys.SEED_FLAG_KEY, "true");
+  } catch (error) {
+    console.error("Failed to dynamically seed graph data:", error);
+  }
+}

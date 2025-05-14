@@ -91,7 +91,7 @@ const SavedGraphsDialog: FC = () => {
         <TooltipContent>View Saved Graphs</TooltipContent>
       </Tooltip>
 
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="max-w-3xl">
         <DialogHeader>
           <DialogTitle>Saved Graphs</DialogTitle>
           <DialogDescription>
@@ -100,7 +100,7 @@ const SavedGraphsDialog: FC = () => {
         </DialogHeader>
 
         {data.length ? (
-          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-4">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-4">
             {data?.map((o) => <GraphActionDoc
               key={o.id}
               doc={o}
