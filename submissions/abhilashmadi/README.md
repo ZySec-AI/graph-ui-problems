@@ -26,6 +26,9 @@ A dynamic and visually interactive graph editor and viewer designed to model rel
 - **Draggable** nodes
 - **Zoom & Pan** capabilities
 - **JSON editor** for live graph modification
+- **Save Graph As SVG**
+- **Seeded sample** graphs
+- **Save Graph** for later view
 - **Search & Filter** support
 - Group-based rendering
 - Clean, scalable, and readable **code structure**
@@ -71,14 +74,5 @@ A dynamic and visually interactive graph editor and viewer designed to model rel
 ![Graph Demo 5](./screenshots/save-graph-sh.png)
 ![Graph Demo 6](./screenshots/dark-sh-3.png)
 ![Graph Demo 7](./screenshots/saved-graphs-sh.png)
-
----
-
-## Future Improvements
-
-- [ ] Add minimap/overview panel
-- [ ] Add collapsible group clustering
-- [ ] Real-time collaboration support
-- [ ] Export graph as PNG/SVG
 
 ---
