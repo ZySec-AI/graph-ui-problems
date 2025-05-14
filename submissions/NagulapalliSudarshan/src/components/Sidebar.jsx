@@ -91,11 +91,9 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
         <h2 className="text-xl text-white mb-4 bg-gradient-to-r from-gray-800 to-slate-800 w-full border-transparent pt-4 px-2 pb-2 rounded-t-xl">
           Graph Input
         </h2>
-        
+
         <div className="p-2">
-          {/* Tabs */}
           <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
-          {/* JSON Editor Tab */}
           {
             activeTab === "JSON Data" && 
               <JsonInput
@@ -107,9 +105,8 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
                 loadSample={loadSample}
               />
           }
-          
-          {/* File Upload Tab */}
-          {activeTab === "File Upload" && 
+          {
+            activeTab === "File Upload" && 
             <FileInput
               jsonLoaded={jsonLoaded}
               fileInputRef={fileInputRef}
@@ -121,7 +118,6 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
             />
           }
         </div>
-
         {error && <Error error={error} />}
       </div>
 

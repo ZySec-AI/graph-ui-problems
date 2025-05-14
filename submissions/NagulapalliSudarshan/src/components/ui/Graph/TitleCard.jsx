@@ -6,7 +6,7 @@ const TitleCard = ({ data }) => {
         <div className="text-lg font-semibold text-white">
             {data.meta?.title || 'Graph Crafter'}
         </div>
-        <div className="text-md font-medium text-gray-300 overflow-y-auto">
+        <div className="text-sm text-gray-300 overflow-y-auto custom-scrollbar">
             {data.meta?.description || 'Visualize your graph data here.'}
         </div>
   </div>

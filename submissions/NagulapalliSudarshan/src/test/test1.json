@@ -272,8 +272,8 @@
       }
     ],
     "meta": {
-      "title": "Knowledge Graph - Simplified Groups",
-      "description": "Fewer groups with more nodes per group. Shows access control and workflow."
+      "title": "Knowledge Graph - Sample JSON",
+      "description": "A sample JSON representation of a knowledge graph."
     }
   }
   

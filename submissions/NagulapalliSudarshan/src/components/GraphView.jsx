@@ -152,8 +152,10 @@ const GraphView = ({ data, search }) => {
         {
           selector: '.search-highlight',
           style: {
-            borderColor: 'yellow',
-            borderWidth: 3,
+            borderColor: 'cyan',
+            borderOpacity: 0.8,
+            borderStyle: 'double',
+            borderWidth: 4,
           },
         },
       ],

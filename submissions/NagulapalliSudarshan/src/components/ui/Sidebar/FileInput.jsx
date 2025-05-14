@@ -5,7 +5,7 @@ const FileInput = ({ jsonLoaded, fileInputRef, handleFileChange, fileName, handl
   return (
         <div className="space-y-6 relative w-full">
             <div className={`relative h-60 border-2 border-dashed ${jsonLoaded ? "border-green-500" : "border-slate-600"} rounded-lg p-6 text-center flex flex-col items-center justify-center gap-2`}>
-                <Upload className={`text-${jsonLoaded ? "green" : "slate"}-400`} size={36} />
+                <Upload className={`text-${jsonLoaded ? "green" : "slate"}-400`} size={30} />
                 <p className="text-sm text-slate-400 mb-4">
                     Drag and drop your JSON file or
                 </p>
