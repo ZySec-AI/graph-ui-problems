@@ -140,7 +140,7 @@ export async function seedInitialGraphsIfNeeded(): Promise<void> {
     let count = 1;
     for await (const graph of graphDocs) {
       graphStorageInstance.save({
-        id: Date.now(),
+        id: Date.now() + count,
         title: graph.meta?.title || `graph-${count}`,
         data: graph as GraphData
       });

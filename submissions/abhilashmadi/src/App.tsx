@@ -11,7 +11,10 @@ import { seedInitialGraphsIfNeeded } from "./utils/index-db-service";
 
 function App() {
 
-  useEffect(() => { seedInitialGraphsIfNeeded() }, []);
+  useEffect(() => {
+    const seed = async () => await seedInitialGraphsIfNeeded();
+    seed();
+  }, []);
 
   return (<GraphyContext>
     <ThemeProvider defaultTheme="dark" storageKey={storageKeys.APP_THEME}>
