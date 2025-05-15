@@ -7,6 +7,7 @@ import { useTheme } from "@hooks/use-theme";
 import type { GraphData, GraphEdge, GraphNode } from "@schema/input-json-schema";
 import * as d3 from "d3";
 import { type FC, useEffect, useRef, useState } from "react";
+import GraphDetails from "./graph-details";
 
 export interface SimulationNode extends GraphNode {
   x?: number;
@@ -340,6 +341,7 @@ const GraphCanvas: FC = () => {
     <div ref={containerRef} className="w-full h-full relative">
       <svg ref={svgRef} className="w-full h-full absolute top-0 left-0" />
       <GraphToolbox onSaveSvgClick={downloadSVG} />
+      <GraphDetails />
       {selectedNode && <NodeDetails details={selectedNode} />}
       <NodeTooltip visible={!!hoveredNode} node={hoveredNode} position={tooltipPosition} />
     </div>
