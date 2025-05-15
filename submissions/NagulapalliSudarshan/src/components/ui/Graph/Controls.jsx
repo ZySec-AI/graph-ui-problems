@@ -1,6 +1,6 @@
-import { ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
+import { ZoomIn, ZoomOut, RotateCcw, Pause, Play } from 'lucide-react';
 
-const Controls = ({ cyInstance, zoomLevel, setZoomLevel }) => {
+const Controls = ({ cyInstance, zoomLevel, setZoomLevel, edgeAnimationEnabled, setEdgeAnimationEnabled }) => {
     const zoomIn = () => {
         if (cyInstance.current) {
             const newZoom = zoomLevel + 0.1;
@@ -46,6 +46,12 @@ const Controls = ({ cyInstance, zoomLevel, setZoomLevel }) => {
                 className="text-white px-3 py-1 shadow hover:text-gray-400 cursor-pointer"
             >
                 <RotateCcw size={18} />
+            </button>
+            <button
+                onClick={() => setEdgeAnimationEnabled(prev => !prev)}
+                className="text-white px-3 py-1 shadow hover:text-gray-400 cursor-pointer"
+            >
+                {edgeAnimationEnabled ? <Pause size={18} /> : <Play size={18} />}
             </button>
         </div>
     )

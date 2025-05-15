@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
-import GraphView from "./components/GraphView";
 import { ChartNetwork } from "lucide-react";
+import GraphView from "./components/GraphView";
 
 function App() {
-  const [graphData, setGraphData] = useState(null);
   const [search, setSearch] = useState("");
+  const [graphData, setGraphData] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); 
 
   const handleClear = () => {
@@ -34,7 +34,6 @@ function App() {
           />
         </div>
 
-        {/* Overlay when sidebar is open on lg and smaller */}
         {isSidebarOpen && (
           <div
             className="fixed inset-0 bg-black opacity-50 z-10 lg:hidden"
@@ -42,7 +41,6 @@ function App() {
           />
         )}
 
-        {/* Main Content */}
         <div className="flex-1 m-3 rounded-md bg-gradient-to-r from-gray-800 to-slate-800 border overflow-auto min-h-0">
           {graphData ? (
             <GraphView data={graphData} search={search} />

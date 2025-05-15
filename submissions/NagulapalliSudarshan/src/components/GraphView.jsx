@@ -8,9 +8,11 @@ import SummaryTable from './ui/Graph/SummaryTable';
 const GraphView = ({ data, search }) => {
   const cyRef = useRef(null);
   const cyInstance = useRef(null);
+  const animationRef = useRef(null);
   const [zoomLevel, setZoomLevel] = useState(1);
   const [isHandCursor, setIsHandCursor] = useState(false);  
   const [selectedDetails, setSelectedDetails] = useState({});
+  const [edgeAnimationEnabled, setEdgeAnimationEnabled] = useState(false);
   const [tooltip, setTooltip] = useState({ visible: false, content: {}, x: 0, y: 0 });
 
   const isSearchMatch = node => {
@@ -62,9 +64,9 @@ const GraphView = ({ data, search }) => {
     }) || [];
   
     const edges = data.edges?.map((edge, index) => {
-        const direction = edge.direction;
-        const isBidirectional = direction === '<->' || direction === 'two-way';
-        const isDirected = direction === '->' || direction === 'one-way' || isBidirectional;
+      const direction = edge.direction;
+      const isBidirectional = direction === '<->' || direction === 'two-way';
+      const isDirected = direction === '->' || direction === 'one-way' || isBidirectional;
   
       const tooltipData = {
         source: edge.source,
@@ -85,7 +87,6 @@ const GraphView = ({ data, search }) => {
         classes: isBidirectional ? 'bidirectional' : isDirected ? 'directed': 'undirected',
         style: {
           width: 1.5,
-          // lineColor: edge.style?.color || '#b9c2ac',
           lineColor: edge.style?.color || '#888',
           sourceArrowColor: edge.style?.color || '#888',
           targetArrowColor: edge.style?.color || '#888',
@@ -165,17 +166,51 @@ const GraphView = ({ data, search }) => {
             borderWidth: 4,
           },
         },
+        {
+          selector: '.animated-edge',
+          style: {
+            lineStyle: 'dashed',
+            lineDashPattern: [6, 3],
+            lineCap: 'butt',
+            lineColor: '#888',
+            targetArrowColor: '#888',
+            targetArrowShape: 'triangle',
+          },
+        },
       ],
     });
+
     cyInstance.current = cy;
     cy.on('mouseover', 'node, edge', handleMouseOver);
     cy.on('mouseout', 'node, edge', handleMouseOut);
     cy.on('click', 'node, edge', handleClick);
 
+    cy.edges().forEach(edge => {
+      const isBidirectional = edge.hasClass('bidirectional');
+      const lineStyle = edge.style('line-style');
+      if (!isBidirectional && lineStyle !== 'solid') {
+        edge.addClass('animated-edge');
+      }
+    });
+
+    let offset = 0;
+    const animate = () => {
+      offset = (offset - 0.5) % 1000;
+      cy.edges('.animated-edge').forEach(edge => {
+        edge.style('line-dash-offset', offset);
+      });
+      animationRef.current = requestAnimationFrame(animate);
+    };
+    if (edgeAnimationEnabled) {
+      animationRef.current = requestAnimationFrame(animate);
+    }
+
     return () => {
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
       cy.destroy();
     };
-  }, [data]);
+
+  }, [data, edgeAnimationEnabled]);
 
   useEffect(() => {
     if (!cyInstance.current) return;
@@ -272,7 +307,14 @@ const GraphView = ({ data, search }) => {
           </pre>
         </div>
       )}
-      <Controls cyInstance={cyInstance} zoomLevel={zoomLevel} setZoomLevel={setZoomLevel} />
+      
+      <Controls 
+        cyInstance={cyInstance} 
+        zoomLevel={zoomLevel} 
+        setZoomLevel={setZoomLevel} 
+        edgeAnimationEnabled={edgeAnimationEnabled} 
+        setEdgeAnimationEnabled={setEdgeAnimationEnabled}
+      />
     </div>
   );
 };
