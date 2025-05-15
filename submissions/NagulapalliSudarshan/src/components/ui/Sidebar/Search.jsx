@@ -1,4 +1,3 @@
-import React from 'react';
 import { Search, SearchX } from 'lucide-react';
 
 const SearchAction = ({ setSearch, searchInput, setSearchInput }) => {
@@ -14,6 +13,11 @@ const SearchAction = ({ setSearch, searchInput, setSearchInput }) => {
                 className="w-full px-3 py-2 rounded bg-gray-700 text-white border border-gray-600 placeholder-gray-400"
                 value={searchInput}
                 onChange={e => setSearchInput(e.target.value)}
+                onKeyDown={e => {
+                    if (e.key === 'Enter') {
+                        setSearch(searchInput);
+                    }
+                }}
             />
             <div className="flex flex-row gap-2 flex-wrap sm:flex-nowrap mt-2">
                 <button

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Upload, FileJson2, LogOut, Trash2, Braces, CheckCircle2 } from 'lucide-react'
 
 const FileInput = ({ jsonLoaded, fileInputRef, handleFileChange, fileName, handleTextSubmit, loadSample, clearInput }) => {
@@ -72,4 +71,4 @@ const FileInput = ({ jsonLoaded, fileInputRef, handleFileChange, fileName, handl
     )
 }
 
-export default FileInput
+export default FileInput;

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import Tabs from "./ui/Sidebar/Tabs";
 import Error from "./ui/Sidebar/Error";
 import sample from "../test/test1.json";

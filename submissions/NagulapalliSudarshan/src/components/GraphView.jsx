@@ -1,17 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import cytoscape from 'cytoscape';
+import Controls from './ui/Graph/Controls';
+import TitleCard from './ui/Graph/TitleCard';
 import Properties from './ui/Graph/Properties';
 import SummaryTable from './ui/Graph/SummaryTable';
-import TitleCard from './ui/Graph/TitleCard';
-import Controls from './ui/Graph/Controls';
 
 const GraphView = ({ data, search }) => {
   const cyRef = useRef(null);
   const cyInstance = useRef(null);
-  const [tooltip, setTooltip] = useState({ visible: false, content: {}, x: 0, y: 0 });
+  const [zoomLevel, setZoomLevel] = useState(1);
   const [isHandCursor, setIsHandCursor] = useState(false);  
   const [selectedDetails, setSelectedDetails] = useState({});
-  const [zoomLevel, setZoomLevel] = useState(1);
+  const [tooltip, setTooltip] = useState({ visible: false, content: {}, x: 0, y: 0 });
 
   const isSearchMatch = node => {
     return (
@@ -62,7 +62,9 @@ const GraphView = ({ data, search }) => {
     }) || [];
   
     const edges = data.edges?.map((edge, index) => {
-      const isDirected = edge.direction === '->' || edge.direction === 'one-way';
+        const direction = edge.direction;
+        const isBidirectional = direction === '<->' || direction === 'two-way';
+        const isDirected = direction === '->' || direction === 'one-way' || isBidirectional;
   
       const tooltipData = {
         source: edge.source,
@@ -80,17 +82,22 @@ const GraphView = ({ data, search }) => {
           label: edge.label,
           tooltip: tooltipData,
         },
-        classes: isDirected ? 'directed' : 'undirected',
+        classes: isBidirectional ? 'bidirectional' : isDirected ? 'directed': 'undirected',
         style: {
           width: 1.5,
-          lineColor: edge.style?.color || '#FF851B',
-          targetArrowColor: edge.style?.color || '#FF851B',
+          // lineColor: edge.style?.color || '#b9c2ac',
+          lineColor: edge.style?.color || '#888',
+          sourceArrowColor: edge.style?.color || '#888',
+          targetArrowColor: edge.style?.color || '#888',
           targetArrowShape: isDirected ? 'triangle' : 'none',
+          sourceArrowShape: isBidirectional ? 'triangle' : 'none',
           lineStyle: edge.style?.lineType === 'dashed'
-            ? 'dashed'
-            : edge.style?.lineType === 'dotted'
-            ? 'dotted'
-            : 'solid',
+                    ? 'dashed'
+                    : edge.style?.lineType === 'dotted'
+                    ? 'dotted'
+                    : edge.style?.dashed
+                    ? 'dashed'
+                    : 'solid',
         },
       };
     }) || [];
@@ -172,19 +179,12 @@ const GraphView = ({ data, search }) => {
 
   useEffect(() => {
     if (!cyInstance.current) return;
-  
     const cy = cyInstance.current;
-  
-    // Remove previous highlights
     cy.nodes().removeClass('search-highlight');
-  
-    // If search is empty, do not highlight or zoom
     if (!search || search.trim() === "") return;
-  
     const matchedNodes = cy.nodes().filter((node) =>
       isSearchMatch(node.data())
     );
-  
     if (matchedNodes.length > 0) {
       matchedNodes.addClass('search-highlight');
       cy.center(matchedNodes[0]);
@@ -197,7 +197,7 @@ const GraphView = ({ data, search }) => {
     setSelectedDetails({});
   }, [data]);
 
-  const handleMouseOver = (e) => {
+  const handleMouseOver = e => {
     const pos = e.renderedPosition || e.target.renderedPosition();
     const rect = cyRef.current.getBoundingClientRect();
     const tooltipData = e.target.data('tooltip');
@@ -256,11 +256,11 @@ const GraphView = ({ data, search }) => {
       {/* Tooltip */}
       {tooltip.visible && (
         <div
-          className="fixed bg-black/75 text-white text-xs p-2 rounded shadow-lg z-50 max-w-xs"
+          className="fixed bg-black/75 text-white text-xs p-2 rounded shadow-lg z-50 max-w-xs max-h-30 overflow-auto custom-scrollbar"
           style={{
             top: tooltip.y,
             left: tooltip.x,
-            pointerEvents: 'none',
+            pointerEvents: 'auto',
           }}
         >
           <pre className="whitespace-pre-wrap">

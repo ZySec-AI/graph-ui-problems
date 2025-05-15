@@ -254,7 +254,7 @@
         "source": "user_2",
         "target": "doc_3",
         "label": "approved",
-        "direction": "one-way",
+        "direction": "<->",
         "style": {
           "dashed": false,
           "color": "#673AB7"
@@ -264,7 +264,7 @@
         "source": "user_1",
         "target": "task_1",
         "label": "collaborates on",
-        "direction": "one-way",
+        "direction": "two-way",
         "style": {
           "dashed": true,
           "color": "#607D8B"

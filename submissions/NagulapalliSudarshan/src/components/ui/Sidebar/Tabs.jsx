@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Tabs = ({ activeTab, setActiveTab }) => {
   return (
     <div className="flex mb-2 border-b border-slate-600">

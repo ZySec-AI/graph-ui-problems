@@ -1,4 +1,3 @@
-import React from 'react'
 import { CircleX } from 'lucide-react'
 
 const Error = ({ error }) => {

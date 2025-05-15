@@ -1,4 +1,3 @@
-import React from 'react'
 import { ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 
 const Controls = ({ cyInstance, zoomLevel, setZoomLevel }) => {
@@ -27,6 +26,7 @@ const Controls = ({ cyInstance, zoomLevel, setZoomLevel }) => {
             setZoomLevel(1);
         }
     };
+    
     return (
         <div className="absolute bottom-4 right-4 flex flex-col z-10 bg-black/30 py-1 rounded-lg">
             <button

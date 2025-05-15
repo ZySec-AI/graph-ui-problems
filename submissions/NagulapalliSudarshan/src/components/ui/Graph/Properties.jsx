@@ -1,11 +1,9 @@
-import React from 'react'
-
 const Properties = ({ selectedDetails }) => {
   return (
     <div className="bg-gray-900 p-4 rounded-lg shadow-md w-full md:w-1/3 h-40 flex flex-col overflow-y-auto text-sm text-white">
         {
             Object.keys(selectedDetails).length > 0 ? (
-                <div className='flex items-center gap-2 mb-2 justify-between'>
+                <div className='flex items-center gap-2 mb-2 justify-between flex-wrap'>
                     <div className='flex items-center gap-2'>
                         {selectedDetails.type === 'node' && selectedDetails.color && (
                             <div
@@ -59,4 +57,4 @@ const Properties = ({ selectedDetails }) => {
   )
 }
 
-export default Properties
+export default Properties;

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Users, Move, Tally5, Group } from 'lucide-react'
 
 const SummaryTable = ({ data }) => {

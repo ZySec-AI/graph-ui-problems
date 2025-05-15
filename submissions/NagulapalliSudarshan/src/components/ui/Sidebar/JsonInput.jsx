@@ -1,4 +1,3 @@
-import React from 'react'
 import { LogOut, Trash2, Braces, CheckCircle2 } from 'lucide-react'
 
 const JsonInput = ({ jsonLoaded, rawText, setRawText, handleTextSubmit, clearInput, loadSample }) => {
@@ -14,7 +13,7 @@ const JsonInput = ({ jsonLoaded, rawText, setRawText, handleTextSubmit, clearInp
     <textarea
       rows={11}
       value={rawText}
-      onChange={(e) => setRawText(e.target.value)}
+      onChange={e => setRawText(e.target.value)}
       placeholder="Paste your JSON here..."
       className={`w-full text-sm px-4 py-3 text-gray-200 bg-slate-800 border ${
         jsonLoaded ? "border-green-500" : "border-slate-700"
