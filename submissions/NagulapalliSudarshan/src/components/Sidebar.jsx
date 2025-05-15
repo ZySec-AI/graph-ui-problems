@@ -4,14 +4,14 @@ import Error from "./ui/Sidebar/Error";
 import sample from "../test/test1.json";
 import JsonInput from "./ui/Sidebar/JsonInput";
 import FileInput from "./ui/Sidebar/FileInput";
-import SearchAction from "./ui/Sidebar/Search";
+import Actions from "./ui/Sidebar/Search";
 import validateJsonStructure from "../utils/JsonValidation";
 
-const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
+const Sidebar = ({ onDataLoad, handleClear, setSearch, cyInstance }) => {
   const fileInputRef = useRef(null);
   const [error, setError] = useState("");
   const [rawText, setRawText] = useState("");
-  const [ fileName, setFileName ] = useState("");
+  const [fileName, setFileName] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const [jsonLoaded, setJsonLoaded] = useState(false);
   const [activeTab, setActiveTab] = useState("File Upload");
@@ -123,10 +123,11 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch }) => {
 
       {
         jsonLoaded && 
-          <SearchAction 
+          <Actions 
             setSearch={setSearch} 
             searchInput={searchInput} 
             setSearchInput={setSearchInput} 
+            cyInstance={cyInstance}
           /> 
       }
 

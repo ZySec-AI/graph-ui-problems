@@ -5,9 +5,9 @@ import TitleCard from './ui/Graph/TitleCard';
 import Properties from './ui/Graph/Properties';
 import SummaryTable from './ui/Graph/SummaryTable';
 
-const GraphView = ({ data, search }) => {
+const GraphView = ({ data, search, cyInstance }) => {
   const cyRef = useRef(null);
-  const cyInstance = useRef(null);
+  // const cyInstance = useRef(null);
   const animationRef = useRef(null);
   const [zoomLevel, setZoomLevel] = useState(1);
   const [isHandCursor, setIsHandCursor] = useState(false);  
@@ -180,7 +180,7 @@ const GraphView = ({ data, search }) => {
       ],
     });
 
-    cyInstance.current = cy;
+    if (cyInstance) cyInstance.current = cy;
     cy.on('mouseover', 'node, edge', handleMouseOver);
     cy.on('mouseout', 'node, edge', handleMouseOut);
     cy.on('click', 'node, edge', handleClick);
@@ -307,7 +307,7 @@ const GraphView = ({ data, search }) => {
           </pre>
         </div>
       )}
-      
+
       <Controls 
         cyInstance={cyInstance} 
         zoomLevel={zoomLevel} 

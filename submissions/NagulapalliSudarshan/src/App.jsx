@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import { ChartNetwork } from "lucide-react";
 import GraphView from "./components/GraphView";
 
 function App() {
+  const cyInstanceRef = useRef(null);
   const [search, setSearch] = useState("");
   const [graphData, setGraphData] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); 
@@ -31,6 +32,7 @@ function App() {
             onDataLoad={setGraphData}
             handleClear={handleClear}
             setSearch={setSearch}
+            cyInstance={cyInstanceRef}
           />
         </div>
 
@@ -43,7 +45,7 @@ function App() {
 
         <div className="flex-1 m-3 rounded-md bg-gradient-to-r from-gray-800 to-slate-800 border overflow-auto min-h-0">
           {graphData ? (
-            <GraphView data={graphData} search={search} />
+            <GraphView data={graphData} search={search} cyInstance={cyInstanceRef} />
           ) : (
             <div className="flex flex-col justify-center items-center h-full text-center">
               <h2 className="text-3xl font-semibold text-gray-300 flex items-center gap-2">

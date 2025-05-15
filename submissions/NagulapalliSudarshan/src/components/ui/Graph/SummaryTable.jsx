@@ -1,4 +1,4 @@
-import { Users, Move, Tally5, Group } from 'lucide-react'
+import { Hexagon, Workflow, Tally5, Group } from 'lucide-react'
 
 const SummaryTable = ({ data }) => {
   return (
@@ -13,13 +13,13 @@ const SummaryTable = ({ data }) => {
             <tbody>
                 <tr className="hover:bg-gray-800 transition">
                     <td className="px-2 pt-1 flex items-center gap-2">
-                        <Users size={16} /> Nodes
+                        <Hexagon size={16} /> Nodes
                     </td>
                     <td className="text-center">{data.nodes?.length || 0}</td>
                 </tr>
                 <tr className="hover:bg-gray-800 transition">
                     <td className="px-2 pt-1 flex items-center gap-2">
-                        <Move size={16} /> Edges
+                        <Workflow size={16} /> Edges
                     </td>
                     <td className="text-center">{data.edges?.length || 0}</td>
                 </tr>

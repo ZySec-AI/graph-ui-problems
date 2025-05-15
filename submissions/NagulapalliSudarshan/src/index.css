@@ -57,22 +57,29 @@ button:hover {
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
+  width: 2px;   /* ultra thin */
+  height: 2px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #1f2937; /* Tailwind's gray-800 */
-  border-radius: 8px;
+  background: transparent; /* removes track */
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #4b5563; /* Tailwind's gray-600 */
-  border-radius: 8px;
-  border: 2px solid #1f2937; /* Same as track background */
+  background-color: #4b5563; /* gray-600 */
+  border-radius: 4px;
+  border: none;
 }
 
-/* Optional: for Firefox */
+/* Remove scrollbar arrows */
+.custom-scrollbar::-webkit-scrollbar-button {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/* Firefox */
 .custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: #4b5563 #1f2937;
+  scrollbar-width: thin; /* already very slim */
+  scrollbar-color: #4b5563 transparent; /* hide track */
 }

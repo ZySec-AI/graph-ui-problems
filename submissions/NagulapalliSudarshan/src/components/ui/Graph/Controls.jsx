@@ -31,24 +31,28 @@ const Controls = ({ cyInstance, zoomLevel, setZoomLevel, edgeAnimationEnabled, s
         <div className="absolute bottom-4 right-4 flex flex-col z-10 bg-black/30 py-1 rounded-lg">
             <button
                 onClick={zoomIn}
+                title="Zoom In"
                 className="text-white px-3 py-1 shadow hover:text-gray-400 cursor-pointer"
             >
                 <ZoomIn size={18} />
             </button>
             <button
                 onClick={zoomOut}
+                title="Zoom Out"
                 className="text-white px-3 py-1 shadow hover:text-gray-400 cursor-pointer"
             >
                 <ZoomOut size={18} />
             </button>
             <button
                 onClick={zoomReset}
+                title="Reset Zoom"
                 className="text-white px-3 py-1 shadow hover:text-gray-400 cursor-pointer"
             >
                 <RotateCcw size={18} />
             </button>
             <button
                 onClick={() => setEdgeAnimationEnabled(prev => !prev)}
+                title={edgeAnimationEnabled ? "Pause Edge Animation" : "Play Edge Animation"}
                 className="text-white px-3 py-1 shadow hover:text-gray-400 cursor-pointer"
             >
                 {edgeAnimationEnabled ? <Pause size={18} /> : <Play size={18} />}

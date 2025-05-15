@@ -1,43 +1,144 @@
-import { Search, SearchX } from 'lucide-react';
+import { useState } from 'react';
+import { Search, SearchX, ChevronDown, FileDown, ImageDown, FileJson } from 'lucide-react';
 
-const SearchAction = ({ setSearch, searchInput, setSearchInput }) => {
+const AccordionItem = ({ title, children, index, openIndex, setOpenIndex }) => {
+  const isOpen = index === openIndex;
+
   return (
-    <div className="shadow-[7px_8px_0px_0px_#12171f] border border-slate-800 rounded-xl mt-4">
-        <h2 className="text-lg text-white mb-4 bg-gradient-to-r from-gray-800 to-slate-800 w-full border-transparent pt-4 px-2 pb-2 rounded-t-xl">
-            Actions
-        </h2>
-        <div className="p-2">
-            <input
-                type="text"
-                placeholder="Search nodes by ID or label..."
-                className="w-full px-3 py-2 rounded bg-gray-700 text-white border border-gray-600 placeholder-gray-400"
-                value={searchInput}
-                onChange={e => setSearchInput(e.target.value)}
-                onKeyDown={e => {
-                    if (e.key === 'Enter') {
-                        setSearch(searchInput);
-                    }
-                }}
-            />
-            <div className="flex flex-row gap-2 flex-wrap sm:flex-nowrap mt-2">
-                <button
-                    onClick={() => setSearch(searchInput)}
-                    className="w-full py-2 bg-blue-900 hover:bg-blue-950 rounded-md text-white flex items-center justify-center gap-2 cursor-pointer hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"
-                >
-                    <Search size={16} />
-                    Search
-                </button>
-                <button
-                    onClick={() => {setSearch(""); setSearchInput("");}}
-                    className="w-full py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-md flex items-center justify-center gap-2 cursor-pointer hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"
-                >
-                    <SearchX size={16} />
-                    Clear Search
-                </button>
-             </div>
+        <div className="my-1 mx-2">
+            <button
+                onClick={() => setOpenIndex(isOpen ? null : index)}
+                className="w-full flex justify-between items-center py-1 px-2 text-white hover:bg-gray-800 transition-colors border-transparent rounded cursor-pointer"
+            >
+                <span className="text-left text-white">
+                    {title}
+                </span>
+                <ChevronDown
+                    className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : 'rotate-0'}`}
+                    size={20}
+                />
+            </button>
+            <div
+                className={`overflow-hidden transition-all duration-300 ${
+                    isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
+                    } px-4`}
+            >
+                <div className="py-2">{children}</div>
+            </div>
         </div>
-    </div>
-  )
-}
+    );
+};
 
-export default SearchAction;
+const Actions = ({ setSearch, searchInput, setSearchInput, cyInstance }) => {
+    const [openIndex, setOpenIndex] = useState(null);
+    return (
+        <div className="border border-slate-800 rounded-xl mt-4">
+            <h2 className="text-lg text-white mb-1 bg-gradient-to-r from-gray-800 to-slate-800 w-full border-transparent pt-4 px-2 pb-2 rounded-t-xl">
+                Actions
+            </h2>
+
+            <AccordionItem title="Search" index={0} openIndex={openIndex} setOpenIndex={setOpenIndex}>
+                <input
+                    type="text"
+                    placeholder="Search nodes by ID or label..."
+                    className="w-full px-3 py-1 rounded bg-gray-700 text-white border border-gray-600 placeholder-gray-400"
+                    value={searchInput}
+                    onChange={e => setSearchInput(e.target.value)}
+                    onKeyDown={e => {
+                        if (e.key === 'Enter') {
+                            setSearch(searchInput);
+                        }
+                    }}
+                />
+                <div className="flex flex-row gap-2 flex-wrap sm:flex-nowrap mt-2">
+                    <button
+                        onClick={() => setSearch(searchInput)}
+                        className="w-full py-1 bg-blue-900 hover:bg-blue-950 rounded-md text-white flex items-center justify-center gap-2 cursor-pointer hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"
+                    >
+                        <Search size={16} />
+                        Search
+                    </button>
+                    <button
+                        onClick={() => {
+                        setSearch('');
+                        setSearchInput('');
+                        }}
+                        className="w-full py-1 bg-gray-600 hover:bg-gray-700 text-white rounded-md flex items-center justify-center gap-2 cursor-pointer hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"
+                    >
+                        <SearchX size={16} />
+                        Clear Search
+                    </button>
+                </div>
+            </AccordionItem>
+            
+            <hr className='text-gray-700 mx-2' />
+        
+            <AccordionItem
+                title="Downloads"
+                index={1}
+                openIndex={openIndex}
+                setOpenIndex={setOpenIndex}
+            >
+                <div className="flex flex-row gap-2 text-white flex-wrap sm:flex-nowrap">
+                    <button
+                        onClick={() => {
+                            if (cyInstance?.current) {
+                            const png64 = cyInstance.current.png({
+                                    full: true,
+                                    scale: 2,
+                                    bg: 'white',
+                                });
+                                const link = document.createElement('a');
+                                link.href = png64;
+                                link.download = 'graph.png';
+                                link.click();
+                            }
+                        }}
+                        className="bg-blue-900 hover:bg-blue-950 px-3 py-1 rounded cursor-pointer flex items-center gap-2 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"
+                    >
+                        <ImageDown size={18} />
+                        PNG
+                    </button>
+                    <button
+                        onClick={() => {
+                            if (cyInstance?.current) {
+                                const jpg64 = cyInstance.current.jpg({
+                                    full: true,
+                                    scale: 2,
+                                    bg: 'white',
+                                    quality: 1,
+                                });
+                                const link = document.createElement('a');
+                                link.href = jpg64;
+                                link.download = 'graph.jpg';
+                                link.click();
+                            }
+                        }}
+                        className="bg-blue-900 hover:bg-blue-950 px-3 py-1 rounded cursor-pointer flex items-center gap-2 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"
+                    >
+                        <FileDown size={18} />
+                        JPG
+                    </button>
+                    <button
+                        onClick={() => {
+                            if (cyInstance?.current) {
+                                const json = cyInstance.current.json();
+                                const blob = new Blob([JSON.stringify(json, null, 2)], { type: 'application/json' });
+                                const link = document.createElement('a');
+                                link.href = URL.createObjectURL(blob);
+                                link.download = 'graph.json';
+                                link.click();
+                            }
+                        }}
+                        className="bg-blue-900 hover:bg-blue-950 px-3 py-1 rounded cursor-pointer flex items-center gap-2 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"
+                    >
+                        <FileJson size={18} />
+                        JSON
+                    </button>
+                </div>
+            </AccordionItem>
+        </div>
+    );
+};
+
+export default Actions;
