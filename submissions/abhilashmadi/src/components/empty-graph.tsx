@@ -14,6 +14,7 @@ const EmptyGraph: FC = () => {
         width={100}
         decoding="async"
         loading="lazy"
+        alt="Empty Files"
         className="mx-auto" />
       <p>Please upload a JSON file<br /> to view the graph.</p>
       <Button variant="link" className="md:hidden" size="icon" onClick={() => updateMobileEditorView('show')}>OPEN EDITOR</Button>

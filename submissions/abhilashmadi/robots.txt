@@ -1,0 +1,6 @@
+# Allow all crawlers to access everything
+User-agent: *
+Disallow:
+
+# Sitemap location
+Sitemap: https://graphy-by-abhilash.netlify.app/
