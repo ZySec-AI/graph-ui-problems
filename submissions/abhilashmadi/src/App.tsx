@@ -6,31 +6,61 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@component
 import { ThemeProvider } from '@context/theme-provider';
 import { TooltipProvider } from "@ui/tooltip";
 import GraphyContext from "@context/graphy-context";
-import { useEffect } from "react";
-import { seedInitialGraphsIfNeeded } from "./utils/index-db-service";
+import { useEffect, useState } from "react";
+import { seedInitialGraphsIfNeeded } from "@utils/index-db-service";
 
 function App() {
+  const [isMobileEditorOpen, setIsMobileEditorOpen] = useState(false);
 
   useEffect(() => {
     const seed = async () => await seedInitialGraphsIfNeeded();
     seed();
   }, []);
 
-  return (<GraphyContext>
-    <ThemeProvider defaultTheme="dark" storageKey={storageKeys.APP_THEME}>
-      <TooltipProvider>
-        <ResizablePanelGroup direction="horizontal" className="min-h-dvh w-full">
-          <ResizablePanel minSize={20} maxSize={30}>
-            <Editor />
-          </ResizablePanel>
-          <ResizableHandle withHandle />
-          <ResizablePanel defaultSize={75}>
+  const toggleMobileEditor = () => setIsMobileEditorOpen(prev => !prev);
+
+  return (
+    <GraphyContext>
+      <ThemeProvider defaultTheme="dark" storageKey={storageKeys.APP_THEME}>
+        <TooltipProvider>
+          {/* Mobile Header with Toggle Button */}
+          <div className="md:hidden flex justify-end items-center p-2 bg-background border-b">
+            <button
+              className="px-3 py-1 text-sm border rounded-md hover:bg-muted"
+              onClick={toggleMobileEditor}
+            >
+              {isMobileEditorOpen ? "Close Editor" : "Editor"}
+            </button>
+          </div>
+
+          {/* Mobile View */}
+          <div className="md:hidden relative h-[calc(100dvh-48px)]">
+            {/* Editor Drawer */}
+            {isMobileEditorOpen && (
+              <div className="absolute inset-0 z-50 bg-background border-l p-4 overflow-y-auto">
+                <Editor />
+              </div>
+            )}
+            {/* Graph Canvas behind the drawer */}
             <GraphCanvas />
-          </ResizablePanel>
-        </ResizablePanelGroup>
-      </TooltipProvider>
-    </ThemeProvider>
-  </GraphyContext>)
+          </div>
+
+          {/* Desktop View */}
+          <div className="hidden md:block min-h-dvh w-full">
+            <ResizablePanelGroup direction="horizontal" className="min-h-dvh w-full">
+              <ResizablePanel minSize={20} maxSize={30}>
+                <Editor />
+              </ResizablePanel>
+              <ResizableHandle withHandle />
+              <ResizablePanel defaultSize={75}>
+                <GraphCanvas />
+              </ResizablePanel>
+            </ResizablePanelGroup>
+          </div>
+        </TooltipProvider>
+      </ThemeProvider>
+    </GraphyContext>
+  );
 }
 
-export default App
+export default App;
