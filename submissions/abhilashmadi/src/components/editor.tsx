@@ -92,7 +92,7 @@ const Editor: FC = () => {
     <aside className="h-dvh flex flex-col gap-2 p-2">
       {/* Document Meta */}
       <div className="basis-[5%] p-2 shadow rounded border bg-editor space-y-1">
-        <h2 className="text-primary text-sm font-medium">
+        <h2 className="text-blue-400 text-sm font-medium">
           {state?.meta?.title}
         </h2>
         <p
