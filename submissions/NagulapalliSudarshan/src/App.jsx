@@ -8,7 +8,11 @@ function App() {
   const cyInstanceRef = useRef(null);
   const [search, setSearch] = useState("");
   const [graphData, setGraphData] = useState(null);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const onCloseSidebar = () => {
+    setIsSidebarOpen(false);
+  };
 
   const handleClear = () => {
     setGraphData(null);
@@ -33,6 +37,7 @@ function App() {
             handleClear={handleClear}
             setSearch={setSearch}
             cyInstance={cyInstanceRef}
+            onCloseSidebar={onCloseSidebar}
           />
         </div>
 

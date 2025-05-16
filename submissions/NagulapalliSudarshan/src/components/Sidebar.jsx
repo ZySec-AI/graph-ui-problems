@@ -7,7 +7,7 @@ import FileInput from "./ui/Sidebar/FileInput";
 import Actions from "./ui/Sidebar/Search";
 import validateJsonStructure from "../utils/JsonValidation";
 
-const Sidebar = ({ onDataLoad, handleClear, setSearch, cyInstance }) => {
+const Sidebar = ({ onDataLoad, handleClear, setSearch, cyInstance, onCloseSidebar }) => {
   const fileInputRef = useRef(null);
   const [error, setError] = useState("");
   const [rawText, setRawText] = useState("");
@@ -39,6 +39,7 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch, cyInstance }) => {
         setRawText(JSON.stringify(json, null, 2));
         setError("");
         setJsonLoaded(true);
+        onCloseSidebar();
       } catch {
         setError("Error occured while file upload :(.");
         setJsonLoaded(false);
@@ -60,6 +61,7 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch, cyInstance }) => {
       onDataLoad(json);
       setError("");
       setJsonLoaded(true);
+      onCloseSidebar();
     } catch {
       setError("Invalid JSON on submit :(.");
       setJsonLoaded(false);
@@ -83,6 +85,7 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch, cyInstance }) => {
     setError("");
     setFileName("");
     setJsonLoaded(true);
+    onCloseSidebar();
   };
 
   return (
@@ -128,6 +131,7 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch, cyInstance }) => {
             searchInput={searchInput} 
             setSearchInput={setSearchInput} 
             cyInstance={cyInstance}
+            onCloseSidebar={onCloseSidebar}
           /> 
       }
 

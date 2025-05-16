@@ -2,9 +2,8 @@ import { useState } from 'react';
 import { Search, SearchX, ChevronDown, FileDown, ImageDown, FileJson } from 'lucide-react';
 
 const AccordionItem = ({ title, children, index, openIndex, setOpenIndex }) => {
-  const isOpen = index === openIndex;
-
-  return (
+    const isOpen = index === openIndex;
+    return (
         <div className="my-1 mx-2">
             <button
                 onClick={() => setOpenIndex(isOpen ? null : index)}
@@ -29,7 +28,7 @@ const AccordionItem = ({ title, children, index, openIndex, setOpenIndex }) => {
     );
 };
 
-const Actions = ({ setSearch, searchInput, setSearchInput, cyInstance }) => {
+const Actions = ({ setSearch, searchInput, setSearchInput, cyInstance, onCloseSidebar }) => {
     const [openIndex, setOpenIndex] = useState(null);
     return (
         <div className="border border-slate-800 rounded-xl mt-4">
@@ -47,12 +46,16 @@ const Actions = ({ setSearch, searchInput, setSearchInput, cyInstance }) => {
                     onKeyDown={e => {
                         if (e.key === 'Enter') {
                             setSearch(searchInput);
+                            onCloseSidebar();
                         }
                     }}
                 />
                 <div className="flex flex-row gap-2 flex-wrap sm:flex-nowrap mt-2">
                     <button
-                        onClick={() => setSearch(searchInput)}
+                        onClick={() => {
+                            setSearch(searchInput);
+                            onCloseSidebar();
+                        }}
                         className="w-full py-1 bg-blue-900 hover:bg-blue-950 rounded-md text-white flex items-center justify-center gap-2 cursor-pointer hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"
                     >
                         <Search size={16} />
@@ -60,8 +63,9 @@ const Actions = ({ setSearch, searchInput, setSearchInput, cyInstance }) => {
                     </button>
                     <button
                         onClick={() => {
-                        setSearch('');
-                        setSearchInput('');
+                            setSearch('');
+                            setSearchInput('');
+                            onCloseSidebar();
                         }}
                         className="w-full py-1 bg-gray-600 hover:bg-gray-700 text-white rounded-md flex items-center justify-center gap-2 cursor-pointer hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"
                     >
@@ -92,6 +96,7 @@ const Actions = ({ setSearch, searchInput, setSearchInput, cyInstance }) => {
                                 link.href = png64;
                                 link.download = 'graph.png';
                                 link.click();
+                                onCloseSidebar();
                             }
                         }}
                         className="bg-blue-900 hover:bg-blue-950 px-3 py-1 rounded cursor-pointer flex items-center gap-2 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"
@@ -112,6 +117,7 @@ const Actions = ({ setSearch, searchInput, setSearchInput, cyInstance }) => {
                                 link.href = jpg64;
                                 link.download = 'graph.jpg';
                                 link.click();
+                                onCloseSidebar();
                             }
                         }}
                         className="bg-blue-900 hover:bg-blue-950 px-3 py-1 rounded cursor-pointer flex items-center gap-2 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"
@@ -128,6 +134,7 @@ const Actions = ({ setSearch, searchInput, setSearchInput, cyInstance }) => {
                                 link.href = URL.createObjectURL(blob);
                                 link.download = 'graph.json';
                                 link.click();
+                                onCloseSidebar();
                             }
                         }}
                         className="bg-blue-900 hover:bg-blue-950 px-3 py-1 rounded cursor-pointer flex items-center gap-2 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform"

@@ -183,7 +183,8 @@ const GraphView = ({ data, search, cyInstance }) => {
     if (cyInstance) cyInstance.current = cy;
     cy.on('mouseover', 'node, edge', handleMouseOver);
     cy.on('mouseout', 'node, edge', handleMouseOut);
-    cy.on('click', 'node, edge', handleClick);
+    // cy.on('click', 'node, edge', handleClick);
+    cy.on('tap', 'node, edge', handleClick);
 
     cy.edges().forEach(edge => {
       const isBidirectional = edge.hasClass('bidirectional');
@@ -277,7 +278,7 @@ const GraphView = ({ data, search, cyInstance }) => {
 
       {/* Graph Canvas */}
       <div className="shadow-lg rounded-lg border-slate-400 m-2">
-        <div className="overflow-auto rounded-lg bg-gray-900">
+        <div className="overflow-auto rounded-lg bg-gray-900 custom-scrollbar">
           <div
             ref={cyRef}
             className="w-full h-[500px] rounded-md border relative cy-bg-dots"
