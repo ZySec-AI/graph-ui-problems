@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "title": "E-Commerce Microservices",
+    "description": "Graph of microservices involved in a sample e-commerce platform architecture."
+  },
+  "nodes": [
+    {
+      "id": "service_auth",
+      "label": "Auth Service",
+      "type": "Service",
+      "properties": {
+        "language": "Node.js",
+        "status": "running"
+      },
+      "style": {
+        "color": "#3F51B5",
+        "shape": "rectangle"
+      },
+      "group": "Core Services"
+    },
+    {
+      "id": "service_cart",
+      "label": "Cart Service",
+      "type": "Service",
+      "properties": {
+        "language": "Java",
+        "status": "running"
+      },
+      "style": {
+        "color": "#FF5722",
+        "shape": "rectangle"
+      },
+      "group": "Core Services"
+    },
+    {
+      "id": "service_inventory",
+      "label": "Inventory Service",
+      "type": "Service",
+      "properties": {
+        "language": "Python",
+        "status": "down"
+      },
+      "style": {
+        "color": "#4CAF50",
+        "shape": "rectangle"
+      },
+      "group": "Core Services"
+    },
+    {
+      "id": "db_users",
+      "label": "Users DB",
+      "type": "Database",
+      "properties": {
+        "engine": "MongoDB",
+        "replication": "enabled"
+      },
+      "style": {
+        "color": "#9C27B0",
+        "shape": "cylinder"
+      },
+      "group": "Databases"
+    }
+  ],
+  "edges": [
+    {
+      "source": "service_auth",
+      "target": "db_users",
+      "label": "queries",
+      "direction": "->",
+      "style": {
+        "color": "#333"
+      }
+    },
+    {
+      "source": "service_cart",
+      "target": "service_inventory",
+      "label": "calls",
+      "direction": "->",
+      "style": {
+        "color": "#333"
+      }
+    }
+  ]
+}

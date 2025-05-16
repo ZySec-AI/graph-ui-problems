@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "title": "Academic Research Network",
+    "description": "Knowledge graph representing authors, papers, institutions, and research domains."
+  },
+  "nodes": [
+    {
+      "id": "author_1",
+      "label": "Dr. Jane Doe",
+      "type": "Author",
+      "properties": {
+        "affiliation": "MIT",
+        "field": "Artificial Intelligence"
+      },
+      "style": {
+        "color": "#3F51B5",
+        "shape": "circle"
+      },
+      "group": "Authors"
+    },
+    {
+      "id": "author_2",
+      "label": "Prof. John Smith",
+      "type": "Author",
+      "properties": {
+        "affiliation": "Stanford",
+        "field": "Computer Vision"
+      },
+      "style": {
+        "color": "#3F51B5",
+        "shape": "circle"
+      },
+      "group": "Authors"
+    },
+    {
+      "id": "paper_1",
+      "label": "Deep Learning for NLP",
+      "type": "Paper",
+      "properties": {
+        "published": "2023",
+        "journal": "NeurIPS"
+      },
+      "style": {
+        "color": "#00BCD4",
+        "shape": "rectangle"
+      },
+      "group": "Papers"
+    },
+    {
+      "id": "inst_1",
+      "label": "MIT",
+      "type": "Institution",
+      "properties": {
+        "location": "Cambridge, MA"
+      },
+      "style": {
+        "color": "#009688",
+        "shape": "hexagon"
+      },
+      "group": "Institutions"
+    },
+    {
+      "id": "domain_1",
+      "label": "Natural Language Processing",
+      "type": "ResearchDomain",
+      "properties": {
+        "category": "AI Subfield"
+      },
+      "style": {
+        "color": "#FFC107",
+        "shape": "diamond"
+      },
+      "group": "Domains"
+    }
+  ],
+  "edges": [
+    {
+      "source": "author_1",
+      "target": "paper_1",
+      "label": "authored",
+      "direction": "->",
+      "style": {
+        "color": "#555"
+      }
+    },
+    {
+      "source": "author_1",
+      "target": "inst_1",
+      "label": "affiliated_with",
+      "direction": "->",
+      "style": {
+        "color": "#009688"
+      }
+    },
+    {
+      "source": "paper_1",
+      "target": "domain_1",
+      "label": "related_to",
+      "direction": "->",
+      "style": {
+        "color": "#FFC107"
+      }
+    },
+    {
+      "source": "author_2",
+      "target": "paper_1",
+      "label": "co_authored",
+      "direction": "->",
+      "style": {
+        "color": "#673AB7"
+      }
+    }
+  ]
+}
