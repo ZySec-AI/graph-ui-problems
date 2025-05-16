@@ -36,7 +36,7 @@ const GraphToolbox: FC<IGraphToolbox> = ({ onSaveSvgClick }) => {
       </Tooltip>
       <Tooltip>
         <TooltipTrigger asChild className="md:hidden">
-          <Button size="icon" variant="outline" onClick={() => updateMobileEditorView('show')}><Code /></Button>
+          <Button size="icon" variant="outline" className="bg-orange-500" onClick={() => updateMobileEditorView('show')}><Code /></Button>
         </TooltipTrigger>
         <TooltipContent side="left">
           {mobileEditor ? "Close Editor" : "Editor"}
