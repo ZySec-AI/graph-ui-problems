@@ -4,7 +4,8 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@ui/tooltip";
 import { Button } from "@ui/button";
 import ThemeSwitch from "@components/common/theme-switch";
 import SaveGraphDialog from "@components/save-graph-dialog";
-import { ImageDown } from "lucide-react";
+import { Code, ImageDown } from "lucide-react";
+import useGraphyEditorContext from "@/hooks/use-graphy-store";
 
 interface IGraphToolbox {
   onSaveSvgClick: () => void;
@@ -12,6 +13,7 @@ interface IGraphToolbox {
 
 const GraphToolbox: FC<IGraphToolbox> = ({ onSaveSvgClick }) => {
   const { theme } = useTheme();
+  const { mobileEditor, updateMobileEditorView } = useGraphyEditorContext();
 
   return (
     <div className="absolute top-8 right-8 flex gap-2 flex-col">
@@ -30,6 +32,14 @@ const GraphToolbox: FC<IGraphToolbox> = ({ onSaveSvgClick }) => {
         </TooltipTrigger>
         <TooltipContent side="left">
           Save as SVG
+        </TooltipContent>
+      </Tooltip>
+      <Tooltip>
+        <TooltipTrigger asChild className="md:hidden">
+          <Button size="icon" variant="outline" onClick={() => updateMobileEditorView('show')}><Code /></Button>
+        </TooltipTrigger>
+        <TooltipContent side="left">
+          {mobileEditor ? "Close Editor" : "Editor"}
         </TooltipContent>
       </Tooltip>
     </div>

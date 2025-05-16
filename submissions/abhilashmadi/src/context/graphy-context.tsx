@@ -2,6 +2,7 @@ import type { GraphData } from "@/schema/input-json-schema";
 import {
   createContext,
   useReducer,
+  useState,
   type Dispatch,
   type FC,
   type ReactNode,
@@ -11,6 +12,8 @@ import {
 type GraphAction =
   | { type: "LOAD_DATA"; payload: GraphData }
   | { type: "RESET_GRAPH" };
+
+type MobileEditorViewState = 'show' | 'hide'
 
 // Initial state
 export const initialState: GraphData = {
@@ -39,6 +42,8 @@ const graphReducer = (state: GraphData, action: GraphAction): GraphData => {
 interface GraphEditorContextType {
   state: GraphData;
   dispatch: Dispatch<GraphAction>;
+  mobileEditor: MobileEditorViewState;
+  updateMobileEditorView: (view: MobileEditorViewState) => void;
 }
 
 // Create context
@@ -50,10 +55,15 @@ interface GraphyContextProps {
 
 // Provider component
 const GraphyContext: FC<GraphyContextProps> = ({ children }) => {
+  const [mobileEditor, setMobileEditor] = useState<MobileEditorViewState>('hide');
   const [state, dispatch] = useReducer(graphReducer, initialState);
 
+  const updateMobileEditorView = (view: MobileEditorViewState): void => {
+    return setMobileEditor(view)
+  }
+
   return (
-    <GraphEditorContext.Provider value={{ state, dispatch }}>
+    <GraphEditorContext.Provider value={{ state, dispatch, mobileEditor, updateMobileEditorView }}>
       {children}
     </GraphEditorContext.Provider>
   );

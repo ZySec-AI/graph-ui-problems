@@ -7,13 +7,15 @@ const useGraphyEditorContext = () => {
 
   if (!context) throw new Error("useGraphyEditorContext must be used within a GraphyContext provider");
 
-  const { state, dispatch } = context;
+  const { state, dispatch, mobileEditor, updateMobileEditorView } = context;
 
   return {
     state,
     dispatch,
     updateData: (data: GraphData) => dispatch({ type: "LOAD_DATA", payload: data }),
     resetGraph: () => dispatch({ type: "RESET_GRAPH" }),
+    mobileEditor,
+    updateMobileEditorView,
   };
 };
 

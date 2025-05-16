@@ -6,7 +6,7 @@ import {
   TooltipContent,
   TooltipTrigger
 } from "@ui/tooltip";
-import { DatabaseBackup, Eraser, FileInput } from "lucide-react";
+import { DatabaseBackup, Eraser, FileInput, Workflow } from "lucide-react";
 import { type FC, useRef, useState } from "react";
 import ReactJson, { type InteractionProps } from "react-json-view";
 import { z } from "zod";
@@ -16,7 +16,7 @@ import SavedGraphsDialog from "./saved-graphs-dialog";
 
 const Editor: FC = () => {
   const { theme } = useTheme();
-  const { state, resetGraph, updateData } = useGraphyEditorContext();
+  const { state, resetGraph, updateData, updateMobileEditorView } = useGraphyEditorContext();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -100,7 +100,7 @@ const Editor: FC = () => {
           onEdit={handleEdit}
           onAdd={handleAdd}
           onDelete={handleDelete}
-          theme={theme === 'dark' ? 'ocean' : 'bright:inverted'}
+          theme={(theme === 'dark' || theme === 'system') ? 'ocean' : 'bright:inverted'}
           displayDataTypes={false}
           enableClipboard={false}
           collapsed={false}
@@ -153,6 +153,12 @@ const Editor: FC = () => {
             </Button>
           </TooltipTrigger>
           <TooltipContent>Clear Input Data</TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger asChild className="md:hidden">
+            <Button size="icon" onClick={() => updateMobileEditorView('hide')}><Workflow /></Button>
+          </TooltipTrigger>
+          <TooltipContent>Open Graph</TooltipContent>
         </Tooltip>
       </div>
     </aside>
