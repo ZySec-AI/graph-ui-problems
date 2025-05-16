@@ -193,6 +193,7 @@ const Editor: FC = () => {
         <Button
           size="icon"
           aria-label="Show graph canvas"
+          className="md:hidden"
           onClick={() => updateMobileEditorView("hide")}
         >
           <Workflow aria-hidden="true" />
