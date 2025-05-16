@@ -83,7 +83,7 @@ const SavedGraphsDialog: FC = () => {
       <Tooltip>
         <TooltipTrigger asChild>
           <DialogTrigger asChild>
-            <Button size="icon" variant="outline">
+            <Button size="icon" variant="outline" aria-label="Saved graphs">
               <FileClock className="size-4" />
             </Button>
           </DialogTrigger>
