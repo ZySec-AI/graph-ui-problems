@@ -36,21 +36,21 @@ The app is deployed on Vercel for fast and reliable hosting.
 
 ## Wesbite Screenshots
 
-![Graph Visualization 1](screenshots/ss1.png)
+Please refer to the screenshots folder for screenshots of the webiste if this doesn't open up.
 
-![Graph Visualization 2](screenshots/ss2.png)
+![Graph Visualization 1](submissions/sargunkohli152/screenshots/ss1.png)
 
-![Graph Visualization 3](screenshots/ss3.png)
+![Graph Visualization 2](submissions/sargunkohli152/screenshots/ss2.png)
 
-![Graph Visualization 4](screenshots/ss4.png)
+![Graph Visualization 3](submissions/sargunkohli152/screenshots/ss3.png)
 
-![Graph Visualization 5](screenshots/ss5.png)
+![Graph Visualization 4](submissions/sargunkohli152/screenshots/ss4.png)
 
-![Graph Visualization check](submissions/sargunkohli152/screenshots/ss1.png)
+![Graph Visualization 5](submissions/sargunkohli152/screenshots/ss5.png)
 
-![Graph Visualization 6](screenshots/ss6.png)
+![Graph Visualization 6](submissions/sargunkohli152/screenshots/ss6.png)
 
-![Graph Visualization 7](screenshots/ss7.png)
+![Graph Visualization 7](submissions/sargunkohli152/screenshots/ss7.png)
 
 ## Project Details
 
