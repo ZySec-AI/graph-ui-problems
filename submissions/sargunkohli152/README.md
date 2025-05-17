@@ -1,54 +1,78 @@
-# React + TypeScript + Vite
+# Graph Crafter
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Details
 
-Currently, two official plugins are available:
+- Full name: Sargun Pal Singh Kohli
+- Github Username: sargunkohli152
+- Email: sargunkohli152@gmail.com
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Libraries / Tools Used
 
-## Expanding the ESLint configuration
+- React 18
+- TypeScript
+- React Flow
+- Dagre (for graph layout)
+- Tailwind CSS
+- MUI (icons ans a few other styles)
+- Vite (build tool)
+- Zustand (state management)
+- Vercel (deployment)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Short Description of Design Decisions
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+This project implements an interactive graph UI that renders complex graphs from JSON input. I chose React Flow for its powerful graph visualization and interactivity capabilities. Dagre was integrated to handle automatic layout for a clean and readable graph structure.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+State management is handled using Zustand for simplicity, readability and reducing code complexity. Tailwind CSS was selected to rapidly style components while maintaining a consistent design.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+The project is structured to allow dynamic JSON input via a collapsible sidebar, making it easy for users to switch datasets on the fly.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+The app is deployed on Vercel for fast and reliable hosting.
+
+---
+
+## Deployed Link
+
+[https://netlify-link.netlify.app](https://netlify-link.netlify.app)
+
+## Wesbite Screenshots
+
+![Graph Visualization 1](screenshots/ss1.png)
+
+![Graph Visualization 2](screenshots/ss2.png)
+
+![Graph Visualization 3](screenshots/ss3.png)
+
+![Graph Visualization 4](screenshots/ss4.png)
+
+![Graph Visualization 5](screenshots/ss5.png)
+
+![Graph Visualization 6](screenshots/ss6.png)
+
+![Graph Visualization 7](screenshots/ss7.png)
+
+## Project Details
+
+This project is built using **React**, **TypeScript**, **Vite**, **Tailwind CSS**, and **Material-UI (MUI)** to create a highly performant and visually appealing interactive graph visualization tool.
+
+Key features and design decisions include:
+
+- **Performance Optimization:** Leveraged React best practices such as memoization and efficient state management to ensure smooth interactions even with complex graphs.
+- **Robust JSON Handling:** Effective error handling for JSON parsing ensures the app gracefully notifies users of invalid inputs. Additionally, a JSON prettify feature formats the input for better readability and easier editing.
+- **Dynamic Graph Updates:** Users can dynamically update JSON data, and the graph updates in real-time without reloads.
+- **State Handling:** Proper handling of UI states like dark mode toggle and responsiveness across devices ensures a seamless user experience.
+- **User Experience (UX):** Prioritized clarity and intuitiveness in UI design. The codebase is modular and clean for maintainability.
+- **Advanced React Flow Usage:**
+  - Full control over graph panning, zooming, and interaction.
+  - Custom node components with hover states for better interactivity.
+  - Customized and animated edges that reflect data-driven styles such as dashed, dotted, or solid lines.
+  - Different node shapes and styles tailored to the dataset.
+- **Additional Features:**
+  - Dark mode support.
+  - Node search functionality with highlighted results.
+  - On-click node property popup displaying detailed node information.
+  - Layout selection feature allowing users to switch between left-to-right and top-to-bottom graph layouts.
+  - Graph metadata display, including total nodes and edges, dynamically calculated from JSON.
+  - Includes 7 sample JSON datasets to explore various graph structures.
+- **UI Accessibility:** All features are accessible via a collapsible sidebar panel, making the app robust and user-friendly.
+
+Overall, this app showcases a scalable, dynamic, and polished graph visualization solution using React Flow and complementary modern web technologies.
