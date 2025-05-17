@@ -57,7 +57,7 @@ const SampleDataModal: React.FC<SampleDataModalProps> = ({ onLoadGraph, onError 
     setError(null);
     try {
       // Fetch and load the selected sample data
-      const resp = await fetch(`/src/data/${SAMPLE_FILES[idx]}`);
+      const resp = await fetch(`/data/${SAMPLE_FILES[idx]}`);
       if (!resp.ok) throw new Error('Failed to load sample data');
       const data = await resp.json();
       onLoadGraph(data);
