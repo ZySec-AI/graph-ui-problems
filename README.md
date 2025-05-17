@@ -32,7 +32,7 @@ The app is deployed on Vercel for fast and reliable hosting.
 
 ## Deployed Link
 
-[https://netlify-link.netlify.app](https://netlify-link.netlify.app)
+[https://graph-ui-problems-theta.vercel.app/](https://graph-ui-problems-theta.vercel.app/)
 
 ## Wesbite Screenshots
 
