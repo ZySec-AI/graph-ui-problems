@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "title": "Healthcare System",
+    "description": "A sample healthcare system with doctors, patients, departments, and treatments."
+  },
+  "nodes": [
+    {
+      "id": "doc1",
+      "label": "Dr. Smith",
+      "type": "Doctor",
+      "properties": { "specialty": "Cardiology" },
+      "style": { "color": "blue", "shape": "circle" },
+      "group": "Personnel"
+    },
+    {
+      "id": "pat1",
+      "label": "John Doe",
+      "type": "Patient",
+      "properties": { "age": 45 },
+      "style": { "color": "green", "shape": "circle" },
+      "group": "Patients"
+    },
+    {
+      "id": "dept1",
+      "label": "Cardiology",
+      "type": "Department",
+      "properties": { "floor": 2 },
+      "style": { "color": "orange" },
+      "group": "Departments"
+    },
+    {
+      "id": "treat1",
+      "label": "Bypass Surgery",
+      "type": "Treatment",
+      "properties": { "date": "2023-05-01" },
+      "style": { "color": "red" },
+      "group": "Treatments"
+    }
+  ],
+  "edges": [
+    {
+      "source": "doc1",
+      "target": "dept1",
+      "label": "works in",
+      "direction": "->",
+      "style": { "lineType": "solid" }
+    },
+    {
+      "source": "pat1",
+      "target": "dept1",
+      "label": "admitted to",
+      "direction": "->",
+      "style": { "lineType": "dotted" }
+    },
+    {
+      "source": "pat1",
+      "target": "treat1",
+      "label": "undergoes",
+      "direction": "->",
+      "style": { "lineType": "dashed" }
+    },
+    {
+      "source": "doc1",
+      "target": "treat1",
+      "label": "performs",
+      "direction": "->",
+      "style": { "lineType": "solid" }
+    }
+  ]
+}

@@ -1,156 +1,80 @@
-# 🌐 Graph Crafter Hackathon: Visualize the Knowledge  
+# Graph Crafter
 
-Welcome to **Graph Crafter**, a frontend-focused hackathon hosted by **ZySec AI**. Your challenge is to build a powerful, elegant, and interactive **Graph UI** from structured JSON data — similar to tools like Neo4j, Memgraph, or network visualizations used in security, compliance, and knowledge management.
+## Details
 
----
+- Full name: Sargun Pal Singh Kohli
+- Github Username: sargunkohli152
+- Email: sargunkohli152@gmail.com
 
-## 📘 Background  
+## Libraries / Tools Used
 
-Graphs are everywhere — from policy engines and user access systems to social networks and LLM knowledge graphs. But visualizing them clearly and interactively is a hard UI/UX problem.  
+- React 18
+- TypeScript
+- React Flow
+- Dagre (for graph layout)
+- Tailwind CSS
+- MUI (icons ans a few other styles)
+- Vite (build tool)
+- Zustand (state management)
+- Vercel (deployment)
 
-This hackathon challenges you to build a **modern, reactive, and insightful Graph UI** that reads a JSON representation of nodes and edges, and turns it into an interactive visualization.
+## Short Description of Design Decisions
 
----
+This project implements an interactive graph UI that renders complex graphs from JSON input. I chose React Flow for its powerful graph visualization and interactivity capabilities. Dagre was integrated to handle automatic layout for a clean and readable graph structure.
 
-## 🚩 Problem Statement  
+State management is handled using Zustand for simplicity, readability and reducing code complexity. Tailwind CSS was selected to rapidly style components while maintaining a consistent design.
 
-> Build a web-based **Graph UI** that reads a structured JSON file describing nodes, edges, metadata, and styling — and renders it into an interactive, pannable, zoomable, and understandable graph.
+The project is structured to allow dynamic JSON input via a collapsible sidebar, making it easy for users to switch datasets on the fly.
 
-Your UI must:
-- Visualize labeled nodes and edges  
-- Support directional edges and metadata tooltips  
-- Respect styles (e.g., shape, color, dashed lines)  
-- Allow node/edge interactions (hover/click)  
-- Be responsive and user-friendly  
-
----
-
-## 📦 JSON Input Format  
-
-The UI must accept input like this:
-
-```json
-{
-  "nodes": [
-    {
-      "id": "user_1",
-      "label": "Alice",
-      "type": "Person",
-      "properties": {
-        "email": "alice@example.com",
-        "role": "Analyst"
-      },
-      "style": {
-        "color": "#4CAF50",
-        "shape": "circle"
-      },
-      "group": "Team A"
-    },
-    {
-      "id": "doc_1",
-      "label": "Report Q1",
-      "type": "Document",
-      "properties": {
-        "created": "2024-03-01",
-        "status": "approved"
-      },
-      "style": {
-        "color": "#2196F3",
-        "shape": "rectangle"
-      },
-      "group": "Documents"
-    }
-  ],
-  "edges": [
-    {
-      "source": "user_1",
-      "target": "doc_1",
-      "label": "authored",
-      "direction": "one-way",
-      "style": {
-        "dashed": false,
-        "color": "#555"
-      }
-    }
-  ],
-  "meta": {
-    "title": "Knowledge Graph - Access Control",
-    "description": "Sample graph representing users, documents, and policies."
-  }
-}
-```
-
-👉 [Download sample_json.json](./sample_json.json)
-
-
-## ✅ Must-Have Features
-
-- 🎯 Render nodes and edges using input JSON  
-- 🖱️ Pan and zoom  
-- 📌 Node labels and types  
-- 🔄 Directional edges (arrows or icons)  
-- 🧠 Tooltip on hover (show properties)  
-- 🎨 Respect optional style attributes (color, shape, dashed lines)  
-- 🧱 Grouping or clustering (optional)  
+The app is deployed on Vercel for fast and reliable hosting.
 
 ---
 
-## 💡 Tech Suggestions (Optional)
+## Deployed Link
 
-You may use:
-- `D3.js`, `Cytoscape.js`, `Vis.js`, `React Flow`, `Sigma.js`, or any graph rendering engine  
-- `React`, `Vue`, `Svelte`, or vanilla JS  
-- `Tailwind`, `SCSS`, or your own styling approach  
+[https://graph-ui-problems-theta.vercel.app/](https://graph-ui-problems-theta.vercel.app/)
 
----
+## Wesbite Screenshots
 
-## 🛠️ Deliverables
+Please refer to the screenshots folder for screenshots of the webiste if this doesn't open up.
 
-1. **Fork this repository**  
-2. **Create a new branch**: `graphcrafter_<github-username>`  
-3. **Add your work to**: `submissions/<github-username>/`  
+![Graph Visualization 1](submissions/sargunkohli152/screenshots/ss1.png)
 
-Your folder must include:
-- `src/`: Your full working project code  
-- `README.md`: With your:  
-  - Full name  
-  - GitHub username  
-  - Email  
-  - Libraries/tools used  
-  - Short description of design decisions  
-  - (Optional) Deployed link (e.g., Netlify/Vercel)  
-  - (Optional) Demo video (3–5 minutes)  
+![Graph Visualization 2](submissions/sargunkohli152/screenshots/ss2.png)
 
-4. **Submit a Pull Request (PR)** with the title:  
-   `[Graph Crafter] Submission - <Your Name>`  
+![Graph Visualization 3](submissions/sargunkohli152/screenshots/ss3.png)
 
----
+![Graph Visualization 4](submissions/sargunkohli152/screenshots/ss4.png)
 
-## 🧪 Scoring Rubric (100 Points)
+![Graph Visualization 5](submissions/sargunkohli152/screenshots/ss5.png)
 
-| Category              | Points | Description                                 |
-|-----------------------|--------|---------------------------------------------|
-| Graph Rendering       | 25     | Visual clarity, accuracy, responsiveness    |
-| Interactivity & UX    | 20     | Tooltips, zoom, pan, click behavior         |
-| Styling & Theming     | 15     | Use of color, shapes, consistency           |
-| Code Quality          | 15     | Modularity, naming, comments                |
-| JSON Handling         | 15     | Dynamic parsing, robustness                 |
-| Bonus Features        | 10     | Groups, search, dark mode, edge animation   |
+![Graph Visualization 6](submissions/sargunkohli152/screenshots/ss6.png)
 
----
+![Graph Visualization 7](submissions/sargunkohli152/screenshots/ss7.png)
 
-## 🏆 Rewards
+## Project Details
 
-- 🥇 **Top Winner**: Interview for a full-time role at ZySec AI  
-- 🏅 **Top 4 Finalists**: Each receives **$100 USD**
+This project is built using **React**, **TypeScript**, **Vite**, **Tailwind CSS**, and **Material-UI (MUI)** to create a highly performant and visually appealing interactive graph visualization tool.
 
----
+Key features and design decisions include:
 
-## 📬 Contact
+- **Performance Optimization:** Leveraged React best practices such as memoization and efficient state management to ensure smooth interactions even with complex graphs.
+- **Robust JSON Handling:** Effective error handling for JSON parsing ensures the app gracefully notifies users of invalid inputs. Additionally, a JSON prettify feature formats the input for better readability and easier editing.
+- **Dynamic Graph Updates:** Users can dynamically update JSON data, and the graph updates in real-time without reloads.
+- **State Handling:** Proper handling of UI states like dark mode toggle and responsiveness across devices ensures a seamless user experience.
+- **User Experience (UX):** Prioritized clarity and intuitiveness in UI design. The codebase is modular and clean for maintainability.
+- **Advanced React Flow Usage:**
+  - Full control over graph panning, zooming, and interaction.
+  - Custom node components with hover states for better interactivity.
+  - Customized and animated edges that reflect data-driven styles such as dashed, dotted, or solid lines.
+  - Different node shapes and styles tailored to the dataset.
+- **Additional Features:**
+  - Dark mode support.
+  - Node search functionality with highlighted results.
+  - On-click node property popup displaying detailed node information.
+  - Layout selection feature allowing users to switch between left-to-right and top-to-bottom graph layouts.
+  - Graph metadata display, including total nodes and edges, dynamically calculated from JSON.
+  - Includes 7 sample JSON datasets to explore various graph structures.
+- **UI Accessibility:** All features are accessible via a collapsible sidebar panel, making the app robust and user-friendly.
 
-Connect with us on [LinkedIn](https://www.linkedin.com/company/zysec-ai/)
-
-
----
-
-> “Craft the graph. Create clarity. Control complexity.” 🔗
+Overall, this app showcases a scalable, dynamic, and polished graph visualization solution using React Flow and complementary modern web technologies.

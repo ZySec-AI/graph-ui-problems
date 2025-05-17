@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "title": "Financial Transactions",
+    "description": "A sample financial transaction network with accounts, transactions, and banks."
+  },
+  "nodes": [
+    {
+      "id": "acc1",
+      "label": "Account A",
+      "type": "Account",
+      "properties": { "owner": "Alice" },
+      "style": { "color": "blue", "shape": "rectangle" },
+      "group": "Accounts"
+    },
+    {
+      "id": "acc2",
+      "label": "Account B",
+      "type": "Account",
+      "properties": { "owner": "Bob" },
+      "style": { "color": "blue", "shape": "rectangle" },
+      "group": "Accounts"
+    },
+    {
+      "id": "txn1",
+      "label": "Payment 1",
+      "type": "Transaction",
+      "properties": { "amount": 1000, "date": "2023-06-01" },
+      "style": { "color": "green" },
+      "group": "Transactions"
+    },
+    {
+      "id": "txn2",
+      "label": "Payment 2",
+      "type": "Transaction",
+      "properties": { "amount": 500, "date": "2023-06-02" },
+      "style": { "color": "green" },
+      "group": "Transactions"
+    },
+    {
+      "id": "bank1",
+      "label": "Bank X",
+      "type": "Bank",
+      "properties": { "country": "USA" },
+      "style": { "color": "orange" },
+      "group": "Banks"
+    }
+  ],
+  "edges": [
+    {
+      "source": "acc1",
+      "target": "txn1",
+      "label": "initiates",
+      "direction": "->",
+      "style": { "lineType": "solid" }
+    },
+    {
+      "source": "txn1",
+      "target": "acc2",
+      "label": "to",
+      "direction": "->",
+      "style": { "lineType": "solid" }
+    },
+    {
+      "source": "acc2",
+      "target": "txn2",
+      "label": "initiates",
+      "direction": "->",
+      "style": { "lineType": "solid" }
+    },
+    {
+      "source": "txn2",
+      "target": "acc1",
+      "label": "to",
+      "direction": "->",
+      "style": { "lineType": "solid" }
+    },
+    {
+      "source": "acc1",
+      "target": "bank1",
+      "label": "held at",
+      "direction": "->",
+      "style": { "lineType": "dotted" }
+    },
+    {
+      "source": "acc2",
+      "target": "bank1",
+      "label": "held at",
+      "direction": "->",
+      "style": { "lineType": "dotted" }
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "title": "IT Network",
+    "description": "A sample IT network with users, servers, routers, and policies."
+  },
+  "nodes": [
+    {
+      "id": "user1",
+      "label": "Admin",
+      "type": "User",
+      "properties": { "role": "Administrator" },
+      "style": { "color": "blue", "shape": "circle" },
+      "group": "Personnel"
+    },
+    {
+      "id": "user2",
+      "label": "DevOps",
+      "type": "User",
+      "properties": { "role": "DevOps" },
+      "style": { "color": "blue", "shape": "circle" },
+      "group": "Personnel"
+    },
+    {
+      "id": "server1",
+      "label": "Web Server",
+      "type": "Server",
+      "properties": { "os": "Linux" },
+      "style": { "color": "red" },
+      "group": "Infrastructure"
+    },
+    {
+      "id": "server2",
+      "label": "DB Server",
+      "type": "Server",
+      "properties": { "os": "Windows" },
+      "style": { "color": "red" },
+      "group": "Infrastructure"
+    },
+    {
+      "id": "router1",
+      "label": "Router",
+      "type": "Router",
+      "properties": { "manufacturer": "Cisco" },
+      "style": { "color": "orange" },
+      "group": "Infrastructure"
+    },
+    {
+      "id": "policy1",
+      "label": "Access Policy",
+      "type": "Policy",
+      "properties": { "level": "High" },
+      "style": { "color": "green" },
+      "group": "Policies"
+    }
+  ],
+  "edges": [
+    {
+      "source": "user1",
+      "target": "server1",
+      "label": "manages",
+      "direction": "->",
+      "style": { "lineType": "solid" }
+    },
+    {
+      "source": "user2",
+      "target": "server2",
+      "label": "deploys",
+      "direction": "->",
+      "style": { "lineType": "dashed" }
+    },
+    {
+      "source": "server1",
+      "target": "router1",
+      "label": "connected to",
+      "direction": "->",
+      "style": { "lineType": "solid" }
+    },
+    {
+      "source": "policy1",
+      "target": "server1",
+      "label": "applies to",
+      "direction": "->",
+      "style": { "lineType": "dotted" }
+    }
+  ]
+}
