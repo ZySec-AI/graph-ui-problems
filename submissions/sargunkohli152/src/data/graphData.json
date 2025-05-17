@@ -12,7 +12,8 @@
         "role": "Administrator"
       },
       "style": {
-        "color": "blue"
+        "color": "blue",
+        "shape": "circle"
       },
       "group": "Personnel"
     },
@@ -24,7 +25,8 @@
         "role": "Developer"
       },
       "style": {
-        "color": "blue"
+        "color": "blue",
+        "shape": "circle"
       },
       "group": "Personnel"
     },
@@ -394,7 +396,7 @@
       "source": "server2",
       "target": "firewall1",
       "label": "protected by",
-      "direction": "->",
+      "direction": "<->",
       "style": {
         "lineType": "solid"
       }

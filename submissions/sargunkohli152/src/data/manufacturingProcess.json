@@ -1,0 +1,71 @@
+{
+  "meta": {
+    "title": "Manufacturing Process",
+    "description": "A sample manufacturing process with machines, products, and operators."
+  },
+  "nodes": [
+    {
+      "id": "machine1",
+      "label": "CNC Machine",
+      "type": "Machine",
+      "properties": { "status": "Active" },
+      "style": { "color": "gray", "shape": "rectangle" },
+      "group": "Machines"
+    },
+    {
+      "id": "machine2",
+      "label": "3D Printer",
+      "type": "Machine",
+      "properties": { "status": "Idle" },
+      "style": { "color": "gray", "shape": "rectangle" },
+      "group": "Machines"
+    },
+    {
+      "id": "prod1",
+      "label": "Gear",
+      "type": "Product",
+      "properties": { "batch": "A1" },
+      "style": { "color": "yellow" },
+      "group": "Products"
+    },
+    {
+      "id": "prod2",
+      "label": "Bolt",
+      "type": "Product",
+      "properties": { "batch": "B2" },
+      "style": { "color": "yellow" },
+      "group": "Products"
+    },
+    {
+      "id": "op1",
+      "label": "Operator 1",
+      "type": "Operator",
+      "properties": { "shift": "Morning" },
+      "style": { "color": "blue", "shape": "circle" },
+      "group": "Personnel"
+    }
+  ],
+  "edges": [
+    {
+      "source": "op1",
+      "target": "machine1",
+      "label": "operates",
+      "direction": "->",
+      "style": { "lineType": "solid" }
+    },
+    {
+      "source": "machine1",
+      "target": "prod1",
+      "label": "produces",
+      "direction": "->",
+      "style": { "lineType": "dashed" }
+    },
+    {
+      "source": "machine2",
+      "target": "prod2",
+      "label": "produces",
+      "direction": "->",
+      "style": { "lineType": "dashed" }
+    }
+  ]
+}

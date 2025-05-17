@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "title": "HR Structure",
+    "description": "A sample HR structure with employees, departments, and documents."
+  },
+  "nodes": [
+    {
+      "id": "emp1",
+      "label": "Alice",
+      "type": "Employee",
+      "properties": { "role": "Manager" },
+      "style": { "color": "purple", "shape": "circle" },
+      "group": "Personnel"
+    },
+    {
+      "id": "emp2",
+      "label": "Bob",
+      "type": "Employee",
+      "properties": { "role": "HR" },
+      "style": { "color": "purple", "shape": "circle" },
+      "group": "Personnel"
+    },
+    {
+      "id": "emp3",
+      "label": "Carol",
+      "type": "Employee",
+      "properties": { "role": "Recruiter" },
+      "style": { "color": "purple", "shape": "circle" },
+      "group": "Personnel"
+    },
+    {
+      "id": "dept1",
+      "label": "HR Dept",
+      "type": "Department",
+      "properties": { "location": "HQ" },
+      "style": { "color": "orange" },
+      "group": "Departments"
+    },
+    {
+      "id": "doc1",
+      "label": "Employee Handbook",
+      "type": "Document",
+      "properties": { "category": "Policy" },
+      "style": { "color": "green" },
+      "group": "Documents"
+    }
+  ],
+  "edges": [
+    {
+      "source": "emp1",
+      "target": "dept1",
+      "label": "manages",
+      "direction": "->",
+      "style": { "lineType": "solid" }
+    },
+    {
+      "source": "emp2",
+      "target": "dept1",
+      "label": "works in",
+      "direction": "->",
+      "style": { "lineType": "solid" }
+    },
+    {
+      "source": "emp3",
+      "target": "dept1",
+      "label": "works in",
+      "direction": "->",
+      "style": { "lineType": "solid" }
+    },
+    {
+      "source": "doc1",
+      "target": "dept1",
+      "label": "belongs to",
+      "direction": "->",
+      "style": { "lineType": "dotted" }
+    }
+  ]
+}

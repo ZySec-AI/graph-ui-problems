@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "title": "Retail Inventory",
+    "description": "A sample retail inventory with products, categories, suppliers, and stores."
+  },
+  "nodes": [
+    {
+      "id": "prod1",
+      "label": "Laptop",
+      "type": "Product",
+      "properties": { "brand": "Dell" },
+      "style": { "color": "blue", "shape": "rectangle" },
+      "group": "Products"
+    },
+    {
+      "id": "prod2",
+      "label": "Phone",
+      "type": "Product",
+      "properties": { "brand": "Apple" },
+      "style": { "color": "blue", "shape": "rectangle" },
+      "group": "Products"
+    },
+    {
+      "id": "cat1",
+      "label": "Electronics",
+      "type": "Category",
+      "properties": {},
+      "style": { "color": "orange" },
+      "group": "Categories"
+    },
+    {
+      "id": "supp1",
+      "label": "Supplier A",
+      "type": "Supplier",
+      "properties": { "country": "USA" },
+      "style": { "color": "green" },
+      "group": "Suppliers"
+    },
+    {
+      "id": "store1",
+      "label": "Main Store",
+      "type": "Store",
+      "properties": { "location": "Downtown" },
+      "style": { "color": "purple" },
+      "group": "Stores"
+    }
+  ],
+  "edges": [
+    {
+      "source": "prod1",
+      "target": "cat1",
+      "label": "belongs to",
+      "direction": "->",
+      "style": { "lineType": "solid" }
+    },
+    {
+      "source": "prod2",
+      "target": "cat1",
+      "label": "belongs to",
+      "direction": "->",
+      "style": { "lineType": "solid" }
+    },
+    {
+      "source": "prod1",
+      "target": "supp1",
+      "label": "supplied by",
+      "direction": "->",
+      "style": { "lineType": "dotted" }
+    },
+    {
+      "source": "prod2",
+      "target": "supp1",
+      "label": "supplied by",
+      "direction": "->",
+      "style": { "lineType": "dotted" }
+    },
+    {
+      "source": "prod1",
+      "target": "store1",
+      "label": "available at",
+      "direction": "->",
+      "style": { "lineType": "dashed" }
+    },
+    {
+      "source": "prod2",
+      "target": "store1",
+      "label": "available at",
+      "direction": "->",
+      "style": { "lineType": "dashed" }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  height: 100vh;
+  width: 100vw;
+}
+
+.sidebar-scroll {
+  overflow-y: scroll !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: #a0aec0 #edf2f7 !important;
+}
+.sidebar-scroll::-webkit-scrollbar {
+  width: 8px !important;
+}
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: #a0aec0 !important;
+  border-radius: 4px !important;
+}
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: #edf2f7 !important;
+}
