@@ -46,6 +46,8 @@ The app is deployed on Vercel for fast and reliable hosting.
 
 ![Graph Visualization 5](screenshots/ss5.png)
 
+![Graph Visualization check](submissions/sargunkohli152/screenshots/ss1.png)
+
 ![Graph Visualization 6](screenshots/ss6.png)
 
 ![Graph Visualization 7](screenshots/ss7.png)
