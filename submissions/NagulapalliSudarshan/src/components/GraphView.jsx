@@ -270,10 +270,10 @@ const GraphView = ({ data, search, cyInstance }) => {
 
   return (
     <div className="w-full relative">
-      <div className="flex flex-wrap md:flex-nowrap items-start justify-between space-x-2 m-2 gap-y-2">
+      <div className="flex flex-wrap md:flex-nowrap items-start justify-between gap-x-2 m-2 gap-y-2">
+        <SummaryTable data={data} />
         <TitleCard data={data} />
         <Properties selectedDetails={selectedDetails} />
-        <SummaryTable data={data} />
       </div>
 
       {/* Graph Canvas */}
