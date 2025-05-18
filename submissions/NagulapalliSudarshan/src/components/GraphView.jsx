@@ -7,7 +7,6 @@ import SummaryTable from './ui/Graph/SummaryTable';
 
 const GraphView = ({ data, search, cyInstance }) => {
   const cyRef = useRef(null);
-  // const cyInstance = useRef(null);
   const animationRef = useRef(null);
   const [zoomLevel, setZoomLevel] = useState(1);
   const [isHandCursor, setIsHandCursor] = useState(false);  
@@ -183,7 +182,6 @@ const GraphView = ({ data, search, cyInstance }) => {
     if (cyInstance) cyInstance.current = cy;
     cy.on('mouseover', 'node, edge', handleMouseOver);
     cy.on('mouseout', 'node, edge', handleMouseOut);
-    // cy.on('click', 'node, edge', handleClick);
     cy.on('tap', 'node, edge', handleClick);
 
     cy.edges().forEach(edge => {

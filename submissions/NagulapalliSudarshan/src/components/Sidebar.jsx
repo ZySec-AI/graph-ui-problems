@@ -2,9 +2,9 @@ import { useState, useRef } from "react";
 import Tabs from "./ui/Sidebar/Tabs";
 import Error from "./ui/Sidebar/Error";
 import sample from "../test/test1.json";
+import Actions from "./ui/Sidebar/Action";
 import JsonInput from "./ui/Sidebar/JsonInput";
 import FileInput from "./ui/Sidebar/FileInput";
-import Actions from "./ui/Sidebar/Search";
 import validateJsonStructure from "../utils/JsonValidation";
 
 const Sidebar = ({ onDataLoad, handleClear, setSearch, cyInstance, onCloseSidebar }) => {
@@ -134,20 +134,6 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch, cyInstance, onCloseSideba
             onCloseSidebar={onCloseSidebar}
           /> 
       }
-
-      {/* <div className="mt-4 text-xs text-slate-400 border-t border-slate-800 pt-2 text-center">
-        <p>
-          <span className="text-slate-300">Graph Visualizer</span> powered with{" "}
-          <a
-            href=""
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-500 hover:underline"
-          >
-            React, Tailwind, Cytoscape.js
-          </a>
-        </p>
-      </div> */}
     </div>
   );
 };

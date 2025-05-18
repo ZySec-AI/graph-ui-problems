@@ -1,55 +1,4 @@
 @import "tailwindcss";
-/* :root {
-  --bg-dark: #1a1a1a;
-  --text-light: #f1f1f1;
-  --orange: #ff8800;
-  --card-dark: #2a2a2a;
-}
-
-body {
-  @apply bg-gray-900 text-gray-100;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.navbar {
-  @apply bg-gray-800 p-4 text-orange-400 font-semibold text-xl;
-}
-
-.main-layout {
-  @apply flex h-[calc(100vh-60px)];
-}
-
-.sidebar {
-  @apply w-72 bg-gray-800 p-4 border-r border-gray-700;
-}
-
-.graph-section {
-  @apply flex-1 p-6 bg-gray-900;
-}
-
-.cy-container {
-  @apply w-full h-[80vh] bg-gray-800 border-2 border-orange-400 mt-4;
-}
-
-button, input, textarea, select {
-  @apply bg-gray-700 text-gray-100 border border-orange-400 p-2 mt-2 rounded-md;
-}
-
-button:hover {
-  @apply bg-orange-400 text-black;
-}
-
-.tabs {
-  @apply flex mb-4;
-}
-
-.tab {
-  @apply flex-1 text-center p-3 cursor-pointer bg-gray-700 border-b-2 border-transparent;
-}
-
-.tab.active {
-  @apply border-b-2 border-orange-400 text-orange-400;
-} */
 
 .cy-bg-dots {
   background-image: radial-gradient(#323232 1px, transparent 0);
@@ -57,21 +6,20 @@ button:hover {
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-  width: 2px;   /* ultra thin */
+  width: 2px;
   height: 2px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent; /* removes track */
+  background: transparent;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #4b5563; /* gray-600 */
+  background-color: #4b5563;
   border-radius: 4px;
   border: none;
 }
 
-/* Remove scrollbar arrows */
 .custom-scrollbar::-webkit-scrollbar-button {
   width: 0;
   height: 0;
@@ -80,6 +28,6 @@ button:hover {
 
 /* Firefox */
 .custom-scrollbar {
-  scrollbar-width: thin; /* already very slim */
-  scrollbar-color: #4b5563 transparent; /* hide track */
+  scrollbar-width: thin;
+  scrollbar-color: #4b5563 transparent;
 }
