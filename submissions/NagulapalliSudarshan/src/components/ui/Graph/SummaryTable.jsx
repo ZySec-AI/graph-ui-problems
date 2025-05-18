@@ -1,5 +1,15 @@
 import { Hexagon, Workflow, Tally5, Group } from 'lucide-react'
 
+/**
+ * SummaryTable Component
+ * 
+ * Displays a summary table showing counts of nodes, edges, total items, and distinct groups
+ * in the provided graph data. Each row includes an icon and label for clarity.
+ * 
+ * Props:
+ * - data (object): Contains `nodes` and `edges` arrays representing the graph elements.
+*/
+
 const SummaryTable = ({ data }) => {
   return (
     <div className="bg-gray-900 p-2 rounded-md w-full md:w-1/3 shadow h-40">

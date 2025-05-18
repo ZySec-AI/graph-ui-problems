@@ -5,15 +5,34 @@ import TitleCard from './ui/Graph/TitleCard';
 import Properties from './ui/Graph/Properties';
 import SummaryTable from './ui/Graph/SummaryTable';
 
+/**
+ * GraphView Component
+ * 
+ * This component renders an interactive graph visualization using Cytoscape.js.
+ * It accepts graph data (nodes and edges) and a search query as props, 
+ * and displays the graph with custom styling, layout, and tooltips.
+ * 
+ * Features include:
+ * - Node and edge rendering with dynamic styles and grouped layout positioning
+ * - Search highlighting of matching nodes
+ * - Edge animation for certain edge types
+ * - Tooltips on hover for detailed information
+ * - Click handlers to show selected node or edge properties
+ * - Zoom controls and animation toggle via child Controls component
+ * 
+ * It manages the Cytoscape instance internally and cleans up properly on data changes.
+*/
+
 const GraphView = ({ data, search, cyInstance }) => {
-  const cyRef = useRef(null);
-  const animationRef = useRef(null);
+  const cyRef = useRef(null);         // Reference to the Cytoscape container
+  const animationRef = useRef(null);  // Reference to animation frame
   const [zoomLevel, setZoomLevel] = useState(1);
   const [isHandCursor, setIsHandCursor] = useState(false);  
   const [selectedDetails, setSelectedDetails] = useState({});
   const [edgeAnimationEnabled, setEdgeAnimationEnabled] = useState(false);
   const [tooltip, setTooltip] = useState({ visible: false, content: {}, x: 0, y: 0 });
 
+  // Utility function to determine if a node matches the search query
   const isSearchMatch = node => {
     return (
       search &&
@@ -22,6 +41,7 @@ const GraphView = ({ data, search, cyInstance }) => {
     );
   };
 
+  // Converts raw graph data into Cytoscape-compatible format
   const formatElements = data => {
     const groupMap = {};
     let xSpacing = 150;
@@ -34,7 +54,8 @@ const GraphView = ({ data, search, cyInstance }) => {
       }
       const groupIndex = groupMap[group].length;
       groupMap[group].push(node);
-  
+      
+      // Tooltip content
       const tooltipData = {
         id: node.id,
         label: node.label,
@@ -105,7 +126,7 @@ const GraphView = ({ data, search, cyInstance }) => {
     return [...nodes, ...edges];
   };
   
-
+  // Create and initialize the Cytoscape instance
   useEffect(() => {
     if (!data || !cyRef.current) return;
     cyRef.current.innerHTML = '';
@@ -179,11 +200,13 @@ const GraphView = ({ data, search, cyInstance }) => {
       ],
     });
 
+    // Add interactivity listeners
     if (cyInstance) cyInstance.current = cy;
     cy.on('mouseover', 'node, edge', handleMouseOver);
     cy.on('mouseout', 'node, edge', handleMouseOut);
     cy.on('tap', 'node, edge', handleClick);
-
+    
+    // Add animation class for dashed, one-way edges
     cy.edges().forEach(edge => {
       const isBidirectional = edge.hasClass('bidirectional');
       const lineStyle = edge.style('line-style');
@@ -192,6 +215,7 @@ const GraphView = ({ data, search, cyInstance }) => {
       }
     });
 
+    // Animation function
     let offset = 0;
     const animate = () => {
       offset = (offset - 0.5) % 1000;
@@ -211,6 +235,7 @@ const GraphView = ({ data, search, cyInstance }) => {
 
   }, [data, edgeAnimationEnabled]);
 
+  // Highlight search-matching nodes
   useEffect(() => {
     if (!cyInstance.current) return;
     const cy = cyInstance.current;
@@ -230,7 +255,7 @@ const GraphView = ({ data, search, cyInstance }) => {
   useEffect(() => {
     setSelectedDetails({});
   }, [data]);
-
+  // Mouse over handler: show tooltip
   const handleMouseOver = e => {
     const pos = e.renderedPosition || e.target.renderedPosition();
     const rect = cyRef.current.getBoundingClientRect();
@@ -251,6 +276,7 @@ const GraphView = ({ data, search, cyInstance }) => {
     setIsHandCursor(false);
   };
 
+  // Click handler: show node/edge details
   const handleClick = e => {
     const tooltipData = e.target.data('tooltip');
     if (tooltipData) {

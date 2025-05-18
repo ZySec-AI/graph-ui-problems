@@ -1,6 +1,21 @@
 import { ZoomIn, ZoomOut, RotateCcw, Pause, Play } from 'lucide-react';
 
+/**
+ * Controls Component
+ * 
+ * Provides user interface buttons for controlling the graph visualization.
+ * Includes zoom in, zoom out, zoom reset, and toggle for edge animation play/pause.
+ * 
+ * Props:
+ * - cyInstance (ref): Reference to the Cytoscape instance controlling the graph.
+ * - zoomLevel (number): Current zoom level of the graph.
+ * - setZoomLevel (function): State setter to update the zoom level.
+ * - edgeAnimationEnabled (boolean): Whether the edge animation is currently enabled.
+ * - setEdgeAnimationEnabled (function): State setter to toggle edge animation on/off.
+*/
+
 const Controls = ({ cyInstance, zoomLevel, setZoomLevel, edgeAnimationEnabled, setEdgeAnimationEnabled }) => {
+    // Function to zoom in the graph by increasing zoom level
     const zoomIn = () => {
         if (cyInstance.current) {
             const newZoom = zoomLevel + 0.1;
@@ -9,7 +24,8 @@ const Controls = ({ cyInstance, zoomLevel, setZoomLevel, edgeAnimationEnabled, s
             setZoomLevel(newZoom);
         }
     };
-      
+    
+    // Function to zoom out the graph by decreasing zoom level
     const zoomOut = () => {
         if (cyInstance.current) {
             const newZoom = zoomLevel - 0.1;
@@ -18,8 +34,9 @@ const Controls = ({ cyInstance, zoomLevel, setZoomLevel, edgeAnimationEnabled, s
             setZoomLevel(newZoom);
         }
     };
-    
-      const zoomReset = () => {
+
+    // Function to reset zoom to default (1x)
+    const zoomReset = () => {
         if (cyInstance.current) {
             cyInstance.current.zoom(1);
             cyInstance.current.center();

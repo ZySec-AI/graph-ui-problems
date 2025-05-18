@@ -1,5 +1,21 @@
 import { LogOut, Trash2, Braces, CheckCircle2 } from 'lucide-react'
 
+/**
+ * JsonInput Component
+ *
+ * Provides a textarea for JSON input with live editing capability.
+ * Displays JSON loaded status, and buttons to apply the JSON,
+ * load sample data, or clear the input.
+ *
+ * Props:
+ * - jsonLoaded (boolean): Indicates if valid JSON data is currently loaded.
+ * - rawText (string): The current JSON text in the textarea.
+ * - setRawText (function): Function to update the JSON text state.
+ * - handleTextSubmit (function): Callback to apply/submit the JSON input.
+ * - clearInput (function): Callback to clear the JSON input.
+ * - loadSample (function): Callback to load sample JSON data.
+*/
+
 const JsonInput = ({ jsonLoaded, rawText, setRawText, handleTextSubmit, clearInput, loadSample }) => {
   return (
     <div className="space-y-2 w-full">

@@ -1,3 +1,14 @@
+/**
+ * Properties Component
+ * 
+ * Displays detailed information about the currently selected graph element (node or edge).
+ * Shows the element's label, type/group badge with associated color, and a table of additional properties.
+ * If no element is selected, prompts the user to click on a node or edge to view its properties.
+ * 
+ * Props:
+ * - selectedDetails (object): Contains the data for the selected graph element.
+*/
+
 const Properties = ({ selectedDetails }) => {
   return (
     <div className="bg-gray-900 p-4 rounded-lg shadow-md w-full md:w-1/3 h-40 flex flex-col overflow-y-auto text-sm text-white">

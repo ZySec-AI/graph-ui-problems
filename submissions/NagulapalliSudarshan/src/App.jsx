@@ -4,10 +4,24 @@ import Sidebar from "./components/Sidebar";
 import { ChartNetwork } from "lucide-react";
 import GraphView from "./components/GraphView";
 
+/**
+ * App Component
+ * 
+ * The main container for the Graph Crafter application.
+ * 
+ * Responsibilities:
+ * - Manages the global state for graph data, sidebar visibility, and search term.
+ * - Holds a ref to the Cytoscape instance for controlling the graph visualization.
+ * - Renders the Navbar, Sidebar, and main graph visualization area.
+ * - Controls the sidebar open/close behavior including an overlay for mobile view.
+ * - Passes data and handlers down to child components to enable interactivity.
+ * - Displays a placeholder message when no graph data is loaded.
+*/
+
 function App() {
-  const cyInstanceRef = useRef(null);
+  const cyInstanceRef = useRef(null);                       // Reference to Cytoscape instance to enable control from other components
   const [search, setSearch] = useState("");
-  const [graphData, setGraphData] = useState(null);
+  const [graphData, setGraphData] = useState(null);         // Holds the graph data loaded by the user
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const onCloseSidebar = () => {

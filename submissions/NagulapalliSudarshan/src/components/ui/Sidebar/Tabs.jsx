@@ -1,3 +1,13 @@
+/**
+ * Tabs Component
+ * 
+ * Renders two toggle buttons to switch between "JSON Data" and "File Upload" modes.
+ * 
+ * Props:
+ * - activeTab (string): Currently active tab name ("JSON Data" or "File Upload").
+ * - setActiveTab (function): Function to update the active tab.
+*/
+
 const Tabs = ({ activeTab, setActiveTab }) => {
   return (
     <div className="flex mb-2 border-b border-slate-600">

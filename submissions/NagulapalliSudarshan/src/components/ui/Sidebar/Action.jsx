@@ -1,6 +1,25 @@
 import { useState } from 'react';
 import { Search, SearchX, ChevronDown, FileDown, ImageDown, FileJson } from 'lucide-react';
 
+/**
+ * Actions Component
+ * 
+ * Provides UI controls for interacting with the graph, including:
+ * - A Search accordion to search nodes by ID or label, with input and buttons to trigger or clear search.
+ * - A Downloads accordion offering options to export the graph as PNG, JPG, or JSON files.
+ * 
+ * Uses an AccordionItem sub-component to manage expandable/collapsible sections.
+ * 
+ * Props:
+ * - setSearch (function): Callback to set the current search term.
+ * - searchInput (string): Controlled input value for the search field.
+ * - setSearchInput (function): Updates the search input value.
+ * - cyInstance (ref): Reference to the Cytoscape instance for graph manipulation and export.
+ * - onCloseSidebar (function): Callback to close the sidebar after actions like search or download.
+ */
+
+
+// AccordionItem handles individual expandable/collapsible sections
 const AccordionItem = ({ title, children, index, openIndex, setOpenIndex }) => {
     const isOpen = index === openIndex;
     return (
@@ -28,6 +47,7 @@ const AccordionItem = ({ title, children, index, openIndex, setOpenIndex }) => {
     );
 };
 
+// Main Actions component with search and download functionality
 const Actions = ({ setSearch, searchInput, setSearchInput, cyInstance, onCloseSidebar }) => {
     const [openIndex, setOpenIndex] = useState(null);
     return (
@@ -84,6 +104,7 @@ const Actions = ({ setSearch, searchInput, setSearchInput, cyInstance, onCloseSi
                 setOpenIndex={setOpenIndex}
             >
                 <div className="flex flex-row gap-2 text-white flex-wrap sm:flex-nowrap">
+                    {/* Download Graph png */}
                     <button
                         onClick={() => {
                             if (cyInstance?.current) {
@@ -104,6 +125,8 @@ const Actions = ({ setSearch, searchInput, setSearchInput, cyInstance, onCloseSi
                         <ImageDown size={18} />
                         PNG
                     </button>
+
+                    {/* Download Graph jpg */}
                     <button
                         onClick={() => {
                             if (cyInstance?.current) {
@@ -125,6 +148,8 @@ const Actions = ({ setSearch, searchInput, setSearchInput, cyInstance, onCloseSi
                         <FileDown size={18} />
                         JPG
                     </button>
+                    
+                    {/* Download Graph json */}
                     <button
                         onClick={() => {
                             if (cyInstance?.current) {

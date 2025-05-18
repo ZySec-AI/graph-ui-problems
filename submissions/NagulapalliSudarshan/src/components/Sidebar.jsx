@@ -7,8 +7,30 @@ import JsonInput from "./ui/Sidebar/JsonInput";
 import FileInput from "./ui/Sidebar/FileInput";
 import validateJsonStructure from "../utils/JsonValidation";
 
+/**
+ * Sidebar Component
+ * 
+ * This component provides a sidebar UI for loading and managing graph data in JSON format.
+ * Users can input JSON either by uploading a file or by pasting/editing raw JSON text.
+ * 
+ * Features:
+ * - Supports toggling between "File Upload" and "JSON Data" tabs.
+ * - Validates JSON structure before loading.
+ * - Loads sample JSON data for quick testing.
+ * - Displays error messages for invalid JSON or file errors.
+ * - Allows clearing all inputs and resetting the state.
+ * - Triggers data loading into the graph visualization upon valid input.
+ * - Provides search and graph-related actions when JSON data is loaded.
+ * 
+ * Props:
+ * - onDataLoad(json): callback to load JSON data into the graph.
+ * - handleClear(): callback to clear the graph data.
+ * - setSearch(term): callback to set the search term for graph elements.
+ * - cyInstance: Cytoscape instance reference to interact with the graph.
+ * - onCloseSidebar(): callback to close the sidebar after successful data load.
+*/
 const Sidebar = ({ onDataLoad, handleClear, setSearch, cyInstance, onCloseSidebar }) => {
-  const fileInputRef = useRef(null);
+  const fileInputRef = useRef(null);                            // Reference to reset file input element
   const [error, setError] = useState("");
   const [rawText, setRawText] = useState("");
   const [fileName, setFileName] = useState("");
@@ -16,6 +38,7 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch, cyInstance, onCloseSideba
   const [jsonLoaded, setJsonLoaded] = useState(false);
   const [activeTab, setActiveTab] = useState("File Upload");
 
+  // Handles file upload and JSON validation
   const handleFileChange = e => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -48,6 +71,7 @@ const Sidebar = ({ onDataLoad, handleClear, setSearch, cyInstance, onCloseSideba
     reader.readAsText(file);
   };
 
+  // Handles submission of raw JSON text
   const handleTextSubmit = () => {
     try {
       const result = validateJsonStructure(rawText);

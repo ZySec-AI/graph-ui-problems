@@ -1,5 +1,21 @@
 import { Upload, FileJson2, LogOut, Trash2, Braces, CheckCircle2 } from 'lucide-react'
 
+/**
+ * FileInput Component
+ * 
+ * Handles JSON file uploads with drag-and-drop support, selecting files via a dialog,
+ * applying the loaded JSON, loading sample data, and clearing the input.
+ * 
+ * Props:
+ * - jsonLoaded (boolean): Indicates if a valid JSON file has been loaded.
+ * - fileInputRef (React ref): Reference to the hidden file input element.
+ * - handleFileChange (function): Callback when a file is selected or dropped.
+ * - fileName (string): Name of the currently selected file.
+ * - handleTextSubmit (function): Callback to apply the loaded JSON data.
+ * - loadSample (function): Callback to load sample JSON data.
+ * - clearInput (function): Callback to clear the file input and state.
+*/
+
 const FileInput = ({ jsonLoaded, fileInputRef, handleFileChange, fileName, handleTextSubmit, loadSample, clearInput }) => {
   return (
         <div className="space-y-6 relative w-full">
