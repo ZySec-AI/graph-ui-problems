@@ -1,6 +1,6 @@
 # Submission: Interactive Knowledge Graph Visualization
 
-**JSON2Graph** is a interactive graph editor and viewer that transforms structured JSON data into a directed graph. It visually models relationships between different groups defined in the JSON file, making complex connections easy to understand and explore.
+**JSON Visualizer** is a interactive graph editor and viewer that transforms structured JSON data into a directed graph. It visually models relationships between different groups defined in the JSON file, making complex connections easy to understand and explore.
 
 ---
 
@@ -58,3 +58,5 @@
 - Wrote **clean, modular code** with extensibility in mind for future plugins (e.g., export, minimap).
 
 ---
+
+Made with ❤️ by [Sudarshan](https://github.com/NagulapalliSudarshan/graph-ui-problems)
