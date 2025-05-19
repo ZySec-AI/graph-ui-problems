@@ -1,0 +1,279 @@
+{
+    "nodes": [
+      {
+        "id": "user_1",
+        "label": "Alice",
+        "type": "Person",
+        "properties": {
+          "email": "alice@example.com",
+          "role": "Analyst"
+        },
+        "style": {
+          "color": "#4CAF50",
+          "shape": "circle"
+        },
+        "group": "People"
+      },
+      {
+        "id": "user_2",
+        "label": "Bob",
+        "type": "Person",
+        "properties": {
+          "email": "bob@example.com",
+          "role": "Manager"
+        },
+        "style": {
+          "color": "#9C27B0",
+          "shape": "circle"
+        },
+        "group": "People"
+      },
+      {
+        "id": "user_3",
+        "label": "Carol",
+        "type": "Person",
+        "properties": {
+          "email": "carol@example.com",
+          "role": "Developer"
+        },
+        "style": {
+          "color": "#009688",
+          "shape": "circle"
+        },
+        "group": "People"
+      },
+      {
+        "id": "user_4",
+        "label": "David",
+        "type": "Person",
+        "properties": {
+          "email": "david@example.com",
+          "role": "Compliance Officer"
+        },
+        "style": {
+          "color": "#3F51B5",
+          "shape": "circle"
+        },
+        "group": "People"
+      },
+      {
+        "id": "doc_1",
+        "label": "Report Q1",
+        "type": "Document",
+        "properties": {
+          "created": "2024-03-01",
+          "status": "approved"
+        },
+        "style": {
+          "color": "#2196F3",
+          "shape": "rectangle"
+        },
+        "group": "Documents"
+      },
+      {
+        "id": "doc_2",
+        "label": "Security Audit",
+        "type": "Document",
+        "properties": {
+          "created": "2024-04-15",
+          "status": "pending"
+        },
+        "style": {
+          "color": "#03A9F4",
+          "shape": "rectangle"
+        },
+        "group": "Documents"
+      },
+      {
+        "id": "doc_3",
+        "label": "Budget Proposal",
+        "type": "Document",
+        "properties": {
+          "created": "2024-02-20",
+          "status": "draft"
+        },
+        "style": {
+          "color": "#64B5F6",
+          "shape": "rectangle"
+        },
+        "group": "Documents"
+      },
+      {
+        "id": "policy_1",
+        "label": "Policy 42A",
+        "type": "Policy",
+        "properties": {
+          "enforcedBy": "Admin",
+          "level": "High"
+        },
+        "style": {
+          "color": "#FF9800",
+          "shape": "hexagon"
+        },
+        "group": "Infrastructure"
+      },
+      {
+        "id": "policy_2",
+        "label": "Policy 99C",
+        "type": "Policy",
+        "properties": {
+          "enforcedBy": "Compliance Team",
+          "level": "Medium"
+        },
+        "style": {
+          "color": "#FFC107",
+          "shape": "hexagon"
+        },
+        "group": "Infrastructure"
+      },
+      {
+        "id": "system_1",
+        "label": "Internal Server",
+        "type": "System",
+        "properties": {
+          "ip": "192.168.1.10",
+          "os": "Linux"
+        },
+        "style": {
+          "color": "#795548",
+          "shape": "square"
+        },
+        "group": "Infrastructure"
+      },
+      {
+        "id": "task_1",
+        "label": "Review Q1",
+        "type": "Task",
+        "properties": {
+          "due": "2024-05-20",
+          "status": "in progress"
+        },
+        "style": {
+          "color": "#E91E63",
+          "shape": "diamond"
+        },
+        "group": "Infrastructure"
+      },
+      {
+        "id": "task_2",
+        "label": "Audit Submission",
+        "type": "Task",
+        "properties": {
+          "due": "2024-06-01",
+          "status": "not started"
+        },
+        "style": {
+          "color": "#F06292",
+          "shape": "diamond"
+        },
+        "group": "Infrastructure"
+      }
+    ],
+    "edges": [
+      {
+        "source": "user_1",
+        "target": "doc_1",
+        "label": "authored",
+        "direction": "one-way",
+        "style": {
+          "dashed": false,
+          "color": "#555"
+        }
+      },
+      {
+        "source": "user_3",
+        "target": "task_1",
+        "label": "assigned to",
+        "direction": "one-way",
+        "style": {
+          "dashed": true,
+          "color": "#E91E63"
+        }
+      },
+      {
+        "source": "user_4",
+        "target": "task_2",
+        "label": "assigned to",
+        "direction": "one-way",
+        "style": {
+          "dashed": false,
+          "color": "#F06292"
+        }
+      },
+      {
+        "source": "task_1",
+        "target": "doc_2",
+        "label": "reviews",
+        "direction": "one-way",
+        "style": {
+          "dashed": false,
+          "color": "#3F51B5"
+        }
+      },
+      {
+        "source": "doc_2",
+        "target": "system_1",
+        "label": "stored in",
+        "direction": "one-way",
+        "style": {
+          "dashed": false,
+          "color": "#009688"
+        }
+      },
+      {
+        "source": "user_2",
+        "target": "policy_1",
+        "label": "enforces",
+        "direction": "one-way",
+        "style": {
+          "dashed": true,
+          "color": "#FF5722"
+        }
+      },
+      {
+        "source": "policy_1",
+        "target": "doc_1",
+        "label": "applies to",
+        "direction": "one-way",
+        "style": {
+          "dashed": false,
+          "color": "#795548"
+        }
+      },
+      {
+        "source": "policy_2",
+        "target": "doc_2",
+        "label": "covers",
+        "direction": "one-way",
+        "style": {
+          "dashed": true,
+          "color": "#FFC107"
+        }
+      },
+      {
+        "source": "user_2",
+        "target": "doc_3",
+        "label": "approved",
+        "direction": "<->",
+        "style": {
+          "dashed": false,
+          "color": "#673AB7"
+        }
+      },
+      {
+        "source": "user_1",
+        "target": "task_1",
+        "label": "collaborates on",
+        "direction": "two-way",
+        "style": {
+          "dashed": true,
+          "color": "#607D8B"
+        }
+      }
+    ],
+    "meta": {
+      "title": "Knowledge Graph - Sample JSON",
+      "description": "A sample JSON representation of a knowledge graph."
+    }
+  }
+  
